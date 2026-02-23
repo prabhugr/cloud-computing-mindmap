@@ -1,5 +1,7 @@
 # ☁️ Cloud Computing Mind Map
 
+![Cloud Computing Mind Map](https://github.com/user-attachments/assets/87110270-3c35-45af-93c2-221955d25173)
+
 An interactive visual mind map exploring cloud computing domains and AWS services. Built as a study and reference tool for cloud practitioners.
 
 **[🔗 Live Demo](https://prabhugr.github.io/cloud-computing-mindmap/)**
