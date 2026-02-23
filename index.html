@@ -46,7 +46,7 @@ svg .node-g{transition:opacity .4s ease}
 .svc-overlay.open{opacity:1;pointer-events:auto}
 @media(max-width:768px){
   .ctrl button{width:48px;height:48px;font-size:20px}
-  .hint{font-size:10px}
+  .hint{font-size:10px;bottom:24px}
   .crumb{font-size:11px;max-width:90vw}
   .tip-inner{padding:10px 14px}
   svg{touch-action:none}
@@ -63,7 +63,7 @@ svg .node-g{transition:opacity .4s ease}
 <div class="svc-overlay" id="svcOverlay"></div>
 <div class="svc-panel" id="svcPanel"><div class="svc-bg"></div><button class="svc-close" id="svcClose">✕</button><div class="svc-body" id="svcBody"></div></div>
 <div class="ctrl"><button id="zi" title="Zoom in">+</button><button id="zo" title="Zoom out">−</button><button id="zr" title="Reset">⌂</button></div>
-<div class="hint">click to drill in · double-click center to go back · hover to highlight · scroll to zoom</div>
+<div class="hint" id="hintText">click to drill in · double-click center to go back · hover to highlight · scroll to zoom</div>
 <div class="crumb" id="crumb"></div>
 <script>
 // ── PARTICLES (enhanced: color shift + mouse gravity) ──
@@ -550,6 +550,20 @@ document.fonts.ready.then(()=>{
   gMain.addEventListener('mouseenter',()=>{
     if(hideTimer){clearTimeout(hideTimer);hideTimer=null;}
   });
+
+  // Mobile: tap outside bubbles to collapse preview
+  svg.addEventListener('touchstart',ev=>{
+    if(!previewing)return;
+    const t=ev.target;
+    if(t.tagName!=='circle'&&t.tagName!=='text'){
+      hidePreview();
+    }
+  },{passive:true});
+
+  // Mobile-aware hint text
+  if('ontouchstart' in window){
+    document.getElementById('hintText').textContent='tap to drill in · double-tap center to go back · pinch to zoom';
+  }
 
   drawRoot();
   window.drawRootView=drawRoot;
