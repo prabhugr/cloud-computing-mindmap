@@ -57,7 +57,7 @@ svg .node-g{transition:opacity .4s ease}
 }
 .cmp-wrap{position:fixed;inset:0;z-index:10;overflow-y:auto;opacity:0;transition:opacity .4s ease;pointer-events:none;display:flex;justify-content:center}
 .cmp-wrap.open{opacity:1;pointer-events:auto}
-.cmp-table{position:relative;max-width:900px;width:92%;margin:60px auto 40px;padding-bottom:40px}
+.cmp-table{position:relative;max-width:1100px;width:95%;margin:60px auto 40px;padding-bottom:40px}
 .cmp-back{position:sticky;top:0;z-index:11;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:10px;border:1px solid rgba(48,54,61,.7);background:rgba(13,17,23,.85);backdrop-filter:blur(12px);color:#8b949e;font-size:13px;cursor:pointer;margin-bottom:16px;transition:all .2s}
 .cmp-back:hover{color:#e6edf3;border-color:rgba(88,166,255,.4)}
 .cmp-title{font-size:22px;font-weight:700;color:#e6edf3;margin-bottom:6px}
@@ -74,23 +74,26 @@ svg .node-g{transition:opacity .4s ease}
 .cmp-badge{font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;text-transform:uppercase;letter-spacing:.04em}
 .cmp-badge.aws{background:rgba(255,153,0,.15);color:#f90}
 .cmp-badge.gcp{background:rgba(66,133,244,.15);color:#4285f4}
-.cmp-badge.azure{background:rgba(0,120,212,.15);color:#0078d4}
-.cmp-detail-col{font-size:12px;color:#8b949e;line-height:1.6}
-.cmp-detail-col .dtl-name{font-size:13px;font-weight:600;color:#e6edf3;margin-bottom:4px}
-.cmp-detail-col .dtl-fact{font-size:11px;color:#a5d6ff;background:rgba(88,166,255,.06);border:1px solid rgba(88,166,255,.1);border-radius:8px;padding:8px 10px;margin:8px 0}
+.cmp-badge.azure{background:rgba(0,183,195,.15);color:#00b7c3}
+.cmp-legend{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:8px 14px;margin-bottom:16px;font-size:11px;color:#484f58;border:1px solid rgba(48,54,61,.3);border-radius:8px;background:rgba(13,17,23,.4)}
+.cmp-legend-item{display:flex;align-items:center;gap:5px}
+.cmp-legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cmp-detail-col{font-size:13px;color:#8b949e;line-height:1.7;padding:4px 0}
+.cmp-detail-col .dtl-name{font-size:15px;font-weight:700;color:#e6edf3;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid rgba(48,54,61,.3)}
+.cmp-detail-col .dtl-fact{font-size:12px;color:#a5d6ff;background:rgba(88,166,255,.06);border:1px solid rgba(88,166,255,.1);border-radius:8px;padding:10px 12px;margin:10px 0}
 .cmp-detail-col a{color:#58a6ff;text-decoration:none;font-size:11px}
 .cmp-detail-col a:hover{text-decoration:underline}
 .cmp-also{margin-top:8px}
 .cmp-also-hdr{font-size:10px;font-weight:600;color:#484f58;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;padding:4px 0}
-.cmp-diff{grid-column:1/-1;background:rgba(255,153,0,.04);border:1px solid rgba(255,153,0,.12);border-radius:8px;padding:10px 14px;margin-bottom:8px}
-.cmp-diff-hdr{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#f0883e;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.cmp-diff{grid-column:1/-1;background:rgba(255,153,0,.04);border:1px solid rgba(255,153,0,.12);border-radius:10px;padding:14px 18px;margin-bottom:12px}
+.cmp-diff-hdr{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#f0883e;margin-bottom:8px;display:flex;align-items:center;gap:6px}
 .cmp-diff-list{list-style:none;padding:0;margin:0}
-.cmp-diff-list li{font-size:12px;color:#c9d1d9;line-height:1.6;padding:2px 0 2px 14px;position:relative}
+.cmp-diff-list li{font-size:13px;color:#c9d1d9;line-height:1.7;padding:3px 0 3px 16px;position:relative}
 .cmp-diff-list li::before{content:"\2022";position:absolute;left:0;color:#f0883e}
-.cmp-use{margin:8px 0}
-.cmp-use-hdr{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#484f58;margin-bottom:4px}
+.cmp-use{margin:10px 0}
+.cmp-use-hdr{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#6e7681;margin-bottom:6px}
 .cmp-use-list{list-style:none;padding:0;margin:0}
-.cmp-use-list li{font-size:12px;color:#8b949e;line-height:1.5;padding:2px 0 2px 14px;position:relative}
+.cmp-use-list li{font-size:13px;color:#8b949e;line-height:1.7;padding:3px 0 3px 16px;position:relative}
 .cmp-use-list li::before{content:"\2022";position:absolute;left:0;color:#58a6ff}
 @media(max-width:768px){
   .cmp-table{width:96%;margin:48px auto 24px}
@@ -104,8 +107,8 @@ svg .node-g{transition:opacity .4s ease}
 .cmp-match.partial{background:#d29922}
 .cmp-match.loose{background:#484f58}
 /* Smooth detail expand */
-.cmp-detail{overflow:hidden;max-height:0;opacity:0;transition:max-height .35s ease,opacity .25s ease .1s;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;padding:0 14px;background:rgba(13,17,23,.5);border:1px solid rgba(48,54,61,.3);border-radius:0 0 8px 8px;margin-bottom:4px}
-.cmp-detail.open{max-height:800px;opacity:1;padding:12px 14px 16px}
+.cmp-detail{overflow:hidden;max-height:0;opacity:0;transition:max-height .35s ease,opacity .25s ease .1s;display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;padding:0 18px;background:rgba(13,17,23,.5);border:1px solid rgba(48,54,61,.3);border-radius:0 0 10px 10px;margin-bottom:6px}
+.cmp-detail.open{max-height:800px;opacity:1;padding:16px 18px 20px}
 /* Row stagger animation */
 .cmp-row{opacity:0;transform:translateY(8px);transition:background .15s,opacity .3s ease,transform .3s ease}
 .cmp-row.visible{opacity:1;transform:translateY(0)}
@@ -177,7 +180,7 @@ svg.setAttribute('viewBox',`${-W()/2} ${-H()/2} ${W()} ${H()}`);
 addEventListener('resize',()=>svg.setAttribute('viewBox',`${-W()/2} ${-H()/2} ${W()} ${H()}`));
 const gMain=nse('g');svg.appendChild(gMain);
 function nse(t){return document.createElementNS('http://www.w3.org/2000/svg',t);}
-let sc=1,px=0,py=0,dr=false,dsx,dsy,dpx,dpy;
+let sc=1.3,px=0,py=0,dr=false,dsx,dsy,dpx,dpy;
 function tf(){gMain.setAttribute('transform',`translate(${px},${py}) scale(${sc})`);}
 tf();
 svg.addEventListener('wheel',e=>{e.preventDefault();sc=Math.max(.15,Math.min(6,sc*(e.deltaY>0?.92:1.08)));tf();},{passive:false});
@@ -186,7 +189,7 @@ addEventListener('mousemove',e=>{if(dr){px=dpx+(e.clientX-dsx);py=dpy+(e.clientY
 addEventListener('mouseup',()=>{dr=false;svg.style.cursor='';});
 document.getElementById('zi').onclick=()=>{sc=Math.min(6,sc*1.3);tf();};
 document.getElementById('zo').onclick=()=>{sc=Math.max(.15,sc*.7);tf();};
-document.getElementById('zr').onclick=()=>{sc=1;px=0;py=0;tf();};
+document.getElementById('zr').onclick=()=>{sc=1.3;px=0;py=0;tf();};
 // Touch: pan + pinch zoom
 let lt=0;
 svg.addEventListener('touchstart',e=>{if(e.touches.length===1){const t=e.touches[0].target;if(t.tagName==='circle'||t.tagName==='text')return;dr=true;dsx=e.touches[0].clientX;dsy=e.touches[0].clientY;dpx=px;dpy=py;}if(e.touches.length===2){dr=false;lt=Math.hypot(e.touches[1].clientX-e.touches[0].clientX,e.touches[1].clientY-e.touches[0].clientY);}},{passive:true});
@@ -354,7 +357,7 @@ function renderView(animate){
         const segments=[
           {count:awsCount,color:'#FF9900'},
           {count:gcpCount,color:'#4285F4'},
-          {count:azureCount,color:'#0078D4'}
+          {count:azureCount,color:'#00B7C3'}
         ];
         let angle=startAngle;
         segments.forEach(seg=>{
@@ -633,6 +636,12 @@ function renderComparisonTable(domainNode, color){
   let html='<button class="cmp-back" id="cmpBack" style="border-color:'+color+'40">\u2190 Back</button>';
   html+='<div class="cmp-title" style="color:'+color+'">'+(domainNode.icon||'')+' '+domainNode.name.replace(/\n/g,' ')+'</div>';
   html+='<div class="cmp-sub">'+subcats.length+' subcategories \u00b7 AWS vs GCP vs Azure comparison</div>';
+  html+='<div class="cmp-legend">';
+  html+='<span style="color:#6e7681">Match quality:</span>';
+  html+='<span class="cmp-legend-item"><span class="cmp-legend-dot" style="background:#3fb950"></span> Strong match</span>';
+  html+='<span class="cmp-legend-item"><span class="cmp-legend-dot" style="background:#d29922"></span> Partial overlap</span>';
+  html+='<span class="cmp-legend-item"><span class="cmp-legend-dot" style="background:#484f58"></span> Loose equivalent</span>';
+  html+='</div>';
 
   subcats.forEach(function(sub){
     var pairs=sub.ch||[];

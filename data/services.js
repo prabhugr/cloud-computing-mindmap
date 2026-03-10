@@ -906,8 +906,8 @@ const _SVC_DATA = {
 "d": ["Q Developer transforms legacy code; Gemini Code Assist focuses on code completion", "Q Developer includes AWS console chat; Gemini Code Assist integrates with Cloud Console", "Q Developer supports Java upgrades; Gemini Code Assist trained on Google codebase"]
 },
 "Q Business": {
-"w": "AI assistant for enterprise knowledge and productivity.",
-"f": "Connects to 40+ enterprise data sources for answers.",
+"w": "GenAI assistant for enterprise knowledge, connecting to 40+ data sources. Distinct from Quick Suite (BI).",
+"f": "Connects to 40+ enterprise data sources including Confluence, SharePoint, Slack, and S3.",
 "l": "https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/what-is.html",
 "u": ["Deploy enterprise AI assistant connected to company data sources", "Need answers from Confluence, SharePoint, Slack, and databases", "Want AI chatbot with admin controls and citation-backed responses"],
 "d": ["Q Business connects to 40+ sources; Gemini for Workspace integrates with Google apps", "Q Business is enterprise knowledge search; Gemini for Workspace augments Docs, Sheets, Gmail", "Q Business supports custom plugins; Gemini for Workspace is built into Google apps natively"]
@@ -1641,12 +1641,12 @@ const _SVC_DATA = {
 "u": ["Deploy Lambda and ML models to edge devices for local processing","Need edge runtime that works offline and syncs when connected","Want managed OTA updates for software on edge robot hardware"],
 "d": ["IoT Greengrass runs Lambda at edge; Edge TPU Runtime runs TFLite models at edge","IoT Greengrass supports many runtimes; Edge TPU is hardware-accelerated ML inference","IoT Greengrass is software-only; Edge TPU requires Coral hardware"]
 },
-"Quick Suite": {
-"w": "Cloud-powered BI service for interactive dashboards and embedded analytics.",
-"f": "Renamed from QuickSight — uses ML-powered insights and natural language querying.",
-"l": "https://docs.aws.amazon.com/quicksight/latest/user/welcome.html",
+"Amazon Quick": {
+"w": "Cloud-powered BI and analytics platform. Quick Sight is the data visualization component of Amazon Quick.",
+"f": "Evolved from QuickSight — uses SPICE engine with ML-powered insights and natural language querying.",
+"l": "https://docs.aws.amazon.com/quick/latest/userguide/quick-sight-getting-started.html",
 "u": ["Build ML-powered dashboards with natural language Q&A", "Need embedded analytics with pay-per-session pricing model", "Want unified BI suite with GenAI-powered data stories"],
-"d": ["Quick Suite uses SPICE engine; Looker uses LookML semantic modeling", "Quick Suite has GenAI narratives; Looker integrates Gemini for analysis", "Quick Suite is AWS-native; Looker supports multi-cloud data sources"]
+"d": ["Amazon Quick uses SPICE engine; Looker uses LookML semantic modeling", "Amazon Quick has GenAI narratives; Looker integrates Gemini for analysis", "Amazon Quick is AWS-native; Looker supports multi-cloud data sources"]
 },
 "OpenSearch Serverless": {
 "w": "Serverless option for OpenSearch — no clusters to manage.",
@@ -2301,7 +2301,7 @@ const _SVC_DATA = {
 "Elasticsearch on GCP": {
 "w": "Managed Elasticsearch through Elastic Cloud on Google Cloud.",
 "f": "Available in 30+ GCP regions with cross-cluster replication.",
-"l": "https://www.elastic.co/partnerships/google-cloud",
+"l": "https://www.elastic.co/cloud/google-cloud",
 "u": ["Need official Elasticsearch with Kibana on GCP infrastructure", "Want cross-cluster replication across 30+ GCP regions", "Require Elastic observability and security features natively"]
 },
 "Vertex AI Search": {
@@ -2439,7 +2439,7 @@ const _SVC_DATA = {
 "Vertex AI Forecasting": {
 "w": "Time series forecasting with AutoML.",
 "f": "Handles multiple time series and covariates automatically.",
-"l": "https://cloud.google.com/vertex-ai/docs/tabular-data/forecasting-overview",
+"l": "https://cloud.google.com/vertex-ai/docs/tabular-data/forecasting/overview",
 "u": ["Build time-series forecasts using AutoML without ML expertise", "Need demand, sales, or resource capacity predictions", "Want automatic handling of multiple related time series"]
 },
 "A3 (H100)": {
@@ -2517,7 +2517,7 @@ const _SVC_DATA = {
 "Deployment Manager": {
 "w": "Infrastructure as Code using YAML and Jinja2 templates.",
 "f": "Being superseded by Terraform and Pulumi for most use cases.",
-"l": "https://cloud.google.com/deployment-manager/docs/overview",
+"l": "https://cloud.google.com/deployment-manager/docs",
 "u": ["Provision GCP resources with YAML templates and Jinja2 macros","Legacy IaC tool being superseded by Terraform for most use cases","Need simple GCP-native infrastructure deployment without third-party tools"]
 },
 "Pulumi / Terraform": {
@@ -2667,7 +2667,7 @@ const _SVC_DATA = {
 "AlloyDB Cross-Region": {
 "w": "Cross-region replication for AlloyDB disaster recovery.",
 "f": "Provides RPO of seconds and RTO of minutes for regional failover.",
-"l": "https://cloud.google.com/alloydb/docs/cross-region-replication/overview",
+"l": "https://cloud.google.com/alloydb/docs/cross-region-replication",
 "u": ["Replicate AlloyDB across regions for disaster recovery","Need cross-region PostgreSQL failover with seconds RPO","Want managed regional failover for AlloyDB databases"]
 },
 "Fault Injection (preview)": {
@@ -2715,7 +2715,7 @@ const _SVC_DATA = {
 "CCAI Insights": {
 "w": "Analyze contact center conversations with NLP.",
 "f": "Automatically scores 100% of calls for quality and sentiment.",
-"l": "https://cloud.google.com/contact-center/insights/docs/overview",
+"l": "https://cloud.google.com/contact-center/ccai-insights/docs",
 "u": ["Analyze 100% of contact center conversations with NLP scoring","Need automated sentiment analysis and topic detection across calls","Want quality management insights without manual call reviews"]
 },
 "CCAI Agent Assist": {
@@ -2727,7 +2727,7 @@ const _SVC_DATA = {
 "Chrome Remote Desktop": {
 "w": "Remote access to desktops through the Chrome browser.",
 "f": "Completely free and works across Windows, Mac, Linux, and ChromeOS.",
-"l": "https://support.google.com/chrome/answer/1649523",
+"l": "https://remotedesktop.google.com/support",
 "u": ["Access remote desktops through the Chrome browser for free","Need cross-platform remote access for Windows, Mac, and Linux","Want simple remote desktop without installing dedicated software"]
 },
 "Chrome Enterprise": {
@@ -2811,13 +2811,13 @@ const _SVC_DATA = {
 "Agones": {
 "w": "Open-source game server hosting on Kubernetes.",
 "f": "Co-developed by Google Cloud and Ubisoft.",
-"l": "https://agones.dev/docs",
+"l": "https://agones.dev/site/docs/",
 "u": ["Host game servers on Kubernetes with open-source orchestration","Need portable game server hosting co-developed by Google and Ubisoft","Want auto-scaling dedicated game servers on GKE or any K8s cluster"]
 },
 "Open Match": {
 "w": "Open-source matchmaking framework for games.",
 "f": "Co-developed by Google Cloud and Unity.",
-"l": "https://open-match.dev/docs/",
+"l": "https://open-match.dev/site/docs/",
 "u": ["Build custom matchmaking for multiplayer games with extensible framework","Need open-source matchmaking co-developed by Google and Unity","Want flexible player matching that runs on any Kubernetes cluster"]
 },
 "Cloud Robotics Core": {
@@ -3435,7 +3435,7 @@ const _SVC_DATA = {
 "Azure Data Clean Rooms": {
 "w": "Privacy-safe data collaboration between organizations.",
 "f": "Enables analytics on combined data without exposing raw records.",
-"l": "https://learn.microsoft.com/en-us/azure/azure-data-clean-rooms/",
+"l": "https://learn.microsoft.com/en-us/industry/sustainability/data-clean-rooms-overview",
 "u": ["Collaborate on data without exposing raw records", "Need privacy-preserving analytics with partners", "Want secure multi-party computation"]
 },
 "Azure Machine Learning": {
@@ -3747,7 +3747,7 @@ const _SVC_DATA = {
 "Emissions Impact Dashboard": {
 "w": "Track carbon emissions from Azure usage.",
 "f": "Powered by Microsoft Sustainability Manager.",
-"l": "https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-connect-to-emissions-impact-dashboard",
+"l": "https://learn.microsoft.com/en-us/azure/carbon-optimization/view-emissions",
 "u": ["Track Azure usage carbon emissions", "Need sustainability reporting for ESG goals", "Want emissions data broken down by service"]
 },
 "Ampere Altra VMs": {
@@ -3807,7 +3807,7 @@ const _SVC_DATA = {
 "Azure Maps Route": {
 "w": "Calculate routes and travel times.",
 "f": "Supports truck routing with vehicle dimension constraints.",
-"l": "https://learn.microsoft.com/en-us/azure/azure-maps/how-to-request-route-data",
+"l": "https://learn.microsoft.com/en-us/azure/azure-maps/how-to-request-route-data-using-rest-api",
 "u": ["Calculate optimal routes with traffic data", "Need truck routing with weight and dimension limits", "Want multi-stop route optimization"]
 },
 "Azure Health Data Services": {
@@ -3825,7 +3825,7 @@ const _SVC_DATA = {
 "Azure AI Health Insights": {
 "w": "AI models for healthcare text and clinical data.",
 "f": "Extracts clinical information from unstructured medical text.",
-"l": "https://learn.microsoft.com/en-us/azure/ai-services/health-insights/",
+"l": "https://learn.microsoft.com/en-us/azure/ai-services/health-insights/overview",
 "u": ["Extract clinical insights from medical documents", "Need ICD-10 coding from clinical text", "Want oncology inference from pathology reports"]
 },
 "Azure Quantum": {
