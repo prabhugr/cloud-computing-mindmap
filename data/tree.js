@@ -1,119 +1,112 @@
 // Cloud Computing Mindmap — Tree Data
-// 6 Core Domains + 18 Specialty Domains
+// 26 Domains (flat list)
 
-const CORE=[
+const DOMAINS=[
 {name:"Compute",icon:"⚡",color:"#58a6ff",ch:[
-{name:"Virtual Machines",desc:"On-demand, spot, reserved & bare metal",ch:["Amazon EC2","EC2 Auto Scaling","EC2 Image Builder","Spot Instances","VM Import/Export"]},
-{name:"Containers",desc:"Managed K8s & container services",ch:["Amazon EKS","Amazon ECS","Amazon ECR","AWS Fargate","Karpenter"]},
-{name:"Serverless",desc:"FaaS & orchestration",ch:["AWS Lambda","Step Functions","Lambda SnapStart","Lambda Layers"]},
-{name:"PaaS",desc:"Managed app platforms",ch:["Elastic Beanstalk","App Runner","AWS Amplify"]},
-{name:"Batch & HPC",desc:"Job scheduling & parallel compute",ch:["AWS Batch","ParallelCluster","Elastic Fabric Adapter"]},
-{name:"Edge Computing",desc:"Compute at edge & local zones",ch:["Lambda@Edge","CloudFront Functions","Wavelength","Local Zones"]},
-{name:"Confidential Compute",desc:"Isolated & secure execution",ch:["Nitro Enclaves"]}]},
+{name:"Virtual Machines",desc:"On-demand, spot, reserved & bare metal",ch:[{aws:"Amazon EC2",gcp:"Compute Engine",azure:"Virtual Machines"},{aws:"EC2 Auto Scaling",gcp:"Autoscaler",azure:"VM Scale Sets"},{aws:"EC2 Image Builder",gcp:"Custom Images",azure:"Image Builder"},{aws:"Spot Instances",gcp:"Preemptible / Spot VMs",azure:"Spot VMs"},{aws:"VM Import/Export",gcp:"Migrate for Compute Engine",azure:"Azure Migrate"},{aws:"EC2 Dedicated Hosts",gcp:"Sole-Tenant Nodes",azure:"Dedicated Host"}]},
+{name:"Containers",desc:"Managed K8s & container services",ch:[{aws:"Amazon EKS",gcp:"Google Kubernetes Engine",azure:"AKS"},{aws:"Amazon ECS",gcp:"Cloud Run",m:"p",azure:"Container Apps"},{aws:"Amazon ECR",gcp:"Artifact Registry",azure:"Container Registry"},{aws:"AWS Fargate",gcp:"Cloud Run",m:"p",azure:"Container Apps"},{aws:"Karpenter",gcp:"GKE Autopilot",azure:"KEDA"},{aws:null,gcp:"Anthos",azure:"Azure Arc"}]},
+{name:"Serverless",desc:"FaaS & orchestration",ch:[{aws:"AWS Lambda",gcp:"Cloud Functions",azure:"Azure Functions"},{aws:"Step Functions",gcp:"Workflows",azure:"Logic Apps"},{aws:"Lambda SnapStart",gcp:null,azure:null},{aws:"Lambda Layers",gcp:null,azure:null}]},
+{name:"PaaS",desc:"Managed app platforms",ch:[{aws:"Elastic Beanstalk",gcp:"App Engine",azure:"App Service"},{aws:"App Runner",gcp:"Cloud Run",azure:"Container Apps"},{aws:"AWS Amplify",gcp:"Firebase Hosting",azure:"Static Web Apps"}]},
+{name:"Batch & HPC",desc:"Job scheduling & parallel compute",ch:[{aws:"AWS Batch",gcp:"Batch",azure:"Azure Batch"},{aws:"ParallelCluster",gcp:"HPC Toolkit",azure:"CycleCloud"},{aws:"Elastic Fabric Adapter",gcp:null,azure:null}]},
+{name:"Edge Computing",desc:"Compute at edge & local zones",ch:[{aws:"Lambda@Edge",gcp:"Cloud CDN Functions",azure:"Azure CDN Rules"},{aws:"CloudFront Functions",gcp:"Cloud CDN",azure:"Azure CDN"},{aws:"Wavelength",gcp:"Distributed Cloud Edge",azure:"Azure Edge Zones"},{aws:"Local Zones",gcp:"Distributed Cloud Edge",azure:"Azure Edge Zones"}]},
+{name:"Confidential Compute",desc:"Isolated & secure execution",ch:[{aws:"Nitro Enclaves",gcp:"Confidential VMs",azure:"Confidential VMs"},{aws:null,gcp:"Confidential GKE Nodes",azure:"Confidential VMs"}]}]},
 
 {name:"Storage",icon:"💾",color:"#f78166",ch:[
-{name:"Object Storage",desc:"Scalable object storage & archival",ch:["Amazon S3","S3 Glacier","S3 Intelligent-Tiering","S3 Object Lock"]},
-{name:"Block Storage",desc:"Persistent volumes",ch:["Amazon EBS","EBS Snapshots","Instance Store"]},
-{name:"File Storage",desc:"Managed NFS, SMB & parallel FS",ch:["Amazon EFS","FSx for Windows","FSx for Lustre","FSx for ONTAP"]},
-{name:"Hybrid & Transfer",desc:"Gateways, sync & physical transfer",ch:["Storage Gateway","DataSync","Snow Family","Transfer Family"]},
-{name:"Backup",desc:"Managed backup & DR",ch:["AWS Backup","Elastic Disaster Recovery"]}]},
+{name:"Object Storage",desc:"Scalable object storage & archival",ch:[{aws:"Amazon S3",gcp:"Cloud Storage",azure:"Blob Storage"},{aws:"S3 Glacier",gcp:"Cloud Storage Archive",azure:"Archive Storage"},{aws:"S3 Intelligent-Tiering",gcp:"Autoclass",azure:"Cool/Hot Tiers"},{aws:"S3 Object Lock",gcp:"Retention Policies",azure:"Immutable Blob"}]},
+{name:"Block Storage",desc:"Persistent volumes",ch:[{aws:"Amazon EBS",gcp:"Persistent Disk",azure:"Managed Disks"},{aws:"EBS Snapshots",gcp:"Disk Snapshots",azure:"Disk Snapshots"},{aws:"Instance Store",gcp:"Local SSD",azure:"Temp Disk"}]},
+{name:"File Storage",desc:"Managed NFS, SMB & parallel FS",ch:[{aws:"Amazon EFS",gcp:"Filestore",azure:"Azure Files"},{aws:"FSx for Windows",gcp:"NetApp Volumes",azure:"Azure Files (SMB)"},{aws:"FSx for Lustre",gcp:"Parallelstore",azure:"Azure Managed Lustre"},{aws:"FSx for ONTAP",gcp:"NetApp Volumes",azure:"Azure NetApp Files"}]},
+{name:"Hybrid & Transfer",desc:"Gateways, sync & physical transfer",ch:[{aws:"Storage Gateway",gcp:"Transfer Appliance",azure:"StorSimple"},{aws:"DataSync",gcp:"Storage Transfer Service",azure:"Azure File Sync"},{aws:"Snow Family",gcp:"Transfer Appliance",azure:"Azure Data Box"},{aws:"Transfer Family",gcp:"Storage Transfer Service",azure:null}]},
+{name:"Backup",desc:"Managed backup & DR",ch:[{aws:"AWS Backup",gcp:"Backup and DR",azure:"Azure Backup"},{aws:"Elastic Disaster Recovery",gcp:"Backup and DR",azure:"Azure Site Recovery"}]}]},
 
 {name:"Database",icon:"🗄️",color:"#d2a8ff",ch:[
-{name:"Relational",desc:"Managed & cloud-native RDBMS",ch:["Amazon RDS","Aurora","Aurora Serverless v2","RDS Proxy"]},
-{name:"NoSQL",desc:"Key-value & document stores",ch:["DynamoDB","DynamoDB Global Tables","DocumentDB"]},
-{name:"Graph & Specialty",desc:"Graph, time-series, ledger",ch:["Neptune","Timestream","QLDB","Keyspaces"]},
-{name:"Caching & Vector",desc:"In-memory & vector search",ch:["ElastiCache","MemoryDB","OpenSearch vector","pgvector"]},
-{name:"Data Warehouse",desc:"Columnar analytics",ch:["Redshift","Redshift Serverless","Athena"]}]},
+{name:"Relational",desc:"Managed & cloud-native RDBMS",ch:[{aws:"Amazon RDS",gcp:"Cloud SQL",azure:"Azure SQL Database"},{aws:"Aurora",gcp:"AlloyDB",azure:"Azure SQL Managed Instance"},{aws:"Aurora Serverless v2",gcp:"AlloyDB Omni",azure:"Azure SQL Serverless"},{aws:"RDS Proxy",gcp:"Cloud SQL Auth Proxy",azure:null}]},
+{name:"NoSQL",desc:"Key-value & document stores",ch:[{aws:"DynamoDB",gcp:"Bigtable",m:"p",azure:"Cosmos DB"},{aws:"DynamoDB Global Tables",gcp:"Bigtable Replication",azure:"Cosmos DB Multi-Region"},{aws:"DocumentDB",gcp:"Firestore",m:"p",azure:"Cosmos DB (MongoDB API)"}]},
+{name:"Graph & Specialty",desc:"Graph, time-series, ledger",ch:[{aws:"Neptune",gcp:"Neo4j Aura (partner)",m:"l",azure:"Cosmos DB (Gremlin API)"},{aws:"Timestream",gcp:"Bigtable",m:"p",azure:"Azure Data Explorer"},{aws:"QLDB",gcp:null,azure:"Azure Confidential Ledger"},{aws:"Keyspaces",gcp:"Bigtable",m:"p",azure:"Cosmos DB (Cassandra API)"},{aws:null,gcp:"Spanner",azure:"Cosmos DB (Distributed)"}]},
+{name:"Caching & Vector",desc:"In-memory & vector search",ch:[{aws:"ElastiCache",gcp:"Memorystore",azure:"Azure Cache for Redis"},{aws:"MemoryDB",gcp:"Memorystore for Redis",azure:"Azure Cache for Redis"},{aws:"OpenSearch vector",gcp:"Vertex AI Vector Search",azure:"Azure AI Search"},{aws:"pgvector",gcp:"AlloyDB AI",azure:"Azure Database for PostgreSQL"}]},
+{name:"Data Warehouse",desc:"Columnar analytics",ch:[{aws:"Redshift",gcp:"BigQuery",azure:"Azure Synapse"},{aws:"Redshift Serverless",gcp:"BigQuery",azure:"Azure Synapse Serverless"},{aws:"Athena",gcp:"BigQuery",azure:"Azure Synapse Serverless"}]}]},
 
 {name:"Networking",icon:"🌐",color:"#7ee787",ch:[
-{name:"VPC",desc:"Virtual networks & private access",ch:["Amazon VPC","NAT Gateway","VPC Endpoints","PrivateLink"]},
-{name:"Load Balancing",desc:"L4/L7 & global",ch:["ALB","NLB","Global Accelerator"]},
-{name:"DNS & CDN",desc:"Domain & content delivery",ch:["Route 53","CloudFront"]},
-{name:"Hybrid Connectivity",desc:"VPN, dedicated & WAN",ch:["Direct Connect","Site-to-Site VPN","Transit Gateway","Cloud WAN"]},
-{name:"Network Security",desc:"Firewalls, DDoS & WAF",ch:["Security Groups","WAF","Shield","Network Firewall"]},
-{name:"Mesh & API",desc:"Service mesh & API mgmt",ch:["API Gateway","AppSync","VPC Lattice","Cloud Map"]}]},
+{name:"VPC",desc:"Virtual networks & private access",ch:[{aws:"Amazon VPC",gcp:"VPC",azure:"VNet"},{aws:"NAT Gateway",gcp:"Cloud NAT",azure:"NAT Gateway"},{aws:"VPC Endpoints",gcp:"Private Service Connect",azure:"Private Endpoints"},{aws:"PrivateLink",gcp:"Private Service Connect",azure:"Private Link"}]},
+{name:"Load Balancing",desc:"L4/L7 & global",ch:[{aws:"ALB",gcp:"HTTP(S) Load Balancer",azure:"Application Gateway"},{aws:"NLB",gcp:"Network Load Balancer",azure:"Azure Load Balancer"},{aws:"Global Accelerator",gcp:"Global Load Balancer",azure:"Front Door"}]},
+{name:"DNS & CDN",desc:"Domain & content delivery",ch:[{aws:"Route 53",gcp:"Cloud DNS",azure:"Azure DNS"},{aws:"CloudFront",gcp:"Cloud CDN",azure:"Azure CDN"}]},
+{name:"Hybrid Connectivity",desc:"VPN, dedicated & WAN",ch:[{aws:"Direct Connect",gcp:"Cloud Interconnect",azure:"ExpressRoute"},{aws:"Site-to-Site VPN",gcp:"Cloud VPN",azure:"VPN Gateway"},{aws:"Transit Gateway",gcp:"Network Connectivity Center",azure:"Virtual WAN"},{aws:"Cloud WAN",gcp:"Network Connectivity Center",azure:"Virtual WAN"}]},
+{name:"Network Security",desc:"Firewalls, DDoS & WAF",ch:[{aws:"Security Groups",gcp:"Firewall Rules",azure:"NSG"},{aws:"WAF",gcp:"Cloud Armor",azure:"Azure WAF"},{aws:"Shield",gcp:"Cloud Armor",azure:"DDoS Protection"},{aws:"Network Firewall",gcp:"Cloud Firewall",azure:"Azure Firewall"}]},
+{name:"Mesh & API",desc:"Service mesh & API mgmt",ch:[{aws:"API Gateway",gcp:"Apigee",azure:"API Management"},{aws:"AppSync",gcp:"Apigee",m:"p",azure:"API Management"},{aws:"VPC Lattice",gcp:"Traffic Director",azure:"Azure Service Mesh"},{aws:"Cloud Map",gcp:"Service Directory",azure:null}]}]},
 
 {name:"Security &\nGovernance",icon:"🔒",color:"#f0883e",ch:[
-{name:"IAM & Identity",desc:"Users, roles, federation",ch:["AWS IAM","Identity Center","Cognito","Access Analyzer","Roles Anywhere"]},
-{name:"Encryption & Secrets",desc:"Keys, HSM, secrets, certs",ch:["KMS","CloudHSM","Secrets Manager","ACM","Private CA"]},
-{name:"Threat Detection",desc:"SIEM, scanning & intel",ch:["GuardDuty","Security Hub","Detective","Inspector","Macie"]},
-{name:"Compliance & Audit",desc:"Org policies, config & audit",ch:["Organizations","CloudTrail","Config","Control Tower","Audit Manager","Artifact"]},
-{name:"Zero Trust",desc:"Identity-aware access & signing",ch:["Verified Access","Signer"]},
-{name:"Well-Architected",desc:"Framework & optimization",ch:["WA Tool","Trusted Advisor","Service Catalog"]}]},
+{name:"IAM & Identity",desc:"Users, roles, federation",ch:[{aws:"AWS IAM",gcp:"Cloud IAM",azure:"Microsoft Entra ID"},{aws:"Identity Center",gcp:"Cloud Identity",azure:"Microsoft Entra ID"},{aws:"Cognito",gcp:"Identity Platform",azure:"Azure AD B2C"},{aws:"Access Analyzer",gcp:"IAM Recommender",azure:"Entra Permissions Management"},{aws:"Roles Anywhere",gcp:"Workload Identity Federation",azure:"Managed Identities"}]},
+{name:"Encryption & Secrets",desc:"Keys, HSM, secrets, certs",ch:[{aws:"KMS",gcp:"Cloud KMS",azure:"Azure Key Vault"},{aws:"CloudHSM",gcp:"Cloud HSM",azure:"Azure Dedicated HSM"},{aws:"Secrets Manager",gcp:"Secret Manager",azure:"Key Vault Secrets"},{aws:"ACM",gcp:"Certificate Manager",azure:"App Service Certificates"},{aws:"Private CA",gcp:"Certificate Authority Service",azure:null}]},
+{name:"Threat Detection",desc:"SIEM, scanning & intel",ch:[{aws:"GuardDuty",gcp:"Security Command Center",azure:"Microsoft Defender for Cloud"},{aws:"Security Hub",gcp:"Security Command Center",azure:"Microsoft Defender for Cloud"},{aws:"Detective",gcp:"Chronicle",azure:"Microsoft Sentinel"},{aws:"Inspector",gcp:"Container Analysis",azure:"Defender for Containers"},{aws:"Macie",gcp:"Sensitive Data Protection",azure:"Microsoft Purview"}]},
+{name:"Compliance & Audit",desc:"Org policies, config & audit",ch:[{aws:"Organizations",gcp:"Resource Manager",azure:"Management Groups"},{aws:"CloudTrail",gcp:"Cloud Audit Logs",azure:"Activity Log"},{aws:"Config",gcp:"Cloud Asset Inventory",azure:"Azure Policy"},{aws:"Control Tower",gcp:"Assured Workloads",azure:"Azure Blueprints"},{aws:"Audit Manager",gcp:"Compliance Reports Manager",azure:"Compliance Manager"},{aws:"Artifact",gcp:"Compliance Reports Manager",azure:"Service Trust Portal"}]},
+{name:"Zero Trust",desc:"Identity-aware access & signing",ch:[{aws:"Verified Access",gcp:"BeyondCorp Enterprise",azure:"Entra Private Access"},{aws:"Signer",gcp:"Binary Authorization",azure:null}]},
+{name:"Well-Architected",desc:"Framework & optimization",ch:[{aws:"WA Tool",gcp:"Architecture Framework",azure:"Azure Well-Architected Review"},{aws:"Trusted Advisor",gcp:"Active Assist",azure:"Azure Advisor"},{aws:"Service Catalog",gcp:"Service Catalog (GCP)",azure:"Azure Managed Applications"}]}]},
 
 {name:"Data & Analytics",icon:"📊",color:"#79c0ff",ch:[
-{name:"Streaming",desc:"Real-time data streaming",ch:["Kinesis","MSK","Data Firehose","AppFlow"]},
-{name:"Processing & ETL",desc:"Batch/stream processing",ch:["EMR","EMR Serverless","Glue","Managed Flink"]},
-{name:"Data Lake & Warehouse",desc:"Lakehouse & analytics",ch:["Lake Formation","Redshift","Athena","Data Exchange"]},
-{name:"BI & Search",desc:"Dashboards & search",ch:["Quick Suite","OpenSearch","OpenSearch Serverless","Kendra","CloudSearch","Entity Resolution"]},
-{name:"Data Governance",desc:"Catalog, quality & clean rooms",ch:["DataZone","Glue Data Quality","Clean Rooms"]}]},
+{name:"Streaming",desc:"Real-time data streaming",ch:[{aws:"Kinesis",gcp:"Pub/Sub",azure:"Event Hubs"},{aws:"MSK",gcp:"Managed Kafka",azure:"Event Hubs for Kafka"},{aws:"Data Firehose",gcp:"Dataflow",m:"p",azure:"Stream Analytics"},{aws:"AppFlow",gcp:"Application Integration",azure:"Azure Data Factory"}]},
+{name:"Processing & ETL",desc:"Batch/stream processing",ch:[{aws:"EMR",gcp:"Dataproc",azure:"HDInsight"},{aws:"EMR Serverless",gcp:"Dataproc Serverless",azure:"HDInsight on AKS"},{aws:"Glue",gcp:"Dataflow",m:"p",azure:"Azure Data Factory"},{aws:"Managed Flink",gcp:"Dataflow",m:"p",azure:"Stream Analytics"}]},
+{name:"Data Lake & Warehouse",desc:"Lakehouse & analytics",ch:[{aws:"Lake Formation",gcp:"Dataplex",azure:"Azure Data Lake"},{aws:"Redshift",gcp:"BigQuery",azure:"Azure Synapse"},{aws:"Athena",gcp:"BigQuery",azure:"Azure Synapse Serverless"},{aws:"Data Exchange",gcp:"Analytics Hub",azure:"Azure Data Share"}]},
+{name:"BI & Search",desc:"Dashboards & search",ch:[{aws:"Quick Suite",gcp:"Looker",azure:"Power BI"},{aws:"OpenSearch",gcp:"Elasticsearch on GCP",azure:"Elastic on Azure"},{aws:"OpenSearch Serverless",gcp:"Elasticsearch on GCP",azure:"Elastic on Azure"},{aws:"Kendra",gcp:"Vertex AI Search",azure:"Azure AI Search"},{aws:"CloudSearch",gcp:"Vertex AI Search",azure:"Azure AI Search"},{aws:"Entity Resolution",gcp:"Dataplex",m:"l",azure:null}]},
+{name:"Data Governance",desc:"Catalog, quality & clean rooms",ch:[{aws:"DataZone",gcp:"Dataplex",azure:"Microsoft Purview"},{aws:"Glue Data Quality",gcp:"Dataplex Data Quality",azure:null},{aws:"Clean Rooms",gcp:"BigQuery Clean Rooms",azure:"Azure Data Clean Rooms"}]}]},
 
 {name:"AI & ML",icon:"🧠",color:"#e3b341",ch:[
-{name:"ML Platform",desc:"End-to-end ML & MLOps",ch:["SageMaker Studio","SM Pipelines","SM Canvas","Clarify"]},
-{name:"Generative AI",desc:"Foundation models & agents",ch:["Bedrock","Bedrock Agents","Bedrock AgentCore","Bedrock KB","Guardrails","Q Developer","Q Business","Kiro","PartyRock"]},
-{name:"AI Services",desc:"Pre-built AI APIs",ch:["Rekognition","Textract","Comprehend","Translate","Transcribe","Polly","Personalize","Fraud Detector","Forecast"]},
-{name:"AI Infrastructure",desc:"GPU & custom silicon",ch:["P5 (H100)","Trn2 (Trainium)","Inf2 (Inferentia)","Neuron SDK"]},
-{name:"Conversational AI",desc:"Chatbots & contact center",ch:["Lex","Connect"]}]}
-];
+{name:"ML Platform",desc:"End-to-end ML & MLOps",ch:[{aws:"SageMaker Studio",gcp:"Vertex AI Workbench",azure:"Azure Machine Learning"},{aws:"SM Pipelines",gcp:"Vertex AI Pipelines",azure:"ML Pipelines"},{aws:"SM Canvas",gcp:"Vertex AI AutoML",azure:"Automated ML"},{aws:"Clarify",gcp:"Vertex Explainable AI",azure:"Responsible AI"}]},
+{name:"Generative AI",desc:"Foundation models & agents",ch:[{aws:"Bedrock",gcp:"Vertex AI Model Garden",azure:"Azure OpenAI Service"},{aws:"Bedrock Agents",gcp:"Vertex AI Agent Builder",azure:"Azure AI Agent Service"},{aws:"Bedrock AgentCore",gcp:"Vertex AI Agent Builder",m:"p",azure:"Azure AI Agent Service"},{aws:"Bedrock KB",gcp:"Vertex AI Search",azure:"Azure AI Search"},{aws:"Guardrails",gcp:"Vertex AI Safety",azure:"Content Safety"},{aws:"Q Developer",gcp:"Gemini Code Assist",azure:"GitHub Copilot"},{aws:"Q Business",gcp:"Gemini for Workspace",azure:"Microsoft 365 Copilot"},{aws:"Kiro",gcp:"Google Antigravity",azure:null},{aws:"PartyRock",gcp:null,azure:null},{aws:"Bedrock",gcp:"Gemini API",azure:"Azure OpenAI Service"}]},
+{name:"AI Services",desc:"Pre-built AI APIs",ch:[{aws:"Rekognition",gcp:"Vision AI",azure:"Azure AI Vision"},{aws:"Textract",gcp:"Document AI",azure:"Azure AI Document Intelligence"},{aws:"Comprehend",gcp:"Natural Language AI",azure:"Azure AI Language"},{aws:"Translate",gcp:"Translation AI",azure:"Azure AI Translator"},{aws:"Transcribe",gcp:"Speech-to-Text",azure:"Azure AI Speech"},{aws:"Polly",gcp:"Text-to-Speech",azure:"Azure AI Speech"},{aws:"Personalize",gcp:"Recommendations AI",azure:"Azure Personalizer"},{aws:"Fraud Detector",gcp:"Anti Money Laundering AI",azure:"Azure AI Anomaly Detector"},{aws:"Forecast",gcp:"Vertex AI Forecasting",azure:null}]},
+{name:"AI Infrastructure",desc:"GPU & custom silicon",ch:[{aws:"P5 (H100)",gcp:"A3 (H100)",azure:"ND H100 v5"},{aws:"Trn2 (Trainium)",gcp:"TPU v5p",azure:null},{aws:"Inf2 (Inferentia)",gcp:"TPU v5e",azure:null},{aws:"Neuron SDK",gcp:"JAX / TPU SDK",azure:null},{aws:null,gcp:null,azure:"Azure Maia AI Accelerator"}]},
+{name:"Conversational AI",desc:"Chatbots & contact center",ch:[{aws:"Lex",gcp:"Dialogflow",azure:"Azure Bot Service"},{aws:"Connect",gcp:"CCAI",azure:"Dynamics 365 Contact Center"}]}]},
 
-const SPECIALTY=[
-// Moved from Core
 {name:"App Integration",icon:"🔗",color:"#ff7b72",ch:[
-{name:"Messaging",desc:"Queues, pub/sub & brokers",ch:["SQS","SNS","Amazon MQ"]},
-{name:"Events & Workflows",desc:"Event bus & orchestration",ch:["EventBridge","EB Pipes","Step Functions","MWAA"]},
-{name:"Notifications",desc:"Email, SMS & push",ch:["SES","Pinpoint"]}]},
+{name:"Messaging",desc:"Queues, pub/sub & brokers",ch:[{aws:"SQS",gcp:"Pub/Sub",m:"p",azure:"Azure Queue Storage"},{aws:"SNS",gcp:"Pub/Sub",m:"p",azure:"Azure Service Bus"},{aws:"Amazon MQ",gcp:"Managed Kafka",azure:"Azure Service Bus"}]},
+{name:"Events & Workflows",desc:"Event bus & orchestration",ch:[{aws:"EventBridge",gcp:"Eventarc",azure:"Event Grid"},{aws:"EB Pipes",gcp:"Eventarc",azure:"Event Grid"},{aws:"Step Functions",gcp:"Workflows",azure:"Logic Apps"},{aws:"MWAA",gcp:"Cloud Composer",azure:"Azure Data Factory (Airflow)"}]},
+{name:"Notifications",desc:"Email, SMS & push",ch:[{aws:"SES",gcp:"SendGrid (partner)",m:"l",azure:"Azure Communication Services"},{aws:"Pinpoint",gcp:"Firebase Cloud Messaging",azure:"Azure Notification Hubs"}]}]},
 {name:"DevOps",icon:"🔧",color:"#a5d6ff",ch:[
-{name:"CI/CD",desc:"Build, test & deploy",ch:["CodePipeline","CodeBuild","CodeDeploy","CodeCatalyst"]},
-{name:"IaC",desc:"Infrastructure as Code",ch:["CloudFormation","CDK","SAM","CFN Guard"]},
-{name:"Observability",desc:"Metrics, logs & traces",ch:["CloudWatch","X-Ray","Managed Grafana","Managed Prometheus"]},
-{name:"Operations",desc:"Systems mgmt & AIOps",ch:["Systems Manager","Incident Manager","DevOps Guru"]},
-{name:"FinOps",desc:"Cost management",ch:["Cost Explorer","Budgets","Compute Optimizer"]}]},
+{name:"CI/CD",desc:"Build, test & deploy",ch:[{aws:"CodePipeline",gcp:"Cloud Build",azure:"Azure Pipelines"},{aws:"CodeBuild",gcp:"Cloud Build",azure:"Azure Pipelines"},{aws:"CodeDeploy",gcp:"Cloud Deploy",azure:"Azure Pipelines"},{aws:"CodeCatalyst",gcp:null,azure:"Azure DevOps"}]},
+{name:"IaC",desc:"Infrastructure as Code",ch:[{aws:"CloudFormation",gcp:"Deployment Manager",m:"p",azure:"ARM Templates"},{aws:"CDK",gcp:"Pulumi / Terraform",m:"p",azure:"Bicep"},{aws:"SAM",gcp:null,azure:null},{aws:"CFN Guard",gcp:null,azure:null}]},
+{name:"Observability",desc:"Metrics, logs & traces",ch:[{aws:"CloudWatch",gcp:"Cloud Monitoring",azure:"Azure Monitor"},{aws:"X-Ray",gcp:"Cloud Trace",azure:"Application Insights"},{aws:"Managed Grafana",gcp:"Cloud Monitoring Dashboards",azure:"Azure Managed Grafana"},{aws:"Managed Prometheus",gcp:"Managed Prometheus (GCP)",azure:"Azure Monitor Prometheus"}]},
+{name:"Operations",desc:"Systems mgmt & AIOps",ch:[{aws:"Systems Manager",gcp:"VM Manager",azure:"Azure Automation"},{aws:"Incident Manager",gcp:"Incident Manager (GCP)",azure:null},{aws:"DevOps Guru",gcp:"Error Reporting",azure:"Azure Monitor AIOps"}]},
+{name:"FinOps",desc:"Cost management",ch:[{aws:"Cost Explorer",gcp:"Cost Management",azure:"Cost Management"},{aws:"Budgets",gcp:"Budget Alerts",azure:"Azure Budgets"},{aws:"Compute Optimizer",gcp:"Active Assist",azure:"Azure Advisor"}]}]},
 {name:"Migration",icon:"🚀",color:"#b392f0",ch:[
-{name:"Assessment",desc:"Discovery & planning",ch:["Migration Hub","App Discovery","Migration Evaluator"]},
-{name:"Server & DB",desc:"VM & database migration",ch:["MGN","DMS","Schema Conversion Tool"]},
-{name:"Modernization",desc:"Containerize & refactor",ch:["App2Container","Refactor Spaces","Mainframe Mod"]}]},
+{name:"Assessment",desc:"Discovery & planning",ch:[{aws:"Migration Hub",gcp:"Migration Center",azure:"Azure Migrate"},{aws:"App Discovery",gcp:"Migration Center",azure:"Azure Migrate"},{aws:"Migration Evaluator",gcp:"Rapid Assessment",azure:"Azure TCO Calculator"}]},
+{name:"Server & DB",desc:"VM & database migration",ch:[{aws:"MGN",gcp:"Migrate for Compute Engine",azure:"Azure Migrate"},{aws:"DMS",gcp:"Database Migration Service",azure:"Azure Database Migration Service"},{aws:"Schema Conversion Tool",gcp:"Database Migration Service",azure:"Azure Database Migration Service"}]},
+{name:"Modernization",desc:"Containerize & refactor",ch:[{aws:"App2Container",gcp:"Migrate for Anthos",azure:"Azure Migrate (containerize)"},{aws:"Refactor Spaces",gcp:"Migrate for Anthos",azure:null},{aws:"Mainframe Mod",gcp:"Dual Run",azure:null}]}]},
 {name:"Hybrid Cloud",icon:"☁️",color:"#388bfd",ch:[
-{name:"Hybrid Platforms",desc:"On-prem extensions",ch:["Outposts","EKS Anywhere","ECS Anywhere"]},
-{name:"VMware",desc:"Managed VMware",ch:["VMware Cloud on AWS"]}]},
+{name:"Hybrid Platforms",desc:"On-prem extensions",ch:[{aws:"Outposts",gcp:"Distributed Cloud",azure:"Azure Stack"},{aws:"EKS Anywhere",gcp:"Anthos",azure:"Azure Arc"},{aws:"ECS Anywhere",gcp:"Anthos",azure:"Azure Arc"}]},
+{name:"VMware",desc:"Managed VMware",ch:[{aws:"VMware Cloud on AWS",gcp:"Google Cloud VMware Engine",m:"l",azure:"Azure VMware Solution"}]}]},
 {name:"IoT",icon:"📡",color:"#d29922",ch:[
-{name:"Core & Connect",desc:"MQTT, SDKs & protocols",ch:["IoT Core","LoRaWAN","FreeRTOS"]},
-{name:"Device Mgmt",desc:"Registry, security & OTA",ch:["Device Mgmt","Device Defender","Device Shadow"]},
-{name:"Data & Edge",desc:"Analytics & edge",ch:["IoT Analytics","SiteWise","Greengrass","TwinMaker"]}]},
+{name:"Core & Connect",desc:"MQTT, SDKs & protocols",ch:[{aws:"IoT Core",gcp:"IoT Core (deprecated)",m:"l",azure:"Azure IoT Hub"},{aws:"LoRaWAN",gcp:null,azure:null},{aws:"FreeRTOS",gcp:null,azure:"Azure RTOS"},{aws:null,gcp:"Cloud IoT (partner solutions)",azure:null}]},
+{name:"Device Mgmt",desc:"Registry, security & OTA",ch:[{aws:"Device Mgmt",gcp:null,azure:"IoT Hub Device Management"},{aws:"Device Defender",gcp:null,azure:"Microsoft Defender for IoT"},{aws:"Device Shadow",gcp:null,azure:"Device Twins"}]},
+{name:"Data & Edge",desc:"Analytics & edge",ch:[{aws:"IoT Analytics",gcp:"Pub/Sub + BigQuery",m:"l",azure:"Azure IoT Central"},{aws:"SiteWise",gcp:null,azure:"Azure Digital Twins"},{aws:"Greengrass",gcp:"Edge TPU Runtime",azure:"Azure IoT Edge"},{aws:"TwinMaker",gcp:"Supply Chain Twin",azure:"Azure Digital Twins"}]}]},
 {name:"Sustainability",icon:"🌱",color:"#3fb950",ch:[
-{name:"Efficiency",desc:"Footprint & optimization",ch:["Carbon Footprint","Graviton","Compute Optimizer"]}]},
+{name:"Efficiency",desc:"Footprint & optimization",ch:[{aws:"Carbon Footprint",gcp:"Carbon Footprint (GCP)",azure:"Emissions Impact Dashboard"},{aws:"Graviton",gcp:"Tau VMs",azure:"Ampere Altra VMs"},{aws:"Compute Optimizer",gcp:"Active Assist",azure:"Azure Advisor"}]}]},
 {name:"DR & Resilience",icon:"🛡️",color:"#da3633",ch:[
-{name:"Backup & DR",desc:"Managed backup & recovery",ch:["AWS Backup","Elastic DR","Resilience Hub"]},
-{name:"Multi-Region",desc:"Failover & replication",ch:["R53 failover","Global Accelerator","DDB Global Tables","Aurora Global"]},
-{name:"Chaos Engineering",desc:"Fault injection & testing",ch:["Fault Injection Service"]}]},
-// Original Specialty domains
+{name:"Backup & DR",desc:"Managed backup & recovery",ch:[{aws:"AWS Backup",gcp:"Backup and DR",azure:"Azure Backup"},{aws:"Elastic DR",gcp:"Backup and DR",azure:"Azure Site Recovery"},{aws:"Resilience Hub",gcp:null,azure:null}]},
+{name:"Multi-Region",desc:"Failover & replication",ch:[{aws:"R53 failover",gcp:"Cloud DNS routing policies",azure:"Traffic Manager"},{aws:"Global Accelerator",gcp:"Global Load Balancer",azure:"Front Door"},{aws:"DDB Global Tables",gcp:"Spanner",m:"p",azure:"Cosmos DB Multi-Region"},{aws:"Aurora Global",gcp:"AlloyDB Cross-Region",m:"p",azure:"Azure SQL Geo-Replication"}]},
+{name:"Chaos Engineering",desc:"Fault injection & testing",ch:[{aws:"Fault Injection Service",gcp:"Fault Injection (preview)",azure:"Azure Chaos Studio"}]}]},
 {name:"Media Services",icon:"🎬",color:"#f78166",ch:[
-{name:"Video Processing",desc:"Transcoding & packaging",ch:["MediaConvert","MediaLive","MediaPackage","MediaTailor"]},
-{name:"Interactive",desc:"Streaming & conferencing",ch:["IVS","Chime SDK","Kinesis Video Streams"]}]},
+{name:"Video Processing",desc:"Transcoding & packaging",ch:[{aws:"MediaConvert",gcp:"Transcoder API",azure:"Azure Media Services"},{aws:"MediaLive",gcp:"Live Stream API",azure:"Azure Media Services"},{aws:"MediaPackage",gcp:"Video Stitcher API",azure:null},{aws:"MediaTailor",gcp:"Video Stitcher API",azure:null}]},
+{name:"Interactive",desc:"Streaming & conferencing",ch:[{aws:"IVS",gcp:"Live Stream API",azure:null},{aws:"Chime SDK",gcp:"WebRTC (partner)",m:"l",azure:"Azure Communication Services"},{aws:"Kinesis Video Streams",gcp:"Video Intelligence API",azure:"Azure Video Analyzer"}]}]},
 {name:"Contact Center",icon:"📞",color:"#ff7b72",ch:[
-{name:"Core",desc:"Omnichannel contact center",ch:["Amazon Connect","Contact Lens","Q in Connect","Connect Forecasting"]}]},
+{name:"Core",desc:"Omnichannel contact center",ch:[{aws:"Amazon Connect",gcp:"CCAI Platform",azure:"Dynamics 365 Contact Center"},{aws:"Contact Lens",gcp:"CCAI Insights",azure:null},{aws:"Q in Connect",gcp:"CCAI Agent Assist",azure:"Copilot in Dynamics"},{aws:"Connect Forecasting",gcp:null,azure:null}]}]},
 {name:"End User Computing",icon:"🖥️",color:"#a5d6ff",ch:[
-{name:"Virtual Desktops",desc:"Desktop & app streaming",ch:["WorkSpaces","AppStream 2.0","WorkSpaces Web"]}]},
+{name:"Virtual Desktops",desc:"Desktop & app streaming",ch:[{aws:"WorkSpaces",gcp:"Chrome Remote Desktop",m:"l",azure:"Azure Virtual Desktop"},{aws:"AppStream 2.0",gcp:null,azure:"Azure Virtual Desktop"},{aws:"WorkSpaces Web",gcp:"Chrome Enterprise",azure:null},{aws:null,gcp:"Chromebook Plus",azure:null}]}]},
 {name:"Location",icon:"📍",color:"#7ee787",ch:[
-{name:"Geo Services",desc:"Maps, routing & tracking",ch:["Location Maps","Location Places","Location Routes","Location Trackers"]}]},
+{name:"Geo Services",desc:"Maps, routing & tracking",ch:[{aws:"Location Maps",gcp:"Maps Platform",azure:"Azure Maps"},{aws:"Location Places",gcp:"Places API",azure:"Azure Maps Search"},{aws:"Location Routes",gcp:"Routes API",azure:"Azure Maps Route"},{aws:"Location Trackers",gcp:"Fleet Engine",azure:null}]}]},
 {name:"Healthcare",icon:"🏥",color:"#79c0ff",ch:[
-{name:"Health Data",desc:"FHIR, imaging & genomics",ch:["HealthLake","HealthImaging","Omics","Comprehend Medical"]}]},
+{name:"Health Data",desc:"FHIR, imaging & genomics",ch:[{aws:"HealthLake",gcp:"Cloud Healthcare API",azure:"Azure Health Data Services"},{aws:"HealthImaging",gcp:"Healthcare NLP API",azure:"Azure Health Data Services"},{aws:"Omics",gcp:"Life Sciences API",azure:"Microsoft Genomics"},{aws:"Comprehend Medical",gcp:"Healthcare NLP API",azure:"Azure AI Health Insights"}]}]},
 {name:"Blockchain",icon:"🔗",color:"#d2a8ff",ch:[
-{name:"Ledger",desc:"Managed blockchain & ledger",ch:["Managed Blockchain","QLDB"]}]},
+{name:"Ledger",desc:"Managed blockchain & ledger",ch:[{aws:"Managed Blockchain",gcp:"Blockchain Node Engine",m:"l",azure:null},{aws:"QLDB",gcp:null,azure:"Azure Confidential Ledger"}]}]},
 {name:"Quantum",icon:"⚛️",color:"#b392f0",ch:[
-{name:"Quantum Computing",desc:"Access to quantum processors",ch:["Amazon Braket","Braket Simulators"]}]},
+{name:"Quantum Computing",desc:"Access to quantum processors",ch:[{aws:"Amazon Braket",gcp:"Cirq + qsim",m:"l",azure:"Azure Quantum"},{aws:"Braket Simulators",gcp:"qsim",azure:"Azure Quantum Simulators"},{aws:null,gcp:"Quantum AI Lab",azure:null}]}]},
 {name:"Gaming",icon:"🎮",color:"#56d364",ch:[
-{name:"Game Servers",desc:"Hosting & matchmaking",ch:["GameLift","FlexMatch","GameLift FleetIQ"]}]},
+{name:"Game Servers",desc:"Hosting & matchmaking",ch:[{aws:"GameLift",gcp:"Agones",azure:"PlayFab"},{aws:"FlexMatch",gcp:"Open Match",azure:"PlayFab Matchmaking"},{aws:"GameLift FleetIQ",gcp:"Agones",azure:"PlayFab"}]}]},
 {name:"Robotics",icon:"🤖",color:"#e3b341",ch:[
-{name:"Robot Dev",desc:"Simulation & fleet mgmt",ch:["RoboMaker","IoT Greengrass"]}]},
+{name:"Robot Dev",desc:"Simulation & fleet mgmt",ch:[{aws:"RoboMaker",gcp:"Cloud Robotics Core",m:"l",azure:null},{aws:"IoT Greengrass",gcp:"Edge TPU Runtime",azure:"Azure IoT Edge"}]}]},
 {name:"Supply Chain",icon:"📦",color:"#f0883e",ch:[
-{name:"Planning",desc:"Demand & inventory",ch:["AWS Supply Chain"]}]},
+{name:"Planning",desc:"Demand & inventory",ch:[{aws:"AWS Supply Chain",gcp:"Supply Chain Twin",azure:"Azure Supply Chain"},{aws:null,gcp:"Supply Chain Pulse",azure:null},{aws:null,gcp:null,azure:"Azure Digital Twins"}]}]},
 {name:"Low-Code",icon:"🧩",color:"#58a6ff",ch:[
-{name:"Visual Builders",desc:"No-code app & ML tools",ch:["Amplify Studio","Workflow Studio","SM Canvas"]}]},
+{name:"Visual Builders",desc:"No-code app & ML tools",ch:[{aws:"Amplify Studio",gcp:"AppSheet",azure:"Power Apps"},{aws:"Workflow Studio",gcp:"Workflows",azure:"Power Automate"},{aws:"SM Canvas",gcp:"Vertex AI AutoML",azure:"Automated ML"}]}]},
 {name:"Digital Twins",icon:"🏭",color:"#d29922",ch:[
-{name:"Twin Platform",desc:"Industrial digital twins",ch:["TwinMaker","SiteWise","Monitron","Lookout for Equipment"]}]}
+{name:"Twin Platform",desc:"Industrial digital twins",ch:[{aws:"TwinMaker",gcp:"Supply Chain Twin",azure:"Azure Digital Twins"},{aws:"SiteWise",gcp:null,azure:null},{aws:"Monitron",gcp:null,azure:null},{aws:"Lookout for Equipment",gcp:null,azure:null}]}]}
 ];
 
-const ROOT={name:'Cloud Computing',icon:'☁️',color:'#58a6ff',ch:[
-  {name:'Core\nDomains',icon:'🏗️',color:'#58a6ff',ch:CORE},
-  {name:'Specialty\nDomains',icon:'✦',color:'#8b949e',ch:SPECIALTY}
-]};
+const ROOT={name:'Cloud Computing',icon:'☁️',color:'#58a6ff',ch: DOMAINS};

@@ -2,1231 +2,3896 @@ const _SVC_DATA = {
 "Amazon EC2": {
 "w": "Virtual servers in the cloud for computing workloads.",
 "f": "Offers over 750 instance types optimized for different workloads.",
-"l": "https://docs.aws.amazon.com/ec2/latest/userguide/concepts.html"
+"l": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html",
+"u": ["Need persistent VMs with custom AMIs or specific OS configs", "GPU/ML training, HPC, or Windows Server workloads", "Require fine-grained instance type selection from 750+ options"],
+"d": ["EC2 charges per-hour minimum; Compute Engine bills per-second", "EC2 offers 750+ fixed instance types; GCE allows custom vCPU/RAM combos", "EC2 uses AMIs for images; GCE uses machine images with automatic encryption"]
 },
 "EC2 Auto Scaling": {
 "w": "Automatically adjusts EC2 instance capacity based on demand.",
 "f": "Can scale across multiple Availability Zones simultaneously.",
-"l": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html"
+"l": "https://docs.aws.amazon.com/autoscaling/ec2/userguide/what-is-amazon-ec2-auto-scaling.html",
+"u": ["Need automatic capacity adjustments for variable traffic", "Want to maintain availability across multiple AZs", "Require scheduled scaling for predictable demand patterns"],
+"d": ["EC2 Auto Scaling uses launch templates; GCP Autoscaler uses instance templates", "EC2 supports predictive scaling via ML; GCP uses schedule-based or metric-based", "EC2 scaling policies are per-group; GCP autoscaler is per-managed instance group"]
 },
 "EC2 Image Builder": {
 "w": "Automates creation and maintenance of custom AMIs.",
 "f": "Includes built-in security scanning and compliance testing.",
-"l": "https://docs.aws.amazon.com/imagebuilder/latest/userguide/what-is-image-builder.html"
+"l": "https://docs.aws.amazon.com/imagebuilder/latest/userguide/what-is-image-builder.html",
+"u": ["Need automated, repeatable golden image pipelines", "Require built-in security scanning of machine images", "Want scheduled image rebuilds with compliance testing"],
+"d": ["Image Builder has a managed pipeline with test stages; GCP Custom Images are manual or Packer-based", "Image Builder includes CIS benchmark testing; GCP relies on third-party scanning", "Image Builder distributes AMIs across regions; GCP images are global by default"]
 },
 "Spot Instances": {
 "w": "Spare EC2 capacity available at up to 90% discount.",
 "f": "Prices fluctuate based on supply and demand in real-time.",
-"l": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html"
+"l": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-spot-instances.html",
+"u": ["Running fault-tolerant batch, CI/CD, or data processing jobs", "Want up to 90% savings on interruptible workloads", "Need large-scale compute for short-duration tasks"],
+"d": ["Spot has variable pricing; GCP Spot VMs use fixed discounted price", "Spot gives 2-min interruption notice; GCP Spot gives 30-sec warning", "Spot supports hibernate on interruption; GCP Spot does not"]
+},
+"EC2 Dedicated Hosts": {
+"w": "Physical servers fully dedicated to your use for license compliance.",
+"f": "Lets you use your existing per-socket or per-core software licenses.",
+"l": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/dedicated-hosts-overview.html",
+"u": ["Need physical server isolation for compliance or licensing", "Bring-your-own-license for Windows Server, SQL Server, or Oracle", "Want visibility into host-level placement of instances"],
+"d": ["EC2 Dedicated Hosts show socket/core counts; GCP Sole-Tenant Nodes show node types", "EC2 supports host affinity and auto-placement; GCP uses node affinity labels", "Azure Dedicated Host supports host groups for HA; AWS uses host resource groups"]
 },
 "VM Import/Export": {
 "w": "Import virtual machine images from on-premises to AWS.",
 "f": "Supports VMware vSphere, Microsoft Hyper-V, and Citrix Xen.",
-"l": "https://docs.aws.amazon.com/vm-import/latest/userguide/what-is-vmimport.html"
+"l": "https://docs.aws.amazon.com/vm-import/latest/userguide/what-is-vmimport.html",
+"u": ["Migrating VMware, Hyper-V, or Xen VMs to AWS", "Need to convert on-prem VM images into AMIs", "Want to export EC2 instances back to on-prem formats"],
+"d": ["VM Import supports export back to VMDK/VHD; Migrate for CE is one-way to GCP", "VM Import is a CLI tool; Migrate for CE has a managed console UI", "VM Import converts to AMI format; Migrate for CE creates Compute Engine images"]
 },
 "Amazon EKS": {
 "w": "Managed Kubernetes service for container orchestration.",
 "f": "Automatically scales Kubernetes control plane across multiple AZs.",
-"l": "https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html"
+"l": "https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html",
+"u": ["Running production Kubernetes with AWS-native integrations", "Need multi-AZ control plane with managed upgrades", "Want Kubernetes with deep IAM and VPC integration"],
+"d": ["EKS charges for control plane; GKE free tier includes one zonal cluster", "EKS uses IAM roles for pods; GKE uses Workload Identity", "EKS requires manual node management; GKE Autopilot fully manages nodes"]
 },
 "Amazon ECS": {
 "w": "Fully managed container orchestration service.",
 "f": "Integrates natively with AWS services like ALB and IAM.",
-"l": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html"
+"l": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/Welcome.html",
+"u": ["Want AWS-native container orchestration without Kubernetes", "Need deep integration with ALB, IAM, and CloudWatch", "Prefer task-definition model over Kubernetes manifests"],
+"d": ["ECS is AWS-proprietary; Cloud Run is built on open Knative standard", "ECS requires cluster capacity planning; Cloud Run scales to zero", "ECS supports Windows containers; Cloud Run is Linux-only"]
 },
 "Amazon ECR": {
 "w": "Fully managed Docker container registry service.",
 "f": "Automatically encrypts images at rest and in transit.",
-"l": "https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html"
+"l": "https://docs.aws.amazon.com/AmazonECR/latest/userguide/what-is-ecr.html",
+"u": ["Store and manage Docker images for ECS/EKS workloads", "Need private container registry with IAM-based access", "Want automatic image scanning for vulnerabilities"],
+"d": ["ECR is Docker-only; Artifact Registry supports Docker, Maven, npm, Python, Go", "ECR has separate public/private registries; Artifact Registry uses one service", "ECR pricing is per-GB stored; Artifact Registry includes free tier per project"]
 },
 "AWS Fargate": {
 "w": "Serverless compute engine for containers.",
 "f": "Charges only for vCPU and memory resources containers use.",
-"l": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html"
+"l": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/AWS_Fargate.html",
+"u": ["Want serverless containers without managing EC2 instances", "Running microservices that need per-task resource isolation", "Prefer pay-per-use over provisioning cluster capacity"],
+"d": ["Fargate supports ECS and EKS; GKE Autopilot is Kubernetes-only", "Fargate charges per vCPU-second; Autopilot charges per pod resource request", "Fargate tasks can run up to 14 days; Autopilot pods have no time limit"]
 },
 "Karpenter": {
 "w": "Open-source Kubernetes cluster autoscaler for AWS.",
 "f": "Can provision nodes in seconds, not minutes.",
-"l": "https://docs.aws.amazon.com/eks/latest/best-practices/karpenter.html"
+"l": "https://docs.aws.amazon.com/eks/latest/best-practices/karpenter.html",
+"u": ["Need faster node provisioning than Cluster Autoscaler", "Want intelligent instance type selection for K8s pods", "Require bin-packing optimization to reduce cluster cost"],
+"d": ["Karpenter provisions nodes in seconds; GKE Autopilot abstracts nodes entirely", "Karpenter is open-source and EKS-focused; Autopilot is GKE-native and managed", "Karpenter selects instance types per pod; Autopilot handles all sizing automatically"]
 },
 "AWS Lambda": {
 "w": "Serverless compute service that runs code without servers.",
 "f": "Was the first major serverless compute service, launched in 2014.",
-"l": "https://docs.aws.amazon.com/lambda/latest/dg/welcome.html"
+"l": "https://docs.aws.amazon.com/lambda/latest/dg/welcome.html",
+"u": ["Event-driven processing like API calls, S3 triggers, or queues", "Short-duration tasks under 15 minutes execution time", "Want zero infrastructure management for microservices"],
+"d": ["Lambda max runtime is 15 min; Cloud Functions max is 60 min", "Lambda supports container images up to 10 GB; Cloud Functions uses source only", "Lambda has Layers for shared code; Cloud Functions uses standard dependency files"]
 },
 "Step Functions": {
 "w": "Serverless workflow orchestration with visual designer.",
 "f": "Standard workflows can run for up to one year.",
-"l": "https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html"
+"l": "https://docs.aws.amazon.com/step-functions/latest/dg/welcome.html",
+"u": ["Orchestrating multi-step serverless or microservice workflows", "Need visual workflow designer with built-in error handling", "Require long-running workflows up to one year"],
+"d": ["Step Functions uses ASL JSON; Workflows uses YAML/JSON syntax", "Step Functions has Express and Standard modes; Workflows has one mode", "Step Functions integrates 220+ AWS services; Workflows integrates GCP + HTTP APIs"]
 },
 "Lambda SnapStart": {
 "w": "Reduces Lambda cold start times for Java functions.",
 "f": "Can reduce cold start times by up to 10x.",
-"l": "https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html"
+"l": "https://docs.aws.amazon.com/lambda/latest/dg/snapstart.html",
+"u": ["Running Java Lambda functions with cold start sensitivity", "Need sub-second startup for Java-based serverless APIs", "Want to avoid provisioned concurrency costs for Java"]
 },
 "Lambda Layers": {
 "w": "Share code and dependencies across multiple Lambda functions.",
 "f": "Can include up to 5 layers per function.",
-"l": "https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html"
+"l": "https://docs.aws.amazon.com/lambda/latest/dg/configuration-layers.html",
+"u": ["Sharing common libraries across multiple Lambda functions", "Want to keep deployment packages small and modular", "Need to manage dependencies separately from function code"]
 },
 "Elastic Beanstalk": {
 "w": "Platform service for deploying web applications and services.",
 "f": "Supports multiple programming languages and frameworks automatically.",
-"l": "https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html"
+"l": "https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/Welcome.html",
+"u": ["Deploying web apps without managing infrastructure directly", "Want PaaS with full control over underlying EC2 instances", "Need quick deployment with auto-scaling and load balancing"],
+"d": ["Beanstalk exposes underlying EC2/RDS; App Engine fully abstracts infra", "Beanstalk supports Docker and many languages; App Engine has Standard and Flexible modes", "Beanstalk has no free tier; App Engine Standard has a generous free tier"]
 },
 "App Runner": {
 "w": "Fully managed service for containerized web applications.",
 "f": "Automatically builds from source code or container images.",
-"l": "https://docs.aws.amazon.com/apprunner/latest/dg/what-is-apprunner.html"
+"l": "https://docs.aws.amazon.com/apprunner/latest/dg/what-is-apprunner.html",
+"u": ["Deploy web apps or APIs from source code or containers quickly", "Want automatic scaling without configuring load balancers", "Need simple container hosting without Kubernetes complexity"],
+"d": ["App Runner builds from source or image; Cloud Run deploys containers only", "App Runner has minimum 1 instance; Cloud Run scales to zero", "App Runner auto-provisions TLS; Cloud Run also auto-provisions TLS and custom domains"]
 },
 "AWS Amplify": {
 "w": "Full-stack development platform for web and mobile apps.",
 "f": "Includes built-in CI/CD and hosting capabilities.",
-"l": "https://docs.aws.amazon.com/amplify/latest/userguide/welcome.html"
+"l": "https://docs.aws.amazon.com/amplify/latest/userguide/welcome.html",
+"u": ["Building full-stack web or mobile apps with backend APIs", "Want managed CI/CD with Git-based deployments", "Need auth, storage, and API backends with minimal config"],
+"d": ["Amplify provides full backend SDK; Firebase Hosting is primarily static hosting", "Amplify integrates Cognito, AppSync, S3; Firebase integrates Firestore, Auth, Storage", "Amplify uses AWS infrastructure; Firebase Hosting uses Google global CDN"]
 },
 "AWS Batch": {
 "w": "Fully managed batch computing service.",
 "f": "Automatically provisions optimal compute resources based on job requirements.",
-"l": "https://docs.aws.amazon.com/batch/latest/userguide/what-is-batch.html"
+"l": "https://docs.aws.amazon.com/batch/latest/userguide/what-is-batch.html",
+"u": ["Running large-scale batch processing or simulation jobs", "Need automatic job scheduling with dependency management", "Want optimal instance selection for heterogeneous workloads"],
+"d": ["AWS Batch supports EC2, Fargate, and Spot; GCP Batch uses Compute Engine VMs", "AWS Batch has array jobs for parallel tasks; GCP Batch uses task groups", "AWS Batch integrates with Step Functions; GCP Batch integrates with Workflows"]
 },
 "ParallelCluster": {
 "w": "Open-source cluster management tool for HPC workloads.",
 "f": "Supports multiple job schedulers including Slurm.",
-"l": "https://docs.aws.amazon.com/parallelcluster/latest/ug/what-is-aws-parallelcluster.html"
+"l": "https://docs.aws.amazon.com/parallelcluster/latest/ug/what-is-aws-parallelcluster.html",
+"u": ["Running HPC workloads with Slurm job scheduling", "Need tightly coupled parallel computing clusters on AWS", "Want auto-scaling HPC clusters with shared filesystems"],
+"d": ["ParallelCluster is open-source CLI tool; HPC Toolkit uses Terraform blueprints", "ParallelCluster supports Slurm natively; HPC Toolkit also supports Slurm on GCP", "ParallelCluster manages full cluster lifecycle; HPC Toolkit provides deployment templates"]
 },
 "Elastic Fabric Adapter": {
 "w": "Network interface for high-performance computing applications.",
 "f": "Provides sub-microsecond latencies for inter-node communication.",
-"l": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html"
+"l": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/efa.html",
+"u": ["Running MPI or NCCL workloads needing low-latency networking", "HPC or distributed ML training requiring OS-bypass communication", "Need sub-microsecond inter-node latency for tightly coupled jobs"]
 },
 "Lambda@Edge": {
 "w": "Run Lambda functions at CloudFront edge locations globally.",
 "f": "Executes closer to users for lower latency responses.",
-"l": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-at-the-edge.html"
+"l": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-at-the-edge.html",
+"u": ["Customizing CDN responses with full Lambda runtime at the edge", "Need request/response manipulation with external API calls", "Want edge compute with Node.js or Python runtime support"],
+"d": ["Lambda@Edge runs in regional edge caches; Cloud CDN Functions run at edge POPs", "Lambda@Edge supports Node.js/Python; Cloud CDN Functions are more limited", "Lambda@Edge has 5-sec viewer/30-sec origin timeout; Cloud CDN Functions are sub-ms"]
 },
 "CloudFront Functions": {
 "w": "Lightweight JavaScript runtime for CloudFront edge locations.",
 "f": "Sub-millisecond startup times — executes in less than 1ms.",
-"l": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-functions.html"
+"l": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-functions.html",
+"u": ["Simple URL rewrites, header manipulation, or cache key normalization", "Need sub-millisecond edge logic for every CDN request", "Want lightweight request transforms without Lambda overhead"],
+"d": ["CloudFront Functions is JS-only, sub-ms; Cloud CDN Functions is similar lightweight edge", "CloudFront Functions runs on all 400+ POPs; Cloud CDN Functions runs on 100+ POPs", "CloudFront Functions has 10 KB code limit; Cloud CDN Functions has similar constraints"]
 },
 "Wavelength": {
 "w": "Ultra-low latency computing at 5G network edge.",
 "f": "Embedded within telecommunications providers' 5G networks.",
-"l": "https://docs.aws.amazon.com/wavelength/latest/developerguide/what-is-wavelength.html"
+"l": "https://docs.aws.amazon.com/wavelength/latest/developerguide/what-is-wavelength.html",
+"u": ["Building 5G ultra-low-latency applications at telco edge", "Need single-digit millisecond latency for mobile users", "Want AWS compute embedded in carrier 5G networks"],
+"d": ["Wavelength is inside carrier 5G networks; Distributed Cloud Edge is on-prem", "Wavelength partners with Verizon/Vodafone; Distributed Cloud is Google-managed hardware", "Wavelength uses EC2 instances; Distributed Cloud Edge runs GKE and VMs"]
 },
 "Local Zones": {
 "w": "AWS infrastructure deployments closer to end users.",
 "f": "Extends AWS regions to provide single-digit millisecond latency.",
-"l": "https://docs.aws.amazon.com/local-zones/latest/ug/what-is-aws-local-zones.html"
+"l": "https://docs.aws.amazon.com/local-zones/latest/ug/what-is-aws-local-zones.html",
+"u": ["Need low-latency compute near specific metro areas", "Running real-time gaming or media workloads near end users", "Want AWS services in locations without a full region"],
+"d": ["Local Zones are AWS-operated metro extensions; Distributed Cloud Edge is on-prem", "Local Zones use standard EC2; Distributed Cloud Edge uses Google-managed hardware", "Local Zones are in 30+ cities; Distributed Cloud Edge deploys to customer sites"]
 },
 "Amazon S3": {
 "w": "Object storage service with industry-leading scalability and durability.",
 "f": "Designed for 99.999999999% (11 9's) of data durability.",
-"l": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html"
+"l": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html",
+"u": ["Storing any amount of unstructured data with 11 9s durability", "Need object storage for backups, data lakes, or static hosting", "Want per-object storage class control and lifecycle policies"],
+"d": ["S3 has 7 storage classes; Cloud Storage has 4 classes", "S3 buckets are regional; Cloud Storage buckets can be multi-regional", "S3 uses IAM + bucket policies; Cloud Storage uses IAM + ACLs"]
 },
 "S3 Glacier": {
 "w": "Low-cost archive storage for long-term backup and compliance.",
 "f": "Retrieval times range from minutes to hours depending on tier.",
-"l": "https://docs.aws.amazon.com/amazonglacier/latest/dev/introduction.html"
+"l": "https://docs.aws.amazon.com/amazonglacier/latest/dev/introduction.html",
+"u": ["Long-term archival of compliance, backup, or regulatory data", "Need multiple retrieval tiers from minutes to hours", "Want the lowest cost for rarely accessed data"],
+"d": ["Glacier has 3 tiers (Instant/Flexible/Deep); Cloud Storage Archive is one tier", "Glacier Deep Archive is cheapest at ~$1/TB/mo; Archive class is ~$1.20/TB/mo", "Glacier requires restore before access; Archive class allows immediate access"]
 },
 "S3 Intelligent-Tiering": {
 "w": "Automatically moves data between access tiers to optimize costs.",
 "f": "Uses machine learning to predict access patterns automatically.",
-"l": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/intelligent-tiering.html"
+"l": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/intelligent-tiering.html",
+"u": ["Data with unpredictable or changing access patterns", "Want automatic cost optimization without lifecycle rules", "Need ML-driven tiering across frequent, infrequent, and archive"],
+"d": ["Intelligent-Tiering has 5 access tiers; Autoclass transitions across 4 classes", "Intelligent-Tiering charges a monitoring fee; Autoclass charges a management fee", "Intelligent-Tiering is per-object; Autoclass is enabled at bucket level"]
 },
 "S3 Object Lock": {
 "w": "Write-once-read-many (WORM) model for S3 objects.",
 "f": "Supports both governance and compliance retention modes.",
-"l": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html"
+"l": "https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lock.html",
+"u": ["Regulatory compliance requiring WORM immutable storage", "Need to prevent object deletion during retention period", "Want governance and compliance retention mode flexibility"],
+"d": ["Object Lock has governance + compliance modes; Retention Policies have one mode", "Object Lock applies per-object; Retention Policies apply at bucket level", "Object Lock supports legal holds; Retention Policies use separate temporary holds"]
 },
 "Amazon EBS": {
 "w": "Block storage volumes for EC2 instances.",
 "f": "Offers up to 64,000 IOPS and 1,000 MB/s throughput.",
-"l": "https://docs.aws.amazon.com/ebs/latest/userguide/what-is-ebs.html"
+"l": "https://docs.aws.amazon.com/ebs/latest/userguide/what-is-ebs.html",
+"u": ["Need persistent block storage for EC2 databases or file systems", "Want high IOPS (up to 64K) for transactional workloads", "Require snapshots for backup and cross-region replication"],
+"d": ["EBS max is 64K IOPS; Persistent Disk max is 120K IOPS (pd-extreme)", "EBS volumes are AZ-scoped; Persistent Disk is zone-scoped with regional option", "EBS supports io2 Block Express; Persistent Disk offers pd-extreme for high IOPS"]
 },
 "EBS Snapshots": {
 "w": "Point-in-time backups of EBS volumes stored in S3.",
 "f": "Incremental snapshots only store changed blocks since last snapshot.",
-"l": "https://docs.aws.amazon.com/ebs/latest/userguide/EBSSnapshots.html"
+"l": "https://docs.aws.amazon.com/ebs/latest/userguide/EBSSnapshots.html",
+"u": ["Creating point-in-time backups of block storage volumes", "Need incremental backups to minimize storage costs", "Want cross-region snapshot copy for disaster recovery"],
+"d": ["EBS Snapshots store in S3; GCP Disk Snapshots store in Cloud Storage", "EBS supports snapshot archiving to lower cost; GCP snapshots have one tier", "EBS snapshots can create AMIs; GCP snapshots create new disks or images"]
 },
 "Instance Store": {
 "w": "Temporary block-level storage physically attached to EC2 instances.",
 "f": "Data is lost when instance stops, terminates, or fails.",
-"l": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html"
+"l": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html",
+"u": ["Need highest-performance ephemeral storage for caches or temp data", "Running workloads that tolerate data loss on instance stop", "Want NVMe-speed local disk for scratch space or buffers"],
+"d": ["Instance Store is free with instance; Local SSD is billed separately", "Instance Store size varies by instance type; Local SSD is 375 GB per disk", "Instance Store data survives reboot; Local SSD data also survives reboot"]
 },
 "Amazon EFS": {
 "w": "Fully managed NFS file system for EC2 instances.",
 "f": "Automatically scales to petabytes without provisioning storage.",
-"l": "https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html"
+"l": "https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html",
+"u": ["Need shared NFS file system across multiple EC2 instances", "Want elastic scaling without pre-provisioning capacity", "Running Linux workloads requiring POSIX-compliant shared storage"],
+"d": ["EFS auto-scales capacity; Filestore requires capacity provisioning", "EFS supports bursting and provisioned throughput; Filestore has fixed tiers", "EFS is NFS v4.1; Filestore is NFS v3"]
 },
 "FSx for Windows": {
 "w": "Fully managed Windows file system built on Windows Server.",
 "f": "Supports Windows features like DFS, shadow copies, and ACLs.",
-"l": "https://docs.aws.amazon.com/fsx/latest/WindowsGuide/what-is.html"
+"l": "https://docs.aws.amazon.com/fsx/latest/WindowsGuide/what-is.html",
+"u": ["Windows workloads requiring SMB protocol and NTFS features", "Need DFS, shadow copies, or Windows ACLs in the cloud", "Migrating Windows file shares to AWS"],
+"d": ["FSx for Windows has native AD integration; NetApp Volumes supports SMB via AD", "FSx is Windows Server-based; NetApp Volumes runs on NetApp ONTAP", "FSx supports DFS namespaces; NetApp Volumes does not support DFS"]
 },
 "FSx for Lustre": {
 "w": "High-performance file system for compute-intensive workloads.",
 "f": "Can process data at hundreds of GB/s throughput.",
-"l": "https://docs.aws.amazon.com/fsx/latest/LustreGuide/what-is.html"
+"l": "https://docs.aws.amazon.com/fsx/latest/LustreGuide/what-is.html",
+"u": ["HPC or ML training needing hundreds of GB/s throughput", "Want S3-integrated high-performance parallel file system", "Running genomics, financial modeling, or media rendering"],
+"d": ["FSx Lustre integrates with S3; Parallelstore integrates with Cloud Storage", "FSx Lustre is fully managed; Parallelstore is also fully managed on GCP", "FSx Lustre scales to hundreds of GB/s; Parallelstore targets millions of IOPS"]
 },
 "FSx for ONTAP": {
 "w": "Fully managed NetApp ONTAP file system.",
 "f": "Supports NetApp SnapMirror for data replication.",
-"l": "https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html"
+"l": "https://docs.aws.amazon.com/fsx/latest/ONTAPGuide/what-is-fsx-ontap.html",
+"u": ["Migrating NetApp workloads to AWS with SnapMirror replication", "Need NFS, SMB, and iSCSI multi-protocol access", "Want NetApp data management features in the cloud"],
+"d": ["FSx ONTAP is AWS-managed; NetApp Volumes is Google-managed via NetApp", "FSx ONTAP supports iSCSI block access; NetApp Volumes supports NFS and SMB only", "FSx ONTAP uses SnapMirror replication; NetApp Volumes uses NetApp replication"]
 },
 "Storage Gateway": {
 "w": "Hybrid cloud storage connecting on-premises to AWS.",
 "f": "Supports file, volume, and tape gateway configurations.",
-"l": "https://docs.aws.amazon.com/storagegateway/latest/userguide/WhatIsStorageGateway.html"
+"l": "https://docs.aws.amazon.com/storagegateway/latest/userguide/WhatIsStorageGateway.html",
+"u": ["Connecting on-prem apps to cloud storage transparently", "Need hybrid file, volume, or tape gateway to AWS", "Want local caching with cloud-backed durable storage"],
+"d": ["Storage Gateway has file/volume/tape modes; GCP uses Transfer Appliance for bulk", "Storage Gateway provides on-prem cache; GCP has no direct gateway equivalent", "Storage Gateway runs as on-prem VM; Transfer Appliance is a physical device"]
 },
 "DataSync": {
 "w": "Data transfer service for moving data between storage systems.",
 "f": "Can transfer data up to 10x faster than open-source tools.",
-"l": "https://docs.aws.amazon.com/datasync/latest/userguide/what-is-datasync.html"
+"l": "https://docs.aws.amazon.com/datasync/latest/userguide/what-is-datasync.html",
+"u": ["Migrating large datasets from on-prem NFS/SMB to AWS", "Need scheduled recurring data transfers between storage systems", "Want automated data validation after transfer"],
+"d": ["DataSync uses an on-prem agent; Storage Transfer Service is fully cloud-based", "DataSync supports NFS/SMB/HDFS sources; Storage Transfer supports S3, HTTP, GCS", "DataSync transfers to S3/EFS/FSx; Storage Transfer targets Cloud Storage"]
 },
 "Snow Family": {
 "w": "Physical devices for data migration and edge computing.",
 "f": "Snowmobile can transfer up to 100 petabytes per truck.",
-"l": "https://docs.aws.amazon.com/snowball/latest/ug/whatissnowball.html"
+"l": "https://docs.aws.amazon.com/snowball/latest/ug/whatissnowball.html",
+"u": ["Migrating petabytes of data when network transfer is too slow", "Need edge computing in disconnected or remote locations", "Want physical device options from 8 TB to 100 PB capacity"],
+"d": ["Snow has 3 sizes (Cone/Edge/Mobile); Transfer Appliance is single capacity", "Snow supports edge compute with EC2; Transfer Appliance is data-only", "Snow Family includes Snowmobile (100 PB); Transfer Appliance max is 300 TB"]
 },
 "Transfer Family": {
 "w": "Fully managed file transfer service supporting SFTP, FTPS, FTP.",
 "f": "Supports custom identity providers and workflows.",
-"l": "https://docs.aws.amazon.com/transfer/latest/userguide/what-is-aws-transfer-family.html"
+"l": "https://docs.aws.amazon.com/transfer/latest/userguide/what-is-aws-transfer-family.html",
+"u": ["Partners or vendors need SFTP/FTPS/FTP access to your S3 or EFS", "Replacing self-managed file transfer servers", "Need managed file transfer with custom authentication"],
+"d": ["Transfer Family supports SFTP/FTPS/FTP protocols; Storage Transfer Service is API-based", "Transfer Family targets S3/EFS; Storage Transfer Service targets Cloud Storage", "Transfer Family is a managed server; Storage Transfer Service is a job scheduler"]
 },
 "AWS Backup": {
 "w": "Centralized backup service across AWS services.",
 "f": "Supports cross-region and cross-account backup copying.",
-"l": "https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html"
+"l": "https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html",
+"u": ["Centralizing backups for EC2, RDS, EFS, DynamoDB, and more", "Need cross-region and cross-account backup replication", "Want policy-based backup scheduling with compliance reporting"],
+"d": ["AWS Backup covers 15+ AWS services; Backup and DR covers VMs, databases, and files", "AWS Backup uses vault-based retention; GCP Backup and DR uses backup plans", "AWS Backup supports backup audit; GCP Backup and DR integrates with Security Command Center"]
 },
 "Elastic Disaster Recovery": {
 "w": "Scalable disaster recovery for on-premises and cloud servers.",
 "f": "Provides RPO of seconds and RTO of minutes.",
-"l": "https://docs.aws.amazon.com/drs/latest/userguide/what-is-drs.html"
+"l": "https://docs.aws.amazon.com/drs/latest/userguide/what-is-drs.html",
+"u": ["Need DR with RPO of seconds and RTO of minutes", "Replicating on-prem or cloud servers to AWS for failover", "Want continuous block-level replication for disaster recovery"],
+"d": ["Elastic DR uses continuous replication; GCP Backup and DR uses periodic snapshots", "Elastic DR provides sub-minute RPO; GCP Backup and DR RPO depends on schedule", "Elastic DR supports on-prem to AWS; GCP Backup and DR is GCP-native only"]
 },
 "Elastic DR": {
 "w": "Scalable disaster recovery for on-premises and cloud servers.",
 "f": "Provides RPO of seconds and RTO of minutes.",
-"l": "https://docs.aws.amazon.com/drs/latest/userguide/what-is-drs.html"
+"l": "https://docs.aws.amazon.com/drs/latest/userguide/what-is-drs.html",
+"u": ["Need automated failover for on-premises or cloud workloads", "Require RPO of seconds and RTO of minutes", "Want continuous block-level replication to AWS"],
+"d": ["Elastic DR uses continuous replication; GCP Backup and DR uses periodic snapshots", "Elastic DR focuses on server-level DR; GCP service covers both backup and DR"]
 },
 "Amazon RDS": {
 "w": "Managed relational database service supporting six engines.",
 "f": "Supports MySQL, PostgreSQL, MariaDB, Oracle, SQL Server, and Db2.",
-"l": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html"
+"l": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html",
+"u": ["Need managed relational database with automated backups and patching", "Running MySQL, PostgreSQL, Oracle, SQL Server, MariaDB, or Db2", "Want Multi-AZ deployments for high availability"],
+"d": ["RDS supports 6 engines including Oracle and Db2; Cloud SQL supports 3 engines", "RDS Multi-AZ uses synchronous replication; Cloud SQL HA uses regional replication", "RDS offers Reserved Instances pricing; Cloud SQL offers committed use discounts"]
 },
 "Aurora": {
 "w": "MySQL and PostgreSQL compatible cloud-native relational database.",
 "f": "Up to 5x faster than MySQL and 3x faster than PostgreSQL.",
-"l": "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html"
+"l": "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html",
+"u": ["Need cloud-native MySQL or PostgreSQL with higher performance", "Want automatic storage scaling up to 128 TB", "Require up to 15 read replicas with sub-10ms replica lag"],
+"d": ["Aurora is MySQL/PostgreSQL compatible; AlloyDB is PostgreSQL-only", "Aurora replicates 6 copies across 3 AZs; AlloyDB separates compute and storage", "Aurora scales to 128 TB; AlloyDB scales storage automatically with no limit"]
 },
 "Aurora Serverless v2": {
 "w": "On-demand auto-scaling configuration for Aurora.",
 "f": "Scales from 0.5 to 128 ACUs in fine-grained increments.",
-"l": "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless-v2.html"
+"l": "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless-v2.html",
+"u": ["Variable or unpredictable database workloads", "Want fine-grained auto-scaling without managing instance sizes", "Need serverless relational database that scales in seconds"],
+"d": ["Aurora Serverless scales in ACUs; AlloyDB Omni is self-managed, not serverless", "Aurora Serverless v2 scales to 128 ACUs; AlloyDB scales compute independently", "Aurora Serverless has minimum 0.5 ACU; AlloyDB does not offer serverless mode"]
 },
 "RDS Proxy": {
 "w": "Database proxy for RDS and Aurora databases.",
 "f": "Reduces failover times by up to 66%.",
-"l": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-proxy.html"
+"l": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/rds-proxy.html",
+"u": ["Lambda or serverless apps with many short-lived DB connections", "Need connection pooling to reduce database connection overhead", "Want faster failover and reduced downtime for RDS/Aurora"],
+"d": ["RDS Proxy is a managed service; Cloud SQL Auth Proxy is a local sidecar binary", "RDS Proxy pools connections server-side; Auth Proxy handles auth and encryption only", "RDS Proxy reduces failover time; Auth Proxy provides IAM-based authentication"]
 },
 "DynamoDB": {
 "w": "Fully managed NoSQL key-value and document database.",
 "f": "Can handle more than 10 trillion requests per day.",
-"l": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html"
+"l": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html",
+"u": ["Need single-digit millisecond NoSQL at any scale", "Building serverless apps with key-value or document access patterns", "Want fully managed NoSQL with on-demand or provisioned capacity"],
+"d": ["DynamoDB is key-value/document; Bigtable is wide-column NoSQL", "DynamoDB has on-demand pricing; Bigtable requires node provisioning", "DynamoDB supports ACID transactions; Bigtable has single-row atomicity only"]
 },
 "DynamoDB Global Tables": {
 "w": "Multi-region, multi-active database replication.",
 "f": "Provides automatic conflict resolution for concurrent updates.",
-"l": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html"
+"l": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html",
+"u": ["Need multi-region active-active NoSQL with sub-second replication", "Building globally distributed apps requiring local read/write", "Want automatic conflict resolution across regions"],
+"d": ["Global Tables is multi-active; Bigtable Replication is eventually consistent", "Global Tables uses last-writer-wins conflict resolution; Bigtable merges at cell level", "Global Tables replicates full table; Bigtable replicates per cluster profile"]
 },
 "DocumentDB": {
 "w": "MongoDB-compatible managed document database.",
 "f": "Separates compute and storage for independent scaling.",
-"l": "https://docs.aws.amazon.com/documentdb/latest/developerguide/what-is.html"
+"l": "https://docs.aws.amazon.com/documentdb/latest/developerguide/what-is.html",
+"u": ["Need MongoDB-compatible database without managing MongoDB", "Want managed document DB with separate compute and storage scaling", "Running JSON document workloads with MongoDB drivers"],
+"d": ["DocumentDB is MongoDB-compatible; Firestore is Google-native document DB", "DocumentDB uses MongoDB API; Firestore uses its own SDK with real-time sync", "DocumentDB runs on provisioned instances; Firestore is fully serverless"]
 },
 "Neptune": {
 "w": "Fully managed graph database service.",
 "f": "Supports both property graph (Gremlin) and RDF (SPARQL) models.",
-"l": "https://docs.aws.amazon.com/neptune/latest/userguide/intro.html"
+"l": "https://docs.aws.amazon.com/neptune/latest/userguide/intro.html",
+"u": ["Building knowledge graphs, fraud detection, or social network apps", "Need both property graph and RDF query support", "Want managed graph database without infrastructure overhead"],
+"d": ["Neptune is AWS-native; Neo4j Aura is a partner service on GCP", "Neptune supports Gremlin + SPARQL; Neo4j uses Cypher query language", "Neptune is fully managed by AWS; Neo4j Aura is managed by Neo4j on GCP"]
 },
 "Timestream": {
 "w": "Fast, scalable serverless time series database.",
 "f": "Can ingest trillions of events per day automatically.",
-"l": "https://docs.aws.amazon.com/timestream/latest/developerguide/what-is-timestream.html"
+"l": "https://docs.aws.amazon.com/timestream/latest/developerguide/what-is-timestream.html",
+"u": ["Storing IoT sensor data, metrics, or application telemetry", "Need serverless time series DB with automatic data tiering", "Want SQL-like queries on time series data at scale"],
+"d": ["Timestream is a dedicated time series DB; Bigtable handles time series as a pattern", "Timestream is serverless; Bigtable requires node provisioning", "Timestream has built-in time functions; Bigtable uses row key design for time series"]
 },
 "QLDB": {
 "w": "Fully managed ledger database with immutable transaction log.",
 "f": "Uses cryptographic hashing (SHA-256) to ensure data integrity.",
-"l": "https://docs.aws.amazon.com/qldb/latest/developerguide/what-is.html"
+"l": "https://docs.aws.amazon.com/qldb/latest/developerguide/",
+"u": ["Need immutable, cryptographically verifiable transaction log", "Building audit trails, supply chain tracking, or financial ledgers", "Want centralized ledger without blockchain complexity"]
 },
 "Keyspaces": {
 "w": "Scalable Apache Cassandra-compatible database service.",
 "f": "Serverless — scales automatically based on application traffic.",
-"l": "https://docs.aws.amazon.com/keyspaces/latest/devguide/what-is-keyspaces.html"
+"l": "https://docs.aws.amazon.com/keyspaces/latest/devguide/what-is-keyspaces.html",
+"u": ["Migrating Cassandra workloads without managing clusters", "Need serverless wide-column DB with CQL compatibility", "Want Cassandra API with automatic scaling and patching"],
+"d": ["Keyspaces uses CQL (Cassandra); Bigtable uses its own API or HBase compatibility", "Keyspaces is serverless; Bigtable requires provisioned nodes", "Keyspaces supports Cassandra drivers directly; Bigtable needs its own client libraries"]
 },
 "ElastiCache": {
 "w": "In-memory caching service supporting Redis and Memcached.",
 "f": "Delivers sub-millisecond response times for real-time applications.",
-"l": "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html"
+"l": "https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/WhatIs.html",
+"u": ["Need sub-millisecond caching for database query results or sessions", "Want managed Redis or Memcached without cluster operations", "Building real-time leaderboards, rate limiting, or session stores"],
+"d": ["ElastiCache supports Redis and Memcached; Memorystore supports Redis and Memcached", "ElastiCache uses node-based pricing; Memorystore uses capacity-based pricing", "ElastiCache supports cluster mode; Memorystore also supports Redis Cluster"]
 },
 "MemoryDB": {
 "w": "Redis-compatible in-memory database with durability.",
 "f": "Combines Redis speed with multi-AZ durability.",
-"l": "https://docs.aws.amazon.com/memorydb/latest/devguide/what-is-memorydb-for-redis.html"
+"l": "https://docs.aws.amazon.com/memorydb/latest/devguide/what-is-memorydb-for-redis.html",
+"u": ["Need Redis speed with multi-AZ durability as primary database", "Want in-memory database that survives node failures", "Building apps requiring both cache speed and data persistence"],
+"d": ["MemoryDB is durable primary DB; Memorystore for Redis is primarily a cache", "MemoryDB uses multi-AZ transaction log; Memorystore uses replica-based persistence", "MemoryDB guarantees data durability; Memorystore prioritizes cache performance"]
 },
 "OpenSearch vector": {
 "w": "Search engine with vector similarity search for AI apps.",
 "f": "Supports k-NN search for ML and RAG applications.",
-"l": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html"
+"l": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html",
+"u": ["Building RAG pipelines needing vector similarity search", "Need combined full-text and vector search in one engine", "Want k-NN search for recommendation or semantic search apps"],
+"d": ["OpenSearch vector is part of OpenSearch; Vertex AI Vector Search is standalone", "OpenSearch combines text + vector search; Vector Search is vector-only", "OpenSearch is self-managed clusters; Vector Search is fully managed serverless"]
 },
 "pgvector": {
 "w": "PostgreSQL extension for vector similarity search.",
 "f": "Enables semantic search and GenAI RAG in PostgreSQL.",
-"l": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/PostgreSQL.Concepts.General.FeatureSupport.Extensions.html"
+"l": "https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/PostgreSQL.Concepts.General.FeatureSupport.Extensions.html",
+"u": ["Adding vector search to existing PostgreSQL databases", "Want embeddings stored alongside relational data", "Building RAG apps without a separate vector database"],
+"d": ["pgvector on RDS is standard PostgreSQL extension; AlloyDB AI adds ML inference in-DB", "pgvector on RDS has standard PostgreSQL performance; AlloyDB AI is optimized for vectors", "pgvector requires manual tuning; AlloyDB AI includes built-in embedding generation"]
 },
 "Redshift": {
 "w": "Fast, scalable cloud data warehouse.",
 "f": "Uses columnar storage and massively parallel processing.",
-"l": "https://docs.aws.amazon.com/redshift/latest/mgmt/welcome.html"
+"l": "https://docs.aws.amazon.com/redshift/latest/mgmt/welcome.html",
+"u": ["Running large-scale analytics and data warehousing on AWS", "Need columnar storage with MPP for complex SQL queries", "Want to query petabytes of structured data with concurrency scaling"],
+"d": ["Redshift uses provisioned clusters; BigQuery is fully serverless", "Redshift charges per-node-hour; BigQuery charges per-query (bytes scanned)", "Redshift requires cluster management; BigQuery needs no infrastructure setup"]
 },
 "Redshift Serverless": {
 "w": "Serverless option for Redshift data warehouse.",
 "f": "Automatically scales compute based on workload demands.",
-"l": "https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-serverless.html"
+"l": "https://docs.aws.amazon.com/redshift/latest/mgmt/working-with-serverless.html",
+"u": ["Variable data warehouse workloads without cluster management", "Want serverless analytics that auto-scales and auto-pauses", "Need Redshift SQL compatibility without provisioning nodes"],
+"d": ["Redshift Serverless scales in RPUs; BigQuery scales automatically per query", "Redshift Serverless charges per RPU-hour; BigQuery charges per TB scanned", "Redshift Serverless shares Redshift ecosystem; BigQuery has native ML and GIS"]
 },
 "Athena": {
 "w": "Interactive serverless query service for data in S3.",
 "f": "No infrastructure to manage — just point at S3 and query with SQL.",
-"l": "https://docs.aws.amazon.com/athena/latest/ug/what-is.html"
+"l": "https://docs.aws.amazon.com/athena/latest/ug/what-is.html",
+"u": ["Ad-hoc SQL queries directly on S3 data without loading", "Want pay-per-query analytics without managing any infrastructure", "Exploring data lakes with Presto/Trino SQL engine"],
+"d": ["Athena queries S3 data in place; BigQuery loads or queries external data", "Athena charges per TB scanned; BigQuery also charges per TB scanned", "Athena uses Presto/Trino engine; BigQuery uses Google Dremel engine"]
 },
 "Amazon VPC": {
 "w": "Isolated virtual network within AWS cloud.",
 "f": "Supports both IPv4 and IPv6 dual-stack addressing.",
-"l": "https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html"
+"l": "https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html",
+"u": ["Need isolated network with custom CIDR blocks and subnets", "Require private connectivity between AWS services", "Building multi-tier architectures with public/private subnets"],
+"d": ["AWS VPCs are regional; GCP VPCs are global by default", "AWS uses security groups + NACLs; GCP uses firewall rules only", "AWS subnets are AZ-specific; GCP subnets span zones within a region"]
 },
 "NAT Gateway": {
 "w": "Managed NAT service for private subnet internet access.",
 "f": "Automatically scales up to 100 Gbps bandwidth.",
-"l": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html"
+"l": "https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html",
+"u": ["Private subnets need outbound internet without public IPs", "Want managed NAT scaling up to 100 Gbps automatically", "Require static Elastic IPs for outbound traffic allowlisting"],
+"d": ["NAT Gateway is per-AZ; Cloud NAT is per-region and software-defined", "NAT Gateway charges per hour + per GB; Cloud NAT charges per VM + per GB", "NAT Gateway has no single point of failure per AZ; Cloud NAT is fully distributed"]
 },
 "VPC Endpoints": {
 "w": "Private connections between VPC and AWS services.",
 "f": "Traffic never leaves the AWS network.",
-"l": "https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints.html"
+"l": "https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints.html",
+"u": ["Access S3 or DynamoDB privately without internet gateway", "Keep traffic to AWS services within the AWS backbone", "Reduce data transfer costs by avoiding NAT Gateway"],
+"d": ["VPC Endpoints have gateway and interface types; PSC uses a single endpoint model", "Gateway endpoints are free (S3/DynamoDB); PSC charges per endpoint", "Interface endpoints use ENIs in subnets; PSC uses forwarding rules"]
 },
 "PrivateLink": {
 "w": "Private connectivity between VPCs and services.",
 "f": "Eliminates exposure of traffic to the public internet.",
-"l": "https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html"
+"l": "https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html",
+"u": ["Expose services to other VPCs without VPC peering", "Need private access to SaaS or partner services", "Want unidirectional private connectivity between producer and consumer"],
+"d": ["PrivateLink uses NLB as service frontend; PSC uses service attachments", "PrivateLink is regional only; PSC supports cross-region access", "PrivateLink creates ENI in consumer VPC; PSC creates forwarding rule"]
 },
 "ALB": {
 "w": "Application Load Balancer for HTTP/HTTPS traffic (Layer 7).",
 "f": "Supports content-based routing, WebSocket, and gRPC.",
-"l": "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html"
+"l": "https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html",
+"u": ["Need Layer 7 routing with path-based or host-based rules", "Want native gRPC, WebSocket, and HTTP/2 support", "Require integration with WAF and Cognito authentication"],
+"d": ["ALB is regional; GCP HTTP(S) LB is global by default", "ALB uses target groups; GCP uses backend services and URL maps", "ALB supports weighted target groups; GCP uses traffic splitting natively"]
 },
 "NLB": {
 "w": "Network Load Balancer for TCP/UDP traffic (Layer 4).",
 "f": "Handles millions of requests/sec with ultra-low latency.",
-"l": "https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html"
+"l": "https://docs.aws.amazon.com/elasticloadbalancing/latest/network/introduction.html",
+"u": ["Need ultra-low latency Layer 4 load balancing for TCP/UDP", "Want static IP addresses or Elastic IPs on load balancer", "Require TLS passthrough without termination at the LB"],
+"d": ["NLB preserves source IP natively; GCP Network LB also preserves source IP", "NLB supports TLS passthrough; GCP Network LB supports TCP/UDP proxy", "NLB is regional; GCP has both regional and global L4 options"]
 },
 "Global Accelerator": {
 "w": "Network service improving global application performance.",
 "f": "Can improve performance by up to 60% using AWS backbone.",
-"l": "https://docs.aws.amazon.com/global-accelerator/latest/dg/what-is-global-accelerator.html"
+"l": "https://docs.aws.amazon.com/global-accelerator/latest/dg/what-is-global-accelerator.html",
+"u": ["Improve global app performance using AWS backbone network", "Need static anycast IPs for multi-region failover", "Want automatic traffic rerouting on endpoint health changes"],
+"d": ["Global Accelerator uses anycast IPs; GCP Global LB also uses anycast", "Global Accelerator is a separate service; GCP bakes it into Global LB", "Global Accelerator supports TCP/UDP; GCP Global LB supports L4 and L7"]
 },
 "Route 53": {
 "w": "Scalable DNS web service and domain registration.",
 "f": "Named after TCP/UDP port 53 used for DNS.",
-"l": "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html"
+"l": "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html",
+"u": ["Need DNS with health checks and failover routing policies", "Want domain registration and DNS in a single service", "Require weighted, geolocation, or latency-based DNS routing"],
+"d": ["Route 53 includes domain registration; Cloud DNS is DNS-only", "Route 53 has 8 routing policies; Cloud DNS supports weighted and geo routing", "Route 53 offers 100% SLA; Cloud DNS also offers 100% SLA"]
 },
 "CloudFront": {
 "w": "Global content delivery network (CDN) service.",
 "f": "Has over 600 points of presence across 100+ cities globally.",
-"l": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html"
+"l": "https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Introduction.html",
+"u": ["Accelerate static and dynamic content delivery globally", "Need edge caching with 600+ POPs worldwide", "Want Lambda@Edge or CloudFront Functions for edge logic"],
+"d": ["CloudFront has 600+ POPs; Cloud CDN uses Google global edge network", "CloudFront supports Lambda@Edge for compute; Cloud CDN has lighter edge functions", "CloudFront has free tier (1 TB/mo); Cloud CDN charges from first byte"]
 },
 "Direct Connect": {
 "w": "Dedicated network connection from premises to AWS.",
 "f": "Supports up to 100 Gbps dedicated connections.",
-"l": "https://docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html"
+"l": "https://docs.aws.amazon.com/directconnect/latest/UserGuide/Welcome.html",
+"u": ["Need dedicated private link from data center to AWS", "Want consistent low-latency bypassing the public internet", "Require high-bandwidth connections up to 100 Gbps"],
+"d": ["Direct Connect max is 100 Gbps; Cloud Interconnect also supports 100 Gbps", "Direct Connect uses LAGs for aggregation; Interconnect uses LACP bundles", "Direct Connect has virtual interfaces; Interconnect uses VLAN attachments"]
 },
 "Site-to-Site VPN": {
 "w": "Encrypted connection between on-premises and AWS VPC.",
 "f": "Creates two redundant IPSec tunnels for high availability.",
-"l": "https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html"
+"l": "https://docs.aws.amazon.com/vpn/latest/s2svpn/VPC_VPN.html",
+"u": ["Encrypt on-premises to AWS traffic over the internet", "Need quick hybrid connectivity before Direct Connect setup", "Want redundant IPSec tunnels for high availability"],
+"d": ["Site-to-Site VPN creates 2 tunnels; Cloud VPN HA creates 4 tunnels", "AWS VPN attaches to VGW or TGW; Cloud VPN attaches to Cloud Router", "AWS VPN supports BGP or static; Cloud VPN HA requires BGP"]
 },
 "Transit Gateway": {
 "w": "Network hub connecting VPCs and on-premises networks.",
 "f": "Supports up to 5,000 VPC attachments per gateway.",
-"l": "https://docs.aws.amazon.com/vpc/latest/tgw/what-is-transit-gateway.html"
+"l": "https://docs.aws.amazon.com/vpc/latest/tgw/what-is-transit-gateway.html",
+"u": ["Connect hundreds of VPCs through a central hub", "Need hub-and-spoke topology replacing VPC peering mesh", "Want centralized routing for multi-account network architectures"],
+"d": ["Transit Gateway is regional; Network Connectivity Center is global", "Transit Gateway supports 5,000 attachments; NCC uses spokes and hubs", "Transit Gateway charges per attachment + data; NCC charges per spoke"]
 },
 "Cloud WAN": {
 "w": "Managed wide area network service.",
 "f": "Provides a single dashboard to manage your global network.",
-"l": "https://docs.aws.amazon.com/vpc/latest/cloudwan/what-is-cloudwan.html"
+"l": "https://docs.aws.amazon.com/vpc/latest/cloudwan/what-is-cloudwan.html",
+"u": ["Build and manage a global WAN across AWS regions", "Need centralized policy-based network management", "Want unified dashboard for multi-region network topology"],
+"d": ["Cloud WAN is a global managed overlay; NCC connects VPNs and Interconnects", "Cloud WAN uses core network policies; NCC uses hub-and-spoke model", "Cloud WAN spans AWS regions; NCC integrates with SD-WAN partners"]
 },
 "Security Groups": {
 "w": "Virtual firewall controlling inbound and outbound traffic.",
 "f": "Stateful — automatically allows return traffic.",
-"l": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html"
+"l": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-security-groups.html",
+"u": ["Control inbound and outbound traffic per EC2 instance", "Need stateful firewall rules that auto-allow return traffic", "Want to reference other security groups as sources"],
+"d": ["Security Groups are stateful allow-only; GCP Firewall Rules are stateful allow/deny", "Security Groups attach to ENIs; GCP Firewall Rules target via tags or service accounts", "Security Groups have no explicit deny; GCP Firewall Rules support priority-based deny"]
 },
 "WAF": {
 "w": "Web application firewall against common web exploits.",
 "f": "Can block requests based on IP, country, or request patterns.",
-"l": "https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html"
+"l": "https://docs.aws.amazon.com/waf/latest/developerguide/what-is-aws-waf.html",
+"u": ["Protect web apps from SQL injection and XSS attacks", "Need rate limiting and bot control at the edge", "Want managed rule sets from AWS and marketplace partners"],
+"d": ["AWS WAF integrates with ALB/CloudFront/API GW; Cloud Armor integrates with Global LB", "AWS WAF has managed rule groups; Cloud Armor has preconfigured WAF rules", "AWS WAF charges per rule + request; Cloud Armor charges per policy + request"]
 },
 "Shield": {
 "w": "DDoS protection service for AWS applications.",
 "f": "Standard tier is free and automatic for all AWS customers.",
-"l": "https://docs.aws.amazon.com/waf/latest/developerguide/shield-chapter.html"
+"l": "https://docs.aws.amazon.com/waf/latest/developerguide/shield-chapter.html",
+"u": ["Need always-on DDoS protection for AWS resources", "Want DDoS Response Team access with Shield Advanced", "Require cost protection against DDoS scaling charges"],
+"d": ["Shield Standard is free; Cloud Armor Standard is also free for basic DDoS", "Shield Advanced costs $3K/mo; Cloud Armor Managed Protection Plus is usage-based", "Shield Advanced includes WAF at no extra cost; Cloud Armor bundles WAF and DDoS"]
 },
 "Network Firewall": {
 "w": "Managed network firewall with IDS/IPS for VPCs.",
 "f": "Supports Suricata-compatible intrusion prevention rules.",
-"l": "https://docs.aws.amazon.com/network-firewall/latest/developerguide/what-is-aws-network-firewall.html"
+"l": "https://docs.aws.amazon.com/network-firewall/latest/developerguide/what-is-aws-network-firewall.html",
+"u": ["Need IDS/IPS with deep packet inspection for VPC traffic", "Want Suricata-compatible rules for network threat detection", "Require centralized stateful firewall for east-west traffic"],
+"d": ["Network Firewall uses Suricata engine; Cloud Firewall uses Google threat intel", "Network Firewall deploys as VPC endpoints; Cloud Firewall is distributed and inline", "Network Firewall supports custom Suricata rules; Cloud Firewall supports FQDN rules"]
 },
 "API Gateway": {
 "w": "Fully managed service for creating REST, HTTP, and WebSocket APIs.",
 "f": "Handles hundreds of thousands of concurrent API calls.",
-"l": "https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html"
+"l": "https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html",
+"u": ["Create REST, HTTP, or WebSocket APIs with built-in auth", "Need request throttling, caching, and usage plans", "Want serverless API frontend for Lambda functions"],
+"d": ["API Gateway has REST, HTTP, and WS types; Apigee is full lifecycle API platform", "API Gateway is serverless; Apigee includes portal, monetization, and analytics", "API Gateway pricing is per-request; Apigee pricing is subscription-based"]
 },
 "AppSync": {
 "w": "Managed GraphQL and Pub/Sub API service.",
 "f": "Supports real-time subscriptions over WebSocket.",
-"l": "https://docs.aws.amazon.com/appsync/latest/devguide/what-is-appsync.html"
+"l": "https://docs.aws.amazon.com/appsync/latest/devguide/what-is-appsync.html",
+"u": ["Need managed GraphQL API with real-time subscriptions", "Want automatic data source resolvers for DynamoDB or Lambda", "Building mobile or web apps needing offline sync and caching"],
+"d": ["AppSync is GraphQL-native; Apigee focuses on REST API management", "AppSync has built-in offline sync; Apigee has no offline capability", "AppSync charges per query/mutation; Apigee charges per subscription tier"]
 },
 "VPC Lattice": {
 "w": "Application networking for service-to-service communication.",
 "f": "Works across VPCs and accounts without VPC peering.",
-"l": "https://docs.aws.amazon.com/vpc-lattice/latest/ug/what-is-vpc-lattice.html"
+"l": "https://docs.aws.amazon.com/vpc-lattice/latest/ug/what-is-vpc-lattice.html",
+"u": ["Need cross-VPC service-to-service connectivity without peering", "Want built-in auth, observability, and traffic management for services", "Simplify multi-account microservice networking on AWS"],
+"d": ["VPC Lattice is app-layer service mesh; Traffic Director is Envoy-based control plane", "VPC Lattice works without sidecar proxies; Traffic Director requires Envoy proxies", "VPC Lattice is AWS-native; Traffic Director is open standards with Envoy xDS"]
 },
 "Cloud Map": {
 "w": "Service discovery for cloud resources.",
 "f": "Automatically updates registry when resources change.",
-"l": "https://docs.aws.amazon.com/cloud-map/latest/dg/what-is-cloud-map.html"
+"l": "https://docs.aws.amazon.com/cloud-map/latest/dg/what-is-cloud-map.html",
+"u": ["Need dynamic service discovery for ECS or EKS microservices", "Want DNS-based and API-based service registration", "Require health-checked service endpoints updated automatically"],
+"d": ["Cloud Map uses Route 53 DNS; Service Directory uses Cloud DNS", "Cloud Map supports DNS and HTTP discovery; Service Directory supports DNS and API", "Cloud Map auto-registers ECS tasks; Service Directory integrates with GKE and Compute"]
 },
 "AWS IAM": {
 "w": "Identity and Access Management — controls who can do what in AWS.",
 "f": "Supports over 8,000 different permission actions across AWS services.",
-"l": "https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html"
+"l": "https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html",
+"u": ["Define fine-grained permissions for all AWS resources", "Need policy-based access control with conditions and boundaries", "Require cross-account access via IAM roles and trust policies"],
+"d": ["AWS IAM is global with 8K+ actions; GCP IAM uses predefined roles per service", "AWS IAM uses JSON policies; GCP IAM uses role bindings on resources", "AWS IAM supports permission boundaries; GCP IAM uses org policy constraints"]
 },
 "Identity Center": {
 "w": "Centralized SSO for workforce access to multiple AWS accounts.",
 "f": "Formerly called AWS Single Sign-On, rebranded in 2022.",
-"l": "https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html"
+"l": "https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html",
+"u": ["Centralize SSO for workforce across multiple AWS accounts", "Want SAML/OIDC federation with external identity providers", "Need permission sets that map to IAM roles per account"],
+"d": ["Identity Center manages multi-account SSO; Cloud Identity manages Google Workspace + GCP", "Identity Center uses permission sets; Cloud Identity uses group-based role bindings", "Identity Center is AWS-only; Cloud Identity integrates with all Google services"]
 },
 "Cognito": {
 "w": "User identity and authentication for web and mobile apps.",
 "f": "Can handle over 10 million monthly active users per pool.",
-"l": "https://docs.aws.amazon.com/cognito/latest/developerguide/what-is-amazon-cognito.html"
+"l": "https://docs.aws.amazon.com/cognito/latest/developerguide/what-is-amazon-cognito.html",
+"u": ["Add user sign-up and sign-in to web or mobile apps", "Need social login with Google, Facebook, or Apple", "Want managed user pools scaling to millions of users"],
+"d": ["Cognito has user pools + identity pools; Identity Platform combines both", "Cognito supports 10M MAU per pool; Identity Platform supports multi-tenancy", "Cognito is tightly coupled with AWS; Identity Platform is Firebase-compatible"]
 },
 "Access Analyzer": {
 "w": "Analyzes resource policies to find unintended external access.",
 "f": "Uses automated mathematical reasoning to prove security properties.",
-"l": "https://docs.aws.amazon.com/IAM/latest/UserGuide/what-is-access-analyzer.html"
+"l": "https://docs.aws.amazon.com/IAM/latest/UserGuide/what-is-access-analyzer.html",
+"u": ["Find IAM policies granting unintended external access", "Validate policies before deployment using automated reasoning", "Need continuous monitoring of resource sharing across accounts"],
+"d": ["Access Analyzer uses formal reasoning; IAM Recommender uses ML-based analysis", "Access Analyzer finds external access paths; IAM Recommender suggests least-privilege", "Access Analyzer validates policies pre-deploy; IAM Recommender analyzes actual usage"]
 },
 "Roles Anywhere": {
 "w": "Lets workloads outside AWS obtain temporary AWS credentials.",
 "f": "Uses X.509 certificates instead of long-term access keys.",
-"l": "https://docs.aws.amazon.com/rolesanywhere/latest/userguide/introduction.html"
+"l": "https://docs.aws.amazon.com/rolesanywhere/latest/userguide/introduction.html",
+"u": ["On-prem servers need temporary AWS credentials without access keys", "Want X.509 certificate-based authentication for external workloads", "Eliminate long-lived credentials for hybrid environments"],
+"d": ["Roles Anywhere uses X.509 certs; Workload Identity Federation uses OIDC/SAML tokens", "Roles Anywhere requires a trust anchor CA; WIF uses external IdP directly", "Roles Anywhere maps to IAM roles; WIF maps to service accounts"]
 },
 "KMS": {
 "w": "Key Management Service for creating and managing encryption keys.",
 "f": "Automatically rotates keys annually, keeping all old versions for decryption.",
-"l": "https://docs.aws.amazon.com/kms/latest/developerguide/overview.html"
+"l": "https://docs.aws.amazon.com/kms/latest/developerguide/overview.html",
+"u": ["Manage encryption keys for AWS services and applications", "Need automatic key rotation with version management", "Want centralized key control with CloudTrail audit logging"],
+"d": ["AWS KMS keys are regional; Cloud KMS supports global and regional keys", "AWS KMS has automatic annual rotation; Cloud KMS supports custom rotation periods", "AWS KMS uses key policies + IAM; Cloud KMS uses IAM bindings on key rings"]
 },
 "CloudHSM": {
 "w": "Dedicated hardware security modules for cryptographic key storage.",
 "f": "FIPS 140-2 Level 3 validated — the highest for cloud HSMs.",
-"l": "https://docs.aws.amazon.com/cloudhsm/latest/userguide/introduction.html"
+"l": "https://docs.aws.amazon.com/cloudhsm/latest/userguide/introduction.html",
+"u": ["Need FIPS 140-2 Level 3 hardware key storage", "Require single-tenant HSM for regulatory compliance", "Want full control over cryptographic keys and algorithms"],
+"d": ["CloudHSM is single-tenant dedicated; Cloud HSM is multi-tenant managed", "CloudHSM requires cluster management; Cloud HSM is fully managed via KMS API", "CloudHSM supports PKCS#11 and JCE; Cloud HSM integrates through Cloud KMS API"]
 },
 "Secrets Manager": {
 "w": "Stores, retrieves, and auto-rotates application secrets.",
 "f": "Can rotate RDS/Aurora credentials automatically without app changes.",
-"l": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html"
+"l": "https://docs.aws.amazon.com/secretsmanager/latest/userguide/intro.html",
+"u": ["Store and auto-rotate database credentials and API keys", "Need Lambda-based rotation for RDS/Aurora passwords", "Want versioned secrets with fine-grained IAM access control"],
+"d": ["Secrets Manager has built-in RDS rotation; Secret Manager requires custom rotation", "Secrets Manager charges $0.40/secret/mo; Secret Manager charges $0.06/10K access ops", "Secrets Manager supports cross-region replication; Secret Manager is regional only"]
 },
 "ACM": {
 "w": "AWS Certificate Manager provisions and manages SSL/TLS certificates.",
 "f": "Free public certificates that auto-renew — no manual renewal needed.",
-"l": "https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html"
+"l": "https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html",
+"u": ["Provision free SSL/TLS certificates for ALB and CloudFront", "Want automatic certificate renewal without manual intervention", "Need DNS or email validation for domain ownership"],
+"d": ["ACM public certs are free; Certificate Manager uses Google-managed certs also free", "ACM integrates with ALB/CloudFront; Certificate Manager integrates with load balancers", "ACM requires re-validation on renewal; Certificate Manager auto-renews transparently"]
 },
 "Private CA": {
 "w": "Managed private certificate authority service.",
 "f": "Can issue millions of certificates with sub-millisecond issuance.",
-"l": "https://docs.aws.amazon.com/privateca/latest/userguide/PcaWelcome.html"
+"l": "https://docs.aws.amazon.com/privateca/latest/userguide/PcaWelcome.html",
+"u": ["Need private PKI for internal services and mutual TLS", "Want managed CA hierarchy without operating HSM infrastructure", "Issue internal certificates at scale for microservice mTLS"],
+"d": ["Private CA charges $400/mo per CA; CA Service charges per cert tier", "Private CA integrates with ACM; CA Service integrates with Certificate Manager", "Private CA supports short-lived certs; CA Service also supports configurable lifetimes"]
 },
 "GuardDuty": {
 "w": "Threat detection using ML to identify malicious activity.",
 "f": "Analyzes billions of events daily across VPC, DNS, and CloudTrail.",
-"l": "https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html"
+"l": "https://docs.aws.amazon.com/guardduty/latest/ug/what-is-guardduty.html",
+"u": ["Detect threats across VPC flow logs, DNS, and CloudTrail", "Need ML-based anomaly detection without deploying agents", "Want continuous monitoring for cryptocurrency mining or credential abuse"],
+"d": ["GuardDuty analyzes AWS logs only; SCC detects threats across GCP resources", "GuardDuty uses ML on VPC/DNS/CloudTrail; SCC includes built-in detectors and Chronicle", "GuardDuty charges per log volume; SCC Premium charges per resource count"]
 },
 "Security Hub": {
 "w": "Centralized security findings aggregation and compliance dashboard.",
 "f": "Aggregates findings from 70+ AWS and partner security services.",
-"l": "https://docs.aws.amazon.com/securityhub/latest/userguide/what-is-securityhub.html"
+"l": "https://docs.aws.amazon.com/securityhub/latest/userguide/what-is-securityhub.html",
+"u": ["Aggregate security findings from GuardDuty, Inspector, and partners", "Need automated compliance checks against CIS and PCI standards", "Want centralized dashboard for multi-account security posture"],
+"d": ["Security Hub aggregates findings via ASFF; SCC aggregates findings natively", "Security Hub supports 70+ integrations; SCC integrates with Chronicle SIEM", "Security Hub has automated remediation; SCC has built-in recommendations"]
 },
 "Detective": {
 "w": "Security investigation service that visualizes security data.",
 "f": "Automatically builds a behavior graph from weeks of log data.",
-"l": "https://docs.aws.amazon.com/detective/latest/userguide/detective-investigation-about.html"
+"l": "https://docs.aws.amazon.com/detective/latest/userguide/detective-investigation-about.html",
+"u": ["Investigate GuardDuty findings with visual behavior graphs", "Need root cause analysis for security incidents across AWS", "Want automated correlation of VPC, CloudTrail, and GuardDuty data"],
+"d": ["Detective builds behavior graphs; Chronicle uses petabyte-scale log analytics", "Detective focuses on AWS logs; Chronicle ingests multi-cloud and on-prem logs", "Detective auto-correlates findings; Chronicle provides search and detection rules"]
 },
 "Inspector": {
 "w": "Automated vulnerability scanning for EC2, Lambda, and containers.",
 "f": "Scans container images in ECR in under 15 seconds.",
-"l": "https://docs.aws.amazon.com/inspector/latest/user/what-is-inspector.html"
+"l": "https://docs.aws.amazon.com/inspector/latest/user/what-is-inspector.html",
+"u": ["Automated CVE scanning for EC2 instances and container images", "Need continuous vulnerability assessment without manual scans", "Want Lambda function code scanning for security issues"],
+"d": ["Inspector scans EC2, Lambda, ECR; Container Analysis scans Artifact Registry images", "Inspector uses SSM Agent for EC2 scanning; Container Analysis is registry-native", "Inspector provides software bill of materials; Container Analysis integrates with Binary Auth"]
 },
 "Macie": {
 "w": "Discovers and protects sensitive data in S3 using ML.",
 "f": "Can classify over 70 types of sensitive data (PII, PHI, financial).",
-"l": "https://docs.aws.amazon.com/macie/latest/user/what-is-macie.html"
+"l": "https://docs.aws.amazon.com/macie/latest/user/what-is-macie.html",
+"u": ["Discover PII and sensitive data in S3 buckets automatically", "Need ML-based classification of 70+ sensitive data types", "Want alerts when sensitive data is publicly accessible"],
+"d": ["Macie scans S3 only; Sensitive Data Protection scans BigQuery, Storage, Datastore", "Macie classifies 70+ data types; SDP supports 150+ infoTypes", "Macie is discovery-focused; SDP also provides de-identification and redaction"]
 },
 "Organizations": {
 "w": "Centrally manages and governs multiple AWS accounts.",
 "f": "Can manage up to 10,000 AWS accounts in a single organization.",
-"l": "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html"
+"l": "https://docs.aws.amazon.com/organizations/latest/userguide/orgs_introduction.html",
+"u": ["Manage multiple AWS accounts with consolidated billing", "Need service control policies to enforce guardrails org-wide", "Want organizational units to group accounts by function"],
+"d": ["Organizations uses SCPs for guardrails; Resource Manager uses org policies", "Organizations manages up to 10K accounts; Resource Manager uses project/folder hierarchy", "Organizations has consolidated billing; Resource Manager links to a billing account"]
 },
 "CloudTrail": {
 "w": "Logs and monitors all API calls and user activity across AWS.",
 "f": "Records every API call — the 'security camera' of your AWS account.",
-"l": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html"
+"l": "https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html",
+"u": ["Audit all API calls across every AWS account and region", "Need tamper-proof log trail for compliance and forensics", "Want event-driven alerting on suspicious API activity"],
+"d": ["CloudTrail logs management + data events; Cloud Audit Logs has admin + data access logs", "CloudTrail stores to S3; Cloud Audit Logs stores to Cloud Logging", "CloudTrail charges for data events; Cloud Audit Logs admin logs are free by default"]
 },
 "Config": {
 "w": "Tracks AWS resource configurations and compliance over time.",
 "f": "Can automatically remediate non-compliant resources.",
-"l": "https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html"
+"l": "https://docs.aws.amazon.com/config/latest/developerguide/WhatIsConfig.html",
+"u": ["Track resource configuration changes over time for compliance", "Need automated remediation for non-compliant resources", "Want configuration timeline and drift detection across accounts"],
+"d": ["Config tracks config history; Cloud Asset Inventory queries current and 35-day history", "Config has 300+ managed rules; CAI uses custom org policies", "Config supports auto-remediation via SSM; CAI integrates with policy enforcement"]
 },
 "Control Tower": {
 "w": "Sets up and governs secure multi-account AWS environments.",
 "f": "Implements 20+ guardrails automatically on new accounts.",
-"l": "https://docs.aws.amazon.com/controltower/latest/userguide/what-is-control-tower.html"
+"l": "https://docs.aws.amazon.com/controltower/latest/userguide/what-is-control-tower.html",
+"u": ["Set up governed multi-account AWS landing zone quickly", "Need automated guardrails applied to every new account", "Want pre-configured best-practice account baselines"],
+"d": ["Control Tower automates landing zones; Assured Workloads enforces compliance controls", "Control Tower uses SCPs and Config rules; Assured Workloads uses org policies", "Control Tower manages account lifecycle; Assured Workloads manages regulated folders"]
 },
 "Audit Manager": {
 "w": "Automates evidence collection for compliance audits.",
 "f": "Supports 200+ prebuilt frameworks including SOC, PCI DSS, GDPR.",
-"l": "https://docs.aws.amazon.com/audit-manager/latest/userguide/what-is.html"
+"l": "https://docs.aws.amazon.com/audit-manager/latest/userguide/what-is.html",
+"u": ["Automate evidence collection for SOC, PCI, or GDPR audits", "Need continuous compliance assessment against 200+ frameworks", "Want audit-ready reports without manual evidence gathering"],
+"d": ["Audit Manager collects evidence automatically; Compliance Reports Manager provides static reports", "Audit Manager maps controls to frameworks; CRM provides downloadable certifications", "Audit Manager is active assessment; CRM is passive documentation access"]
 },
 "Verified Access": {
 "w": "Zero-trust network access without requiring a VPN.",
 "f": "Makes access decisions in under 100ms per request.",
-"l": "https://docs.aws.amazon.com/verified-access/latest/ug/what-is-verified-access.html"
+"l": "https://docs.aws.amazon.com/verified-access/latest/ug/what-is-verified-access.html",
+"u": ["Provide VPN-less zero-trust access to internal applications", "Need per-request identity and device posture verification", "Want to replace traditional VPN with context-aware access"],
+"d": ["Verified Access is AWS-native; BeyondCorp is based on Google internal zero-trust", "Verified Access uses trust providers; BeyondCorp uses Chrome Enterprise for signals", "Verified Access integrates with ALB; BeyondCorp integrates with Identity-Aware Proxy"]
 },
 "Signer": {
 "w": "Code signing service ensuring software integrity.",
 "f": "Integrates with Lambda to sign code during deployment.",
-"l": "https://docs.aws.amazon.com/signer/latest/developerguide/Welcome.html"
+"l": "https://docs.aws.amazon.com/signer/latest/developerguide/Welcome.html",
+"u": ["Sign Lambda code to ensure integrity during deployment", "Need code signing for IoT firmware update verification", "Want tamper-proof software supply chain validation"],
+"d": ["Signer signs Lambda and IoT code; Binary Authorization enforces container policies", "Signer validates at deploy time; Binary Authorization blocks unsigned containers at runtime", "Signer uses signing profiles; Binary Authorization uses attestations and attestors"]
 },
 "Nitro Enclaves": {
 "w": "Isolated compute environments for processing sensitive data.",
 "f": "Provides cryptographic attestation to prove enclave integrity.",
-"l": "https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave.html"
+"l": "https://docs.aws.amazon.com/enclaves/latest/user/nitro-enclave.html",
+"u": ["Processing sensitive data like PII, financial, or healthcare info", "Need hardware-isolated environments with cryptographic attestation", "Want to limit access to sensitive data even from instance admins"],
+"d": ["Nitro Enclaves isolates within an EC2 instance; Confidential VMs encrypt all VM memory", "Enclaves use custom attestation; Confidential VMs use AMD SEV or Intel TDX", "Enclaves have no persistent storage; Confidential VMs use standard Persistent Disk"]
 },
 "Kinesis": {
 "w": "Real-time data streaming for collecting and processing large streams.",
 "f": "Can ingest terabytes of data per hour from millions of sources.",
-"l": "https://docs.aws.amazon.com/streams/latest/dev/introduction.html"
+"l": "https://docs.aws.amazon.com/streams/latest/dev/introduction.html",
+"u": ["Ingest and process real-time streaming data from millions of sources", "Need sub-second latency for IoT, clickstream, or log ingestion", "Want managed shards with configurable retention up to 365 days"],
+"d": ["Kinesis uses shard-based scaling; Pub/Sub auto-scales with no shards", "Kinesis retains data up to 365 days; Pub/Sub retains up to 31 days", "Kinesis requires capacity planning; Pub/Sub is fully serverless"]
 },
 "MSK": {
 "w": "Managed Streaming for Apache Kafka.",
 "f": "Patches and updates Kafka clusters with zero downtime.",
-"l": "https://docs.aws.amazon.com/msk/latest/developerguide/what-is-msk.html"
+"l": "https://docs.aws.amazon.com/msk/latest/developerguide/what-is-msk.html",
+"u": ["Need managed Apache Kafka with zero-downtime upgrades", "Migrating existing Kafka workloads to AWS without code changes", "Want Kafka Connect and Schema Registry with managed infrastructure"],
+"d": ["MSK runs Apache Kafka; Managed Kafka also runs Apache Kafka on GCP", "MSK offers serverless and provisioned modes; GCP Managed Kafka is provisioned", "MSK integrates with AWS Glue Schema Registry; GCP Managed Kafka uses Confluent Registry"]
 },
 "Data Firehose": {
 "w": "Captures and loads streaming data into data lakes and analytics.",
 "f": "Can automatically compress, encrypt, and batch data before delivery.",
-"l": "https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html"
+"l": "https://docs.aws.amazon.com/firehose/latest/dev/what-is-this-service.html",
+"u": ["Stream data to S3, Redshift, or OpenSearch without custom code", "Need automatic batching, compression, and encryption of streams", "Want zero-admin delivery pipeline from Kinesis to data stores"],
+"d": ["Firehose is zero-admin delivery; Dataflow requires pipeline code in Apache Beam", "Firehose delivers to fixed destinations; Dataflow supports custom transforms and sinks", "Firehose auto-batches and compresses; Dataflow provides full stream processing"]
 },
 "AppFlow": {
 "w": "Integration service transferring data between SaaS apps and AWS.",
 "f": "Supports bi-directional flows with 50+ SaaS applications.",
-"l": "https://docs.aws.amazon.com/appflow/latest/userguide/what-is-appflow.html"
+"l": "https://docs.aws.amazon.com/appflow/latest/userguide/what-is-appflow.html",
+"u": ["Transfer data from Salesforce, Slack, or SAP to AWS stores", "Need bi-directional SaaS data flows without custom ETL code", "Want encrypted, scheduled data sync with field-level mapping"],
+"d": ["AppFlow supports 50+ SaaS connectors; Application Integration supports 150+ connectors", "AppFlow is data transfer focused; Application Integration is workflow orchestration focused", "AppFlow is serverless; Application Integration includes no-code visual builder"]
 },
 "EMR": {
 "w": "Big data platform using Spark, Hive, Presto, and more.",
 "f": "Can scale from 1 to 10,000+ instances based on workload.",
-"l": "https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-what-is-emr.html"
+"l": "https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-what-is-emr.html",
+"u": ["Run Spark, Hive, or Presto on managed Hadoop clusters", "Need big data processing scaling to 10,000+ instances", "Want Spot Instance support for cost-effective batch analytics"],
+"d": ["EMR supports Spark, Hive, Presto, HBase; Dataproc supports Spark and Hadoop", "EMR takes minutes to start; Dataproc clusters start in 90 seconds", "EMR runs on EC2/EKS; Dataproc runs on Compute Engine or GKE"]
 },
 "EMR Serverless": {
 "w": "Serverless option for running Spark and Hive without clusters.",
 "f": "Starts workers in under 30 seconds and scales to zero when idle.",
-"l": "https://docs.aws.amazon.com/emr/latest/EMR-Serverless-UserGuide/emr-serverless.html"
+"l": "https://docs.aws.amazon.com/emr/latest/EMR-Serverless-UserGuide/emr-serverless.html",
+"u": ["Run Spark or Hive jobs without managing any clusters", "Want auto-scaling that starts in seconds and scales to zero", "Need serverless big data with pay-per-use pricing"],
+"d": ["EMR Serverless runs Spark/Hive; Dataproc Serverless runs Spark only", "EMR Serverless scales to zero; Dataproc Serverless also scales to zero", "EMR Serverless uses pre-initialized workers; Dataproc Serverless uses autoscaling batches"]
 },
 "Glue": {
 "w": "Serverless ETL and data catalog service.",
 "f": "Crawlers can auto-discover and catalog millions of data assets.",
-"l": "https://docs.aws.amazon.com/glue/latest/dg/what-is-glue.html"
+"l": "https://docs.aws.amazon.com/glue/latest/dg/what-is-glue.html",
+"u": ["Build serverless ETL pipelines with auto-generated code", "Need a central data catalog with crawlers for schema discovery", "Want visual ETL designer without writing Spark code"],
+"d": ["Glue includes Data Catalog and ETL; Dataplex focuses on governance with Dataflow for ETL", "Glue crawlers auto-discover schemas; Dataplex auto-discovers and classifies data", "Glue is Spark-based ETL; Dataflow is Apache Beam-based stream/batch processing"]
 },
 "Managed Flink": {
 "w": "Fully managed Apache Flink for real-time stream processing.",
 "f": "Handles checkpointing automatically and recovers from failures in seconds.",
-"l": "https://docs.aws.amazon.com/managed-flink/latest/java/what-is.html"
+"l": "https://docs.aws.amazon.com/managed-flink/latest/java/what-is.html",
+"u": ["Need real-time stream processing with Apache Flink SQL or Java", "Want automatic checkpointing and failure recovery for streaming", "Require exactly-once processing semantics for event streams"],
+"d": ["Managed Flink uses Apache Flink; Dataflow uses Apache Beam runtime", "Flink supports SQL and Table API; Beam supports Java, Python, and Go SDKs", "Flink has managed savepoints; Dataflow has managed snapshots and drain"]
 },
 "Lake Formation": {
 "w": "Service for building, securing, and managing data lakes.",
 "f": "Can set up a data lake in days instead of months.",
-"l": "https://docs.aws.amazon.com/lake-formation/latest/dg/what-is-lake-formation.html"
+"l": "https://docs.aws.amazon.com/lake-formation/latest/dg/what-is-lake-formation.html",
+"u": ["Set up a governed data lake on S3 in days not months", "Need fine-grained column-level access control on lake data", "Want centralized security policies across Athena, Glue, and EMR"],
+"d": ["Lake Formation uses S3 as storage; Dataplex governs data across BigQuery and GCS", "Lake Formation has tag-based access control; Dataplex uses IAM and data policies", "Lake Formation focuses on building lakes; Dataplex focuses on governing data mesh"]
 },
 "Data Exchange": {
 "w": "Find, subscribe to, and use third-party data in the cloud.",
 "f": "Hosts 3,000+ data products from 300+ providers.",
-"l": "https://docs.aws.amazon.com/data-exchange/latest/userguide/what-is.html"
+"l": "https://docs.aws.amazon.com/data-exchange/latest/userguide/what-is.html",
+"u": ["Subscribe to third-party data products from 300+ providers", "Need ready-to-use financial, weather, or geospatial datasets", "Want data delivered directly to S3 with automatic updates"],
+"d": ["Data Exchange has 3K+ products; Analytics Hub shares BigQuery datasets and models", "Data Exchange delivers to S3; Analytics Hub shares in-place BigQuery linked datasets", "Data Exchange supports file and API subscriptions; Analytics Hub is query-based sharing"]
 },
 "DataZone": {
 "w": "Data management for cataloging, discovering, and sharing data.",
 "f": "Uses ML to auto-generate business-friendly data descriptions.",
-"l": "https://docs.aws.amazon.com/datazone/latest/userguide/what-is-datazone.html"
+"l": "https://docs.aws.amazon.com/datazone/latest/userguide/what-is-datazone.html",
+"u": ["Catalog, discover, and share data across organizational boundaries", "Need ML-generated business-friendly data descriptions", "Want data marketplace with access request workflows"],
+"d": ["DataZone provides data mesh catalog; Dataplex provides data governance and discovery", "DataZone auto-generates descriptions with ML; Dataplex auto-classifies with data profiling", "DataZone has a business data portal; Dataplex integrates with BigQuery and GCS natively"]
 },
 "Glue Data Quality": {
 "w": "Measures and monitors data quality in pipelines.",
 "f": "Auto-suggests quality rules based on data profiling.",
-"l": "https://docs.aws.amazon.com/glue/latest/dg/glue-data-quality.html"
+"l": "https://docs.aws.amazon.com/glue/latest/dg/glue-data-quality.html",
+"u": ["Monitor data quality metrics within Glue ETL pipelines", "Need auto-suggested quality rules from data profiling", "Want data quality scoring with alerting on anomalies"],
+"d": ["Glue DQ auto-suggests rules; Dataplex DQ requires manual rule definitions", "Glue DQ integrates with Glue ETL jobs; Dataplex DQ runs as serverless Spark jobs", "Glue DQ uses DQDL rule language; Dataplex DQ uses YAML-based rule specs"]
 },
 "Clean Rooms": {
 "w": "Secure data collaboration without sharing raw data.",
 "f": "Uses cryptographic computing to analyze encrypted data.",
-"l": "https://docs.aws.amazon.com/clean-rooms/latest/userguide/what-is.html"
+"l": "https://docs.aws.amazon.com/clean-rooms/latest/userguide/what-is.html",
+"u": ["Collaborate on data with partners without exposing raw records", "Need privacy-safe analytics using cryptographic computing", "Want pre-built analysis templates for marketing or advertising"],
+"d": ["Clean Rooms uses cryptographic computing; BQ Clean Rooms uses governed sharing", "Clean Rooms runs on AWS; BQ Clean Rooms runs natively in BigQuery", "Clean Rooms supports custom analysis rules; BQ Clean Rooms uses BigQuery SQL policies"]
 },
 "QuickSight": {
 "w": "Business intelligence service for dashboards and visualizations.",
 "f": "Can handle billions of rows and thousands of concurrent users.",
-"l": "https://docs.aws.amazon.com/quicksight/latest/user/welcome.html"
+"l": "https://docs.aws.amazon.com/quicksight/latest/user/welcome.html",
+"u": ["Build interactive dashboards with pay-per-session pricing", "Need embedded analytics for SaaS applications", "Want ML-powered insights and natural language querying"],
+"d": ["QuickSight uses SPICE in-memory engine; Looker queries data in place with LookML", "QuickSight charges per session; Looker charges per user license", "QuickSight embeds via SDK; Looker embeds and also provides a semantic layer"]
 },
 "OpenSearch": {
 "w": "Search and analytics engine for logs and application search.",
 "f": "Can index petabytes with sub-second query response times.",
-"l": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html"
+"l": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/what-is.html",
+"u": ["Need full-text search and log analytics at petabyte scale", "Want OpenSearch dashboards for log visualization and alerting", "Require sub-second search across structured and unstructured data"],
+"d": ["OpenSearch is AWS-managed fork; Elasticsearch on GCP uses official Elastic Cloud", "OpenSearch has Dashboards built-in; Elastic Cloud includes Kibana", "OpenSearch Service charges per instance; Elastic Cloud charges per deployment size"]
 },
 "Kendra": {
 "w": "Intelligent enterprise search powered by machine learning.",
 "f": "Understands natural language and returns precise answers from docs.",
-"l": "https://docs.aws.amazon.com/kendra/latest/dg/what-is-kendra.html"
+"l": "https://docs.aws.amazon.com/kendra/latest/dg/what-is-kendra.html",
+"u": ["Build intelligent enterprise search across documents and FAQs", "Need natural language understanding for precise answer extraction", "Want connectors for S3, SharePoint, Confluence, and databases"],
+"d": ["Kendra is NLP-based enterprise search; Vertex AI Search combines LLM + search", "Kendra uses pre-built connectors; Vertex AI Search uses data stores with grounding", "Kendra returns ranked passages; Vertex AI Search generates summarized answers"]
 },
 "SageMaker Studio": {
 "w": "Web-based IDE for machine learning development.",
 "f": "Provides collaborative notebooks with built-in MLOps.",
-"l": "https://docs.aws.amazon.com/sagemaker/latest/dg/studio.html"
+"l": "https://docs.aws.amazon.com/sagemaker/latest/dg/studio.html",
+"u": ["Need unified ML IDE with notebooks, experiments, and deployment", "Want collaborative ML development with built-in MLOps tools", "Require integrated training, tuning, and model hosting in one UI"],
+"d": ["SageMaker Studio is a full ML IDE; Vertex AI Workbench is managed Jupyter notebooks", "Studio includes experiment tracking and lineage; Workbench integrates with Vertex AI tools", "Studio supports custom containers; Workbench integrates with BigQuery and Spark"]
 },
 "SM Pipelines": {
 "w": "Service for building ML workflow pipelines.",
 "f": "Supports conditional execution and parallel ML steps.",
-"l": "https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines.html"
+"l": "https://docs.aws.amazon.com/sagemaker/latest/dg/pipelines.html",
+"u": ["Orchestrate end-to-end ML workflows with conditional branching", "Need repeatable ML pipelines for training, eval, and deployment", "Want CI/CD for ML models with automatic retraining triggers"],
+"d": ["SM Pipelines uses Python SDK; Vertex AI Pipelines supports TFX and Kubeflow", "SM Pipelines is SageMaker-native; Vertex AI Pipelines uses open-source pipeline formats", "SM Pipelines has built-in model registry; Vertex AI Pipelines integrates with Model Registry"]
 },
 "SM Canvas": {
 "w": "Visual no-code ML service for business analysts.",
 "f": "Generate ML models without writing a single line of code.",
-"l": "https://docs.aws.amazon.com/sagemaker/latest/dg/canvas.html"
+"l": "https://docs.aws.amazon.com/sagemaker/latest/dg/canvas.html",
+"u": ["Business analysts need ML models without writing code", "Want drag-and-drop model training with visual predictions", "Need no-code interface for tabular data classification and regression"],
+"d": ["Canvas is visual drag-and-drop; AutoML requires minimal code via SDK", "Canvas targets business analysts; AutoML targets data scientists with less ML expertise", "Canvas supports tabular, text, image; AutoML supports tabular, image, text, video"]
 },
 "Clarify": {
 "w": "Detects bias and explains ML model predictions.",
 "f": "Provides SHAP values for model explainability.",
-"l": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify.html"
+"l": "https://docs.aws.amazon.com/sagemaker/latest/dg/clarify.html",
+"u": ["Detect bias in training data and model predictions", "Need SHAP-based feature attribution for model explainability", "Want pre-training and post-training bias metrics for compliance"],
+"d": ["Clarify uses SHAP values; Vertex Explainable AI uses Shapley values and IG", "Clarify integrates with SageMaker; Explainable AI integrates with Vertex AI endpoints", "Clarify includes bias detection; Explainable AI focuses on feature attribution only"]
 },
 "Bedrock": {
 "w": "Managed service for building GenAI apps with foundation models.",
 "f": "Offers 100+ models from Anthropic, Meta, Mistral, and more via single API.",
-"l": "https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html"
+"l": "https://docs.aws.amazon.com/bedrock/latest/userguide/what-is-bedrock.html",
+"u": ["Access 100+ foundation models via a single managed API", "Need fine-tuning and RAG without managing GPU infrastructure", "Want multi-model GenAI apps with Anthropic, Meta, or Mistral models"],
+"d": ["Bedrock offers 100+ third-party models; Model Garden offers 150+ including Gemini", "Bedrock uses a single API for all models; Model Garden deploys to Vertex AI endpoints", "Bedrock includes guardrails natively; Model Garden uses Vertex AI Safety separately"]
 },
 "Bedrock Agents": {
 "w": "AI agents that perform complex multi-step tasks.",
 "f": "Can automatically invoke APIs and chain actions together.",
-"l": "https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html"
+"l": "https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html",
+"u": ["Build AI agents that chain API calls for multi-step tasks", "Need autonomous agents that plan and execute complex workflows", "Want agents that combine knowledge bases with tool use"],
+"d": ["Bedrock Agents use action groups; Vertex AI Agent Builder uses tools and data stores", "Bedrock Agents integrate with Lambda; Vertex Agents integrate with Cloud Functions", "Bedrock Agents are code-first; Vertex Agent Builder has visual no-code builder"]
 },
 "Bedrock KB": {
 "w": "Knowledge bases that ground AI responses with your data.",
 "f": "Uses RAG (Retrieval-Augmented Generation) to improve accuracy.",
-"l": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html"
+"l": "https://docs.aws.amazon.com/bedrock/latest/userguide/knowledge-base.html",
+"u": ["Ground GenAI responses with your documents using RAG", "Need managed vector embeddings and retrieval from S3 data", "Want to reduce hallucinations by anchoring answers in your data"],
+"d": ["Bedrock KB auto-chunks and embeds S3 docs; Vertex AI Search ingests from GCS and more", "Bedrock KB stores in OpenSearch or Pinecone; Vertex AI Search uses built-in vector store", "Bedrock KB is API-first; Vertex AI Search includes a visual console for data stores"]
 },
 "Guardrails": {
 "w": "Content filtering and safety controls for GenAI apps.",
 "f": "Can block harmful content and enforce responsible AI policies.",
-"l": "https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html"
+"l": "https://docs.aws.amazon.com/bedrock/latest/userguide/guardrails.html",
+"u": ["Filter harmful content in GenAI app inputs and outputs", "Need configurable safety thresholds for responsible AI", "Want PII redaction and topic blocking in model responses"],
+"d": ["Guardrails supports content filtering and PII; Vertex AI Safety has configurable thresholds", "Guardrails applies to all Bedrock models; Vertex AI Safety applies to Gemini and PaLM", "Guardrails has custom denied topics; Vertex AI Safety uses category-based harm filters"]
 },
 "Q Developer": {
 "w": "AI coding assistant that writes, debugs, and optimizes code.",
 "f": "Can generate entire functions from natural language descriptions.",
-"l": "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/what-is.html"
+"l": "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/what-is.html",
+"u": ["Need AI code completion and generation in your IDE", "Want code transformation for Java upgrades or .NET porting", "Require AI-assisted debugging and security scanning in code"],
+"d": ["Q Developer transforms legacy code; Gemini Code Assist focuses on code completion", "Q Developer includes AWS console chat; Gemini Code Assist integrates with Cloud Console", "Q Developer supports Java upgrades; Gemini Code Assist trained on Google codebase"]
 },
 "Q Business": {
 "w": "AI assistant for enterprise knowledge and productivity.",
 "f": "Connects to 40+ enterprise data sources for answers.",
-"l": "https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/what-is.html"
+"l": "https://docs.aws.amazon.com/amazonq/latest/qbusiness-ug/what-is.html",
+"u": ["Deploy enterprise AI assistant connected to company data sources", "Need answers from Confluence, SharePoint, Slack, and databases", "Want AI chatbot with admin controls and citation-backed responses"],
+"d": ["Q Business connects to 40+ sources; Gemini for Workspace integrates with Google apps", "Q Business is enterprise knowledge search; Gemini for Workspace augments Docs, Sheets, Gmail", "Q Business supports custom plugins; Gemini for Workspace is built into Google apps natively"]
 },
 "Rekognition": {
 "w": "Image and video analysis using machine learning.",
 "f": "Can identify objects, people, text, and scenes in images.",
-"l": "https://docs.aws.amazon.com/rekognition/latest/dg/what-is.html"
+"l": "https://docs.aws.amazon.com/rekognition/latest/dg/what-is.html",
+"u": ["Detect faces, objects, text, and scenes in images or video", "Need celebrity recognition and content moderation at scale", "Want custom label detection trained on your own images"],
+"d": ["Rekognition has face comparison and search; Vision AI has face detection but no comparison", "Rekognition supports video stream analysis; Vision AI focuses on image analysis", "Rekognition includes celebrity recognition; Vision AI detects labels and landmarks"]
 },
 "Textract": {
 "w": "Extracts text and structured data from documents using ML.",
 "f": "Can extract tables and forms automatically — no templates needed.",
-"l": "https://docs.aws.amazon.com/textract/latest/dg/what-is.html"
+"l": "https://docs.aws.amazon.com/textract/latest/dg/what-is.html",
+"u": ["Extract text, tables, and forms from scanned documents", "Need template-free data extraction from invoices or receipts", "Want automated document processing for mortgage or tax forms"],
+"d": ["Textract extracts tables and forms generically; Document AI has pre-trained parsers per doc type", "Textract requires no templates; Document AI offers specialized invoice, ID, and receipt parsers", "Textract integrates with A2I for human review; Document AI integrates with Workflows"]
 },
 "Comprehend": {
 "w": "NLP service for extracting insights from text.",
 "f": "Detects sentiment, entities, key phrases, and language.",
-"l": "https://docs.aws.amazon.com/comprehend/latest/dg/what-is.html"
+"l": "https://docs.aws.amazon.com/comprehend/latest/dg/what-is.html",
+"u": ["Extract sentiment, entities, and key phrases from text", "Need custom entity recognition for domain-specific NLP", "Want language detection and topic modeling at scale"],
+"d": ["Comprehend supports custom entity models; Natural Language AI uses pre-built entity types", "Comprehend has topic modeling; Natural Language AI has syntax analysis", "Comprehend includes PII detection; Natural Language AI focuses on core NLP tasks"]
 },
 "Translate": {
 "w": "Neural machine translation for 75+ languages.",
 "f": "Supports real-time and batch translation.",
-"l": "https://docs.aws.amazon.com/translate/latest/dg/what-is.html"
+"l": "https://docs.aws.amazon.com/translate/latest/dg/what-is.html",
+"u": ["Translate text between 75+ languages in real-time or batch", "Need custom terminology for domain-specific translations", "Want automatic language detection with neural machine translation"],
+"d": ["Translate supports 75+ languages; Translation AI supports 100+ languages", "Translate has custom terminology; Translation AI has custom glossaries and models", "Translate has Active Custom Translation; Translation AI has AutoML Translation"]
 },
 "Transcribe": {
 "w": "Speech-to-text service using machine learning.",
 "f": "Can identify different speakers in conversations.",
-"l": "https://docs.aws.amazon.com/transcribe/latest/dg/what-is.html"
+"l": "https://docs.aws.amazon.com/transcribe/latest/dg/what-is.html",
+"u": ["Convert audio to text with speaker diarization", "Need real-time transcription for call centers or meetings", "Want custom vocabulary for domain-specific terminology"],
+"d": ["Transcribe supports custom language models; Speech-to-Text supports custom models", "Transcribe includes Call Analytics built-in; Speech-to-Text requires separate processing", "Transcribe supports 100+ languages; Speech-to-Text supports 125+ languages"]
 },
 "Polly": {
 "w": "Text-to-speech service with lifelike neural voices.",
 "f": "Offers SSML support for fine-grained speech control.",
-"l": "https://docs.aws.amazon.com/polly/latest/dg/what-is.html"
+"l": "https://docs.aws.amazon.com/polly/latest/dg/what-is.html",
+"u": ["Generate lifelike speech from text with neural voices", "Need SSML control for pronunciation, pitch, and speed", "Want low-latency voice synthesis for IVR or accessibility"],
+"d": ["Polly has neural and standard voices; Text-to-Speech has Studio and Neural voices", "Polly supports SSML and speech marks; Text-to-Speech supports SSML and audio profiles", "Polly supports 30+ languages; Text-to-Speech supports 50+ languages with 380+ voices"]
 },
 "P5 (H100)": {
 "w": "EC2 instances with NVIDIA H100 GPUs for AI training.",
 "f": "20x better performance for large language model training.",
-"l": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/accelerated-computing-instances.html"
+"l": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/accelerated-computing-instances.html",
+"u": ["Train large language models with NVIDIA H100 GPUs", "Need highest GPU performance for foundation model training", "Want 8x H100 instances with UltraCluster networking"],
+"d": ["P5 uses NVIDIA H100 GPUs; A3 also uses NVIDIA H100 GPUs", "P5 has EFA networking; A3 has GPUDirect-TCPX networking", "P5 available via EC2; A3 available via Compute Engine with reservation"]
 },
 "Trn2 (Trainium)": {
 "w": "EC2 instances with AWS Trainium2 chips for ML training.",
 "f": "Up to 4x better price-performance than previous generation.",
-"l": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/accelerated-computing-instances.html"
+"l": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/accelerated-computing-instances.html",
+"u": ["Train ML models with AWS custom silicon at lower cost", "Need 4x better price-performance than previous generation", "Want large-scale training with UltraServer interconnect"],
+"d": ["Trainium is AWS custom silicon; TPU v5p is Google custom silicon", "Trainium uses Neuron SDK; TPU uses JAX and TensorFlow", "Trainium optimizes PyTorch/JAX; TPU is optimized for JAX and XLA"]
 },
 "Inf2 (Inferentia)": {
 "w": "EC2 instances with Inferentia2 chips for ML inference.",
 "f": "Up to 4x throughput and 10x lower latency than GPU alternatives.",
-"l": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/accelerated-computing-instances.html"
+"l": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/accelerated-computing-instances.html",
+"u": ["Deploy ML inference at 4x throughput and 10x lower latency", "Need cost-effective inference for large transformer models", "Want AWS custom silicon optimized for serving ML workloads"],
+"d": ["Inferentia2 is inference-optimized; TPU v5e handles both inference and small training", "Inferentia2 uses Neuron SDK; TPU v5e uses JAX/TensorFlow", "Inferentia2 is ASIC for inference; TPU v5e is versatile accelerator for both tasks"]
 },
 "Neuron SDK": {
 "w": "SDK for optimizing ML models on Trainium and Inferentia.",
 "f": "Automatically optimizes PyTorch/TensorFlow models for AWS silicon.",
-"l": "https://awsdocs-neuron.readthedocs-hosted.com/"
+"l": "https://awsdocs-neuron.readthedocs-hosted.com/",
+"u": ["Compile and optimize PyTorch models for Trainium/Inferentia", "Need automatic graph optimizations for AWS custom silicon", "Want familiar PyTorch API with hardware-accelerated execution"],
+"d": ["Neuron SDK targets Trainium/Inferentia; JAX/TPU SDK targets TPU hardware", "Neuron SDK wraps PyTorch/TensorFlow; JAX uses NumPy API with XLA compilation", "Neuron SDK is AWS-specific; JAX runs on TPU, GPU, and CPU backends"]
 },
 "Lex": {
 "w": "Conversational AI service for voice and text chatbots.",
 "f": "Uses the same technology that powers Amazon Alexa.",
-"l": "https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html"
+"l": "https://docs.aws.amazon.com/lexv2/latest/dg/what-is.html",
+"u": ["Build voice and text chatbots with Alexa-grade NLU", "Need intent-based conversation flows with slot filling", "Want integration with Connect for contact center IVR"],
+"d": ["Lex uses Alexa NLU engine; Dialogflow uses Google NLU engine", "Lex integrates with Amazon Connect; Dialogflow integrates with CCAI", "Lex supports Lambda for fulfillment; Dialogflow supports webhooks and Cloud Functions"]
 },
 "Connect": {
 "w": "Cloud-based contact center service.",
 "f": "Can handle millions of contacts per day with pay-per-minute pricing.",
-"l": "https://docs.aws.amazon.com/connect/latest/adminguide/what-is-amazon-connect.html"
+"l": "https://docs.aws.amazon.com/connect/latest/adminguide/what-is-amazon-connect.html",
+"u": ["Build cloud contact center with pay-per-minute pricing", "Need omnichannel support with voice, chat, and tasks", "Want AI-powered agent assist and real-time analytics"],
+"d": ["Connect is a full contact center platform; CCAI adds AI to existing contact centers", "Connect includes telephony built-in; CCAI integrates with third-party telephony", "Connect charges per minute of use; CCAI charges per conversation session"]
 },
 "SQS": {
 "w": "Fully managed message queuing service.",
 "f": "Was one of the first AWS services, launched in 2004.",
-"l": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html"
+"l": "https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/welcome.html",
+"u": ["Need point-to-point message queuing with guaranteed delivery", "Decouple microservices with FIFO or standard ordering", "Buffer requests between producers and consumers"],
+"d": ["SQS is pull-based; Pub/Sub is push-based by default", "SQS has FIFO queues; Pub/Sub uses ordering keys", "SQS messages expire after 14 days max; Pub/Sub after 31 days"]
 },
 "SNS": {
 "w": "Pub/sub messaging for application-to-application communication.",
 "f": "Can deliver to 100,000+ subscribers per topic.",
-"l": "https://docs.aws.amazon.com/sns/latest/dg/welcome.html"
+"l": "https://docs.aws.amazon.com/sns/latest/dg/welcome.html",
+"u": ["Fan out messages to multiple subscribers simultaneously","Need pub/sub for email, SMS, HTTP, or Lambda targets","Decouple event publishers from downstream consumers"],
+"d": ["SNS pushes to subscribers; Pub/Sub supports push and pull delivery","SNS supports SMS and email natively; Pub/Sub targets cloud endpoints","SNS has FIFO topics; Pub/Sub uses ordering keys per subscription"]
 },
 "Amazon MQ": {
 "w": "Managed message broker for ActiveMQ and RabbitMQ.",
 "f": "Drop-in replacement — no code changes needed for existing apps.",
-"l": "https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/welcome.html"
+"l": "https://docs.aws.amazon.com/amazon-mq/latest/developer-guide/welcome.html",
+"u": ["Migrating existing ActiveMQ or RabbitMQ apps to AWS","Need managed broker with JMS, AMQP, or STOMP protocols","Want drop-in replacement without rewriting messaging code"],
+"d": ["Amazon MQ runs ActiveMQ/RabbitMQ; Managed Kafka runs Apache Kafka","Amazon MQ is protocol-compatible; Managed Kafka uses Kafka protocol","Amazon MQ supports JMS; Managed Kafka is optimized for streaming"]
 },
 "EventBridge": {
 "w": "Serverless event bus for event-driven architectures.",
 "f": "Routes events from 90+ AWS services and SaaS apps.",
-"l": "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html"
+"l": "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-what-is.html",
+"u": ["Build event-driven architectures routing events from 90+ sources","Need serverless event bus with content-based filtering rules","Connect SaaS events to AWS targets without custom integrations"],
+"d": ["EventBridge routes from 90+ AWS and SaaS sources; Eventarc supports 90+ GCP sources","EventBridge has schema registry; Eventarc relies on CloudEvents spec","EventBridge has archive and replay; Eventarc does not support replay"]
 },
 "EB Pipes": {
 "w": "Point-to-point event integration with filtering and enrichment.",
 "f": "Connects sources to targets with optional transformation.",
-"l": "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-pipes.html"
+"l": "https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-pipes.html",
+"u": ["Connect event sources to targets with filtering and enrichment","Need point-to-point integration without writing glue code","Want optional transformation step between source and target"],
+"d": ["EB Pipes is point-to-point with transforms; Eventarc is event routing only","EB Pipes supports enrichment via Lambda/Step Functions; Eventarc routes directly","EB Pipes filters at source; Eventarc filters on CloudEvents attributes"]
 },
 "MWAA": {
 "w": "Managed Apache Airflow for workflow orchestration.",
 "f": "Auto-scales workers based on workflow demands.",
-"l": "https://docs.aws.amazon.com/mwaa/latest/userguide/what-is-mwaa.html"
+"l": "https://docs.aws.amazon.com/mwaa/latest/userguide/what-is-mwaa.html",
+"u": ["Running Apache Airflow DAGs without managing infrastructure","Need managed workflow orchestration with Python-based pipelines","Want auto-scaling workers for complex data engineering workflows"],
+"d": ["MWAA runs Apache Airflow; Cloud Composer also runs Apache Airflow","MWAA auto-scales workers; Composer 2 also auto-scales workers","MWAA is AWS-native; Composer integrates with BigQuery and Dataflow"]
 },
 "SES": {
 "w": "Cloud email sending service for transactional and marketing email.",
 "f": "Can send billions of emails per month.",
-"l": "https://docs.aws.amazon.com/ses/latest/dg/Welcome.html"
+"l": "https://docs.aws.amazon.com/ses/latest/dg/Welcome.html",
+"u": ["Sending transactional or marketing emails at scale","Need high-deliverability email with bounce and complaint tracking","Want cost-effective email at $0.10 per 1,000 emails"],
+"d": ["SES is AWS-native email; SendGrid is a GCP marketplace partner","SES charges per email sent; SendGrid has free tier plus paid plans","SES integrates with Lambda for inbound email; SendGrid has webhooks"]
 },
 "Pinpoint": {
 "w": "Multichannel marketing — email, SMS, push, and voice.",
 "f": "Supports targeted campaigns with audience segmentation.",
-"l": "https://docs.aws.amazon.com/pinpoint/latest/developerguide/welcome.html"
+"l": "https://docs.aws.amazon.com/pinpoint/latest/developerguide/welcome.html",
+"u": ["Run multichannel marketing campaigns across email, SMS, and push","Need audience segmentation with targeted messaging","Want engagement analytics across all communication channels"],
+"d": ["Pinpoint covers email, SMS, push, voice; Firebase Cloud Messaging is push only","Pinpoint has built-in audience segmentation; FCM targets device tokens","Pinpoint includes campaign analytics; FCM focuses on message delivery"]
 },
 "CodePipeline": {
 "w": "Continuous delivery service for fast application updates.",
 "f": "Can integrate with GitHub, Jenkins, and custom actions.",
-"l": "https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html"
+"l": "https://docs.aws.amazon.com/codepipeline/latest/userguide/welcome.html",
+"u": ["Automate release pipelines from source to production","Need CI/CD with GitHub, CodeCommit, or S3 source integrations","Want multi-stage deployments with manual approval gates"],
+"d": ["CodePipeline orchestrates stages; Cloud Build does build and deploy in one","CodePipeline integrates CodeBuild/CodeDeploy; Cloud Build uses build steps","CodePipeline has visual pipeline editor; Cloud Build uses YAML config"]
 },
 "CodeBuild": {
 "w": "Fully managed CI service that compiles and runs tests.",
 "f": "Scales automatically — charges only for build minutes used.",
-"l": "https://docs.aws.amazon.com/codebuild/latest/userguide/welcome.html"
+"l": "https://docs.aws.amazon.com/codebuild/latest/userguide/welcome.html",
+"u": ["Compile, test, and package code in a fully managed build environment","Need pay-per-minute CI that auto-scales build capacity","Want Docker-based builds with custom or managed build images"],
+"d": ["CodeBuild scales automatically; Cloud Build also auto-scales builders","CodeBuild uses buildspec.yml; Cloud Build uses cloudbuild.yaml","CodeBuild charges per build-minute; Cloud Build includes 120 free min/day"]
 },
 "CodeDeploy": {
 "w": "Automated deployment service for EC2, Lambda, and ECS.",
 "f": "Supports blue/green deployments with automatic rollback.",
-"l": "https://docs.aws.amazon.com/codedeploy/latest/userguide/welcome.html"
+"l": "https://docs.aws.amazon.com/codedeploy/latest/userguide/welcome.html",
+"u": ["Deploy to EC2, Lambda, or ECS with blue/green or rolling strategies","Need automated rollback on deployment health check failure","Want deployment groups targeting instances by tags or ASGs"],
+"d": ["CodeDeploy supports EC2, Lambda, ECS; Cloud Deploy targets GKE and Cloud Run","CodeDeploy has in-place and blue/green modes; Cloud Deploy uses promotion pipelines","CodeDeploy uses appspec.yml; Cloud Deploy uses Skaffold configuration"]
 },
 "CodeCatalyst": {
 "w": "Unified dev platform for planning, coding, building, and deploying.",
 "f": "Includes AI-powered code suggestions and dev environments.",
-"l": "https://docs.aws.amazon.com/codecatalyst/latest/userguide/welcome.html"
+"l": "https://docs.aws.amazon.com/codecatalyst/latest/userguide/welcome.html",
+"u": ["Want unified dev environment with IDE, CI/CD, and issue tracking","Need AI-powered code suggestions in cloud-based dev environments","Rapidly prototype with blueprints for common application patterns"]
 },
 "CloudFormation": {
 "w": "Infrastructure as Code — provision AWS resources with templates.",
 "f": "Manages resource dependencies automatically.",
-"l": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html"
+"l": "https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/Welcome.html",
+"u": ["Provision and manage AWS infrastructure with declarative JSON/YAML","Need stack-based resource management with drift detection","Want automatic dependency ordering and rollback on failure"],
+"d": ["CloudFormation is JSON/YAML; Deployment Manager uses YAML with Jinja2","CloudFormation has StackSets for multi-account; Deployment Manager is project-scoped","CloudFormation has 1,000+ resource types; Deployment Manager is being superseded by Terraform"]
 },
 "CDK": {
 "w": "Define cloud infrastructure using TypeScript, Python, Java, etc.",
 "f": "Generates CloudFormation from high-level programming constructs.",
-"l": "https://docs.aws.amazon.com/cdk/v2/guide/home.html"
+"l": "https://docs.aws.amazon.com/cdk/v2/guide/home.html",
+"u": ["Define AWS infrastructure using TypeScript, Python, or Java code","Need reusable constructs that generate CloudFormation templates","Want imperative programming logic in infrastructure definitions"],
+"d": ["CDK generates CloudFormation; Pulumi generates Terraform or direct API calls","CDK supports TypeScript, Python, Java, Go; Pulumi also supports those languages","CDK is AWS-only; Pulumi and Terraform support multi-cloud natively"]
 },
 "SAM": {
 "w": "Framework for building serverless applications on AWS.",
 "f": "Provides local testing and debugging for Lambda functions.",
-"l": "https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html"
+"l": "https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html",
+"u": ["Build serverless apps with Lambda, API Gateway, and DynamoDB","Need local testing and debugging for Lambda functions","Want simplified CloudFormation syntax for serverless resources"]
 },
 "CFN Guard": {
 "w": "Policy-as-code tool for validating CloudFormation templates.",
 "f": "Prevents non-compliant resources from being deployed.",
-"l": "https://docs.aws.amazon.com/cfn-guard/latest/ug/what-is-guard.html"
+"l": "https://docs.aws.amazon.com/cfn-guard/latest/ug/what-is-guard.html",
+"u": ["Validate CloudFormation templates against policy rules before deployment","Need policy-as-code to prevent non-compliant resource provisioning","Want custom compliance rules written in a declarative DSL"]
 },
 "CloudWatch": {
 "w": "Monitoring and observability for AWS resources and apps.",
 "f": "Can store metrics for up to 15 months.",
-"l": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html"
+"l": "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html",
+"u": ["Monitor AWS resources with metrics, logs, and alarms","Need unified observability across compute, storage, and networking","Want custom dashboards with anomaly detection and auto-actions"],
+"d": ["CloudWatch stores metrics 15 months; Cloud Monitoring stores 6 weeks by default","CloudWatch Logs has Insights query language; Cloud Logging uses BigQuery SQL","CloudWatch has Synthetics canaries; Cloud Monitoring uses Uptime Checks"]
 },
 "X-Ray": {
 "w": "Distributed tracing for debugging microservices.",
 "f": "Traces requests across multiple AWS services automatically.",
-"l": "https://docs.aws.amazon.com/xray/latest/devguide/aws-xray.html"
+"l": "https://docs.aws.amazon.com/xray/latest/devguide/aws-xray.html",
+"u": ["Trace requests across distributed microservices and Lambda","Need service maps showing latency bottlenecks across components","Want automatic instrumentation for AWS SDK calls"],
+"d": ["X-Ray instruments AWS SDK calls; Cloud Trace auto-instruments GCP services","X-Ray has service maps; Cloud Trace integrates with Cloud Monitoring","X-Ray uses segments and subsegments; Cloud Trace uses spans and traces"]
 },
 "Managed Grafana": {
 "w": "Fully managed Grafana for dashboards and visualization.",
 "f": "Integrates with 30+ AWS data sources out of the box.",
-"l": "https://docs.aws.amazon.com/grafana/latest/userguide/what-is-Amazon-Managed-Service-Grafana.html"
+"l": "https://docs.aws.amazon.com/grafana/latest/userguide/what-is-Amazon-Managed-Service-Grafana.html",
+"u": ["Build Grafana dashboards without managing Grafana infrastructure","Need centralized visualization across CloudWatch, Prometheus, and X-Ray","Want SSO integration with AWS IAM Identity Center"],
+"d": ["Managed Grafana is AWS-hosted; Cloud Monitoring Dashboards are GCP-native","Managed Grafana supports 30+ data sources; Cloud Monitoring uses MQL queries","Managed Grafana uses Grafana UI; Cloud Monitoring has its own dashboard builder"]
 },
 "Managed Prometheus": {
 "w": "Managed Prometheus-compatible monitoring service.",
 "f": "Auto-scales storage and query capacity based on usage.",
-"l": "https://docs.aws.amazon.com/prometheus/latest/userguide/what-is-Amazon-Managed-Service-Prometheus.html"
+"l": "https://docs.aws.amazon.com/prometheus/latest/userguide/what-is-Amazon-Managed-Service-Prometheus.html",
+"u": ["Ingest and query Prometheus metrics without managing servers","Need PromQL-compatible monitoring for Kubernetes workloads","Want auto-scaling metric storage with long-term retention"],
+"d": ["AWS Managed Prometheus auto-scales storage; GCP Managed Prometheus stores 24 months","Both are PromQL compatible; GCP version integrates with Cloud Monitoring","AWS version uses remote write; GCP version uses managed collection agents"]
 },
 "Systems Manager": {
 "w": "Manage and configure AWS resources and on-prem servers.",
 "f": "Can patch thousands of instances simultaneously.",
-"l": "https://docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html"
+"l": "https://docs.aws.amazon.com/systems-manager/latest/userguide/what-is-systems-manager.html",
+"u": ["Manage and patch thousands of EC2 and on-prem servers centrally","Need parameter store for configuration and secrets management","Want Run Command for remote execution without SSH access"],
+"d": ["Systems Manager manages AWS and on-prem; VM Manager is GCP-only","Systems Manager has Parameter Store; VM Manager focuses on OS patching","Systems Manager includes Session Manager for shell access; VM Manager does not"]
 },
 "Incident Manager": {
 "w": "Manage and respond to application incidents.",
 "f": "Auto-creates response plans and escalation procedures.",
-"l": "https://docs.aws.amazon.com/incident-manager/latest/userguide/what-is-incident-manager.html"
+"l": "https://docs.aws.amazon.com/incident-manager/latest/userguide/what-is-incident-manager.html",
+"u": ["Automate incident response with escalation plans and runbooks","Need on-call schedules with PagerDuty-style alerting","Want post-incident analysis with timeline and metrics"],
+"d": ["AWS Incident Manager has response plans; GCP Incident Manager integrates PagerDuty","AWS version auto-creates OpsItems; GCP version links to Cloud Monitoring alerts","AWS version has runbook automation; GCP version focuses on service health tracking"]
 },
 "DevOps Guru": {
 "w": "ML-powered service that detects operational anomalies.",
 "f": "Trained on millions of AWS deployments.",
-"l": "https://docs.aws.amazon.com/devops-guru/latest/userguide/welcome.html"
+"l": "https://docs.aws.amazon.com/devops-guru/latest/userguide/welcome.html",
+"u": ["Detect operational anomalies using ML without manual threshold setting","Need proactive insights before issues impact customers","Want automatic root cause analysis for AWS resource problems"],
+"d": ["DevOps Guru uses ML trained on AWS; Error Reporting aggregates GCP stack traces","DevOps Guru provides proactive insights; Error Reporting is reactive error grouping","DevOps Guru covers infrastructure anomalies; Error Reporting covers app exceptions"]
 },
 "Cost Explorer": {
 "w": "Visualize and analyze AWS costs and usage.",
 "f": "Can forecast future costs based on historical patterns.",
-"l": "https://docs.aws.amazon.com/cost-management/latest/userguide/ce-what-is.html"
+"l": "https://docs.aws.amazon.com/cost-management/latest/userguide/ce-what-is.html",
+"u": ["Visualize and analyze AWS spending patterns and trends","Need cost forecasting based on historical usage","Want cost breakdown by service, account, tag, or region"],
+"d": ["Cost Explorer has 12-month forecast; Cost Management exports to BigQuery","Cost Explorer uses AWS-specific dimensions; Cost Management has billing export API","Cost Explorer includes RI/SP recommendations; Cost Management has CUD recommendations"]
 },
 "Budgets": {
 "w": "Set custom cost and usage budgets with alerts.",
 "f": "Can auto-apply cost controls when budgets are exceeded.",
-"l": "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html"
+"l": "https://docs.aws.amazon.com/cost-management/latest/userguide/budgets-managing-costs.html",
+"u": ["Set custom cost and usage budgets with automated alerts","Need auto-actions when spending exceeds thresholds","Want budget tracking across accounts and services"],
+"d": ["Budgets can auto-apply SCPs on overspend; Budget Alerts trigger Cloud Functions","Budgets supports cost, usage, and RI budgets; Budget Alerts focus on cost only","Budgets alerts via SNS or Chatbot; Budget Alerts integrates with Pub/Sub"]
 },
 "Compute Optimizer": {
 "w": "Recommends optimal compute resources based on utilization.",
 "f": "Can reduce costs by up to 25% through right-sizing.",
-"l": "https://docs.aws.amazon.com/compute-optimizer/latest/ug/what-is-compute-optimizer.html"
+"l": "https://docs.aws.amazon.com/compute-optimizer/latest/ug/what-is-compute-optimizer.html",
+"u": ["Right-size EC2, EBS, and Lambda based on utilization data","Need ML-powered recommendations to reduce costs by up to 25%","Want instance type recommendations across multiple dimensions"],
+"d": ["Compute Optimizer covers EC2, EBS, Lambda; Active Assist covers VMs, disks, projects","Compute Optimizer uses ML on utilization; Active Assist uses ML across cost and security","Compute Optimizer is free; Active Assist is also free"]
 },
 "Migration Hub": {
 "w": "Central place to track migrations across AWS tools.",
 "f": "Single dashboard for all migration project progress.",
-"l": "https://docs.aws.amazon.com/migrationhub/latest/ug/whatishub.html"
+"l": "https://docs.aws.amazon.com/migrationhub/latest/ug/whatishub.html",
+"u": ["Track migration progress across multiple AWS migration tools","Need single dashboard for all migration project status","Want centralized view of server and database migrations"],
+"d": ["Migration Hub tracks across AWS tools; Migration Center auto-discovers workloads","Migration Hub is a dashboard; Migration Center includes assessment and TCO","Migration Hub integrates DMS, MGN, etc.; Migration Center includes Rapid Assessment"]
 },
 "App Discovery": {
 "w": "Discovers on-premises servers and dependencies for migration.",
 "f": "Can map dependencies without installing agents on every machine.",
-"l": "https://docs.aws.amazon.com/application-discovery/latest/userguide/what-is-appdiscovery.html"
+"l": "https://docs.aws.amazon.com/application-discovery/latest/userguide/what-is-appdiscovery.html",
+"u": ["Discover on-premises servers, dependencies, and performance data","Need agentless or agent-based discovery for migration planning","Want dependency mapping to understand application architectures"],
+"d": ["App Discovery uses agents or agentless; Migration Center uses StratoZone or agents","App Discovery feeds into Migration Hub; Migration Center feeds into planning tools","App Discovery maps dependencies; Migration Center adds TCO analysis"]
 },
 "Migration Evaluator": {
 "w": "Builds data-driven business case for AWS migration.",
 "f": "Formerly TSO Logic — provides ROI analysis for migrations.",
-"l": "https://docs.aws.amazon.com/migrationevaluator/latest/userguide/what-is.html"
+"l": "https://docs.aws.amazon.com/migrationevaluator/latest/userguide/",
+"u": ["Build data-driven business case with ROI analysis for AWS migration","Need TCO comparison between on-prem and AWS","Want detailed cost projections for right-sized AWS resources"],
+"d": ["Migration Evaluator provides ROI analysis; Rapid Assessment generates quick TCO","Migration Evaluator is detailed with data collection; Rapid Assessment is faster","Migration Evaluator uses TSO Logic engine; Rapid Assessment uses Google benchmarks"]
 },
 "MGN": {
 "w": "Application Migration Service for lift-and-shift to AWS.",
 "f": "Uses continuous block-level replication with zero downtime.",
-"l": "https://docs.aws.amazon.com/mgn/latest/ug/what-is-application-migration-service.html"
+"l": "https://docs.aws.amazon.com/mgn/latest/ug/what-is-application-migration-service.html",
+"u": ["Lift-and-shift servers to AWS with continuous block-level replication","Need zero-downtime migration from on-prem or other clouds","Want automated server conversion to run natively on AWS"],
+"d": ["MGN uses continuous replication; Migrate for Compute Engine uses snapshot-based","MGN supports on-prem and other clouds; Migrate for CE supports VMware and AWS","MGN converts to native EC2; Migrate for CE creates Compute Engine VMs"]
 },
 "DMS": {
 "w": "Database Migration Service for moving databases to AWS.",
 "f": "Supports both same-engine and cross-engine migrations.",
-"l": "https://docs.aws.amazon.com/dms/latest/userguide/Welcome.html"
+"l": "https://docs.aws.amazon.com/dms/latest/userguide/Welcome.html",
+"u": ["Migrate databases to AWS with minimal downtime using CDC","Need cross-engine migration between Oracle, SQL Server, MySQL, and PostgreSQL","Want continuous replication for live database cutover"],
+"d": ["DMS supports 20+ source/target combos; Database Migration Service focuses on Cloud SQL and AlloyDB","DMS handles cross-engine migration; GCP DMS focuses on homogeneous migrations","DMS has Schema Conversion Tool; GCP DMS uses database-native migration tools"]
 },
 "Schema Conversion Tool": {
 "w": "Converts database schemas between different engines.",
 "f": "Can auto-convert up to 80% of schema and code objects.",
-"l": "https://docs.aws.amazon.com/SchemaConversionTool/latest/userguide/CHAP_Welcome.html"
+"l": "https://docs.aws.amazon.com/SchemaConversionTool/latest/userguide/CHAP_Welcome.html",
+"u": ["Convert database schemas between different engines before migration","Need to assess migration complexity with automated code conversion","Want to convert stored procedures, triggers, and views across engines"],
+"d": ["SCT converts schemas across engines; GCP DMS relies on native pg_dump/mysqldump","SCT auto-converts up to 80% of code objects; GCP has no equivalent standalone tool","SCT generates migration assessment reports; GCP uses Database Migration Service assessments"]
 },
 "App2Container": {
 "w": "Containerizes existing apps for ECS or EKS.",
 "f": "Generates container images without any code changes.",
-"l": "https://docs.aws.amazon.com/app2container/latest/UserGuide/what-is-a2c.html"
+"l": "https://docs.aws.amazon.com/app2container/latest/UserGuide/what-is-a2c.html",
+"u": ["Containerize existing Java or .NET apps without code changes","Need to generate Docker images and ECS/EKS deployment artifacts","Want automated modernization from VMs to containers"],
+"d": ["App2Container generates ECS/EKS artifacts; Migrate for Anthos generates GKE artifacts","App2Container targets Java and .NET; Migrate for Anthos supports Linux VMs broadly","App2Container is a CLI tool; Migrate for Anthos has a console-based workflow"]
 },
 "Refactor Spaces": {
 "w": "Incremental refactoring from monoliths to microservices.",
 "f": "Implements the strangler fig pattern for gradual migration.",
-"l": "https://docs.aws.amazon.com/migrationhub-refactor-spaces/latest/userguide/what-is-mhub-refactor-spaces.html"
+"l": "https://docs.aws.amazon.com/migrationhub-refactor-spaces/latest/userguide/what-is-mhub-refactor-spaces.html",
+"u": ["Incrementally refactor monoliths using the strangler fig pattern","Need managed routing between legacy and new microservices","Want to split monolithic apps gradually without full rewrites"],
+"d": ["Refactor Spaces manages routing; Migrate for Anthos extracts VM workloads to containers","Refactor Spaces implements strangler fig; Migrate for Anthos does full VM-to-container","Refactor Spaces is for incremental refactoring; Migrate for Anthos is for migration"]
 },
 "Mainframe Mod": {
 "w": "Modernizes mainframe applications to run on AWS.",
 "f": "Converts COBOL and PL/I to run on cloud infrastructure.",
-"l": "https://docs.aws.amazon.com/m2/latest/userguide/what-is-m2.html"
+"l": "https://docs.aws.amazon.com/m2/latest/userguide/what-is-m2.html",
+"u": ["Modernize mainframe COBOL and PL/I applications to run on AWS","Need automated refactoring or replatforming of mainframe code","Want to reduce mainframe MIPS costs by moving to cloud"],
+"d": ["Mainframe Mod converts COBOL/PL/I; Dual Run validates mainframe migration in parallel","Mainframe Mod offers refactor and replatform modes; Dual Run compares outputs side-by-side","Mainframe Mod is AWS-native; Dual Run is a GCP parallel-run validation tool"]
 },
 "Service Catalog": {
 "w": "Create and manage catalogs of approved IT services.",
 "f": "Enables self-service provisioning with governance guardrails.",
-"l": "https://docs.aws.amazon.com/servicecatalog/latest/adminguide/introduction.html"
+"l": "https://docs.aws.amazon.com/servicecatalog/latest/adminguide/introduction.html",
+"u": ["Offer approved CloudFormation products for self-service provisioning", "Need governance guardrails on what teams can deploy", "Want standardized infrastructure catalogs across accounts"],
+"d": ["AWS Service Catalog uses CloudFormation products; GCP Service Catalog uses Terraform solutions", "AWS version supports launch constraints; GCP version uses org policy integration", "AWS version has portfolio sharing; GCP version uses project-level access controls"]
 },
 "WA Tool": {
 "w": "Well-Architected Tool reviews architectures against best practices.",
 "f": "Based on the five pillars: operational, security, reliability, performance, cost.",
-"l": "https://docs.aws.amazon.com/wellarchitected/latest/userguide/intro.html"
+"l": "https://docs.aws.amazon.com/wellarchitected/latest/userguide/intro.html",
+"u": ["Review workloads against AWS Well-Architected best practices", "Need structured assessment across five architectural pillars", "Want improvement plans with prioritized recommendations"],
+"d": ["WA Tool uses interactive questionnaire; Architecture Framework is documentation-based", "WA Tool generates improvement plans; Architecture Framework provides design guidance", "WA Tool integrates with Trusted Advisor; Architecture Framework links to GCP best practices"]
 },
 "Trusted Advisor": {
 "w": "Real-time guidance for provisioning resources per best practices.",
 "f": "Checks span cost, performance, security, fault tolerance, and limits.",
-"l": "https://docs.aws.amazon.com/awssupport/latest/user/trusted-advisor.html"
+"l": "https://docs.aws.amazon.com/awssupport/latest/user/trusted-advisor.html",
+"u": ["Get automated best-practice checks across cost, security, performance", "Need service limit warnings before hitting account quotas", "Want actionable recommendations to reduce costs and improve security"],
+"d": ["Trusted Advisor is check-based; Active Assist is ML-powered recommendation engine", "Trusted Advisor requires Business/Enterprise support for all checks; Active Assist is free", "Trusted Advisor covers 5 categories; Active Assist covers cost, security, performance, manageability"]
 },
 "Resilience Hub": {
 "w": "Define, validate, and track application resilience.",
 "f": "Tracks RTO and RPO objectives and provides improvement plans.",
-"l": "https://docs.aws.amazon.com/resilience-hub/latest/userguide/what-is.html"
+"l": "https://docs.aws.amazon.com/resilience-hub/latest/userguide/what-is.html",
+"u": ["Define and validate application RTO and RPO objectives","Need resilience assessments with improvement recommendations","Want continuous tracking of disaster recovery readiness"]
 },
 "R53 failover": {
 "w": "Route 53 DNS failover for high availability.",
 "f": "Health checks from multiple global locations trigger automatic failover.",
-"l": "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html"
+"l": "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html",
+"u": ["Automatically failover DNS to healthy endpoints on health check failure","Need active-passive or active-active DNS-based disaster recovery","Want multi-region failover with Route 53 health checks"],
+"d": ["R53 failover uses DNS health checks; Cloud DNS routing policies use health checks too","R53 supports active-passive and active-active; Cloud DNS supports failover and geo routing","R53 failover is integrated with Route 53; Cloud DNS routing is integrated with Cloud DNS"]
 },
 "DDB Global Tables": {
 "w": "DynamoDB multi-region, multi-active replication.",
 "f": "Sub-second replication across regions.",
-"l": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html"
+"l": "https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/GlobalTables.html",
+"u": ["Enable multi-region active-active DynamoDB with sub-second replication","Need globally distributed NoSQL with local read/write performance","Want automatic conflict resolution across all replica regions"],
+"d": ["DDB Global Tables is multi-active; Spanner is strongly consistent globally","DDB Global Tables uses last-writer-wins; Spanner uses TrueTime for consistency","DDB Global Tables replicates NoSQL data; Spanner replicates relational data"]
 },
 "Aurora Global": {
 "w": "Aurora cross-region database for disaster recovery.",
 "f": "Sub-second data replication with minimal performance impact.",
-"l": "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html"
+"l": "https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database.html",
+"u": ["Enable cross-region Aurora for disaster recovery with fast failover","Need sub-second replication from primary to up to 5 secondary regions","Want managed cross-region failover for MySQL or PostgreSQL"],
+"d": ["Aurora Global replicates to 5 regions; AlloyDB Cross-Region replicates to secondary","Aurora Global has sub-second replication lag; AlloyDB Cross-Region has seconds RPO","Aurora Global supports MySQL and PostgreSQL; AlloyDB Cross-Region is PostgreSQL-only"]
 },
 "Fault Injection Service": {
 "w": "Run chaos engineering experiments on AWS workloads.",
 "f": "Safely inject faults like CPU stress, network latency, and instance stops.",
-"l": "https://docs.aws.amazon.com/fis/latest/userguide/what-is.html"
+"l": "https://docs.aws.amazon.com/fis/latest/userguide/what-is.html",
+"u": ["Run chaos engineering experiments to test application resilience","Need controlled fault injection for CPU stress, network latency, instance stops","Want safety controls with automatic rollback during experiments"],
+"d": ["FIS supports EC2, ECS, EKS, RDS faults; GCP Fault Injection is GKE preview only","FIS has experiment templates; GCP Fault Injection uses Istio fault injection","FIS is GA with full AWS service coverage; GCP Fault Injection is in preview"]
 },
 "Outposts": {
 "w": "AWS infrastructure and services running on-premises.",
 "f": "Same AWS APIs and tools on-prem as in the cloud.",
-"l": "https://docs.aws.amazon.com/outposts/latest/userguide/what-is-outposts.html"
+"l": "https://docs.aws.amazon.com/outposts/latest/userguide/what-is-outposts.html",
+"u": ["Run AWS services on-premises with the same APIs as in the cloud","Need local data processing for latency or data residency requirements","Want consistent hybrid experience with AWS console management"],
+"d": ["Outposts runs full AWS stack on-prem; Distributed Cloud runs GCP stack on-prem","Outposts offers rack or server form factors; Distributed Cloud offers edge and connected","Outposts uses AWS APIs; Distributed Cloud uses GCP APIs and GKE"]
 },
 "EKS Anywhere": {
 "w": "Run EKS Kubernetes on your own infrastructure.",
 "f": "Same EKS console and APIs for on-prem clusters.",
-"l": "https://docs.aws.amazon.com/eks/latest/userguide/eks-anywhere.html"
+"l": "https://docs.aws.amazon.com/eks/latest/userguide/eks-anywhere.html",
+"u": ["Run EKS Kubernetes clusters on your own data center hardware","Need consistent Kubernetes management across cloud and on-prem","Want EKS console for on-premises cluster lifecycle management"],
+"d": ["EKS Anywhere runs on VMware or bare metal; Anthos runs on multiple platforms","EKS Anywhere uses the same EKS API; Anthos uses GKE API across environments","EKS Anywhere is K8s-only; Anthos includes service mesh and config management"]
 },
 "ECS Anywhere": {
 "w": "Run ECS containers on customer-managed infrastructure.",
 "f": "Extends ECS task scheduling to on-prem servers.",
-"l": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-anywhere.html"
+"l": "https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ecs-anywhere.html",
+"u": ["Run ECS tasks on customer-managed on-premises servers","Need to extend container orchestration beyond AWS regions","Want unified ECS management for cloud and on-prem containers"],
+"d": ["ECS Anywhere extends ECS to on-prem; Anthos extends GKE to on-prem and multi-cloud","ECS Anywhere is container-only; Anthos includes service mesh and policy management","ECS Anywhere uses ECS task definitions; Anthos uses standard K8s manifests"]
 },
 "VMware Cloud on AWS": {
 "w": "VMware vSphere running natively on AWS bare metal.",
 "f": "Full VMware stack (vSphere, vSAN, NSX) on AWS hardware.",
-"l": "https://docs.aws.amazon.com/vmware-cloud-on-aws/latest/userguide/what-is-vmware-cloud-on-aws.html"
+"l": "https://docs.aws.amazon.com/whitepapers/latest/aws-overview/vmware-cloud-on-aws.html",
+"u": ["Run VMware vSphere workloads natively on AWS bare-metal infrastructure","Need to migrate VMware VMs without refactoring or conversion","Want full VMware stack with vSAN and NSX on AWS hardware"],
+"d": ["VMware Cloud on AWS runs full VMware stack; GCVE runs full VMware stack on GCP","VMware Cloud uses AWS bare metal; GCVE uses Google Cloud bare metal","VMware Cloud integrates with AWS services; GCVE integrates with GCP services"]
 },
 "IoT Core": {
 "w": "Managed cloud service connecting IoT devices to AWS.",
 "f": "Supports billions of devices and trillions of messages.",
-"l": "https://docs.aws.amazon.com/iot/latest/developerguide/what-is-aws-iot.html"
+"l": "https://docs.aws.amazon.com/iot/latest/developerguide/what-is-aws-iot.html",
+"u": ["Connect billions of IoT devices to AWS with MQTT and HTTPS","Need device authentication with X.509 certificates at scale","Want rules engine to route device data to AWS services"],
+"d": ["AWS IoT Core supports MQTT and HTTPS; GCP IoT Core was deprecated in 2023","AWS IoT Core has built-in rules engine; GCP recommends ClearBlade partner","AWS IoT Core is actively maintained; GCP IoT Core sunset August 2023"]
 },
 "LoRaWAN": {
 "w": "Connects LoRaWAN devices and gateways to AWS IoT.",
 "f": "Supports long-range, low-power wireless for IoT.",
-"l": "https://docs.aws.amazon.com/iot/latest/developerguide/connect-iot-lorawan.html"
+"l": "https://docs.aws.amazon.com/iot/latest/developerguide/connect-iot-lorawan.html",
+"u": ["Connect LoRaWAN devices and gateways to AWS IoT Core","Need long-range low-power wireless connectivity for IoT sensors","Want managed LoRaWAN network server without third-party infrastructure"]
 },
 "FreeRTOS": {
 "w": "Real-time OS for microcontrollers connecting to AWS.",
 "f": "Includes libraries for connectivity, security, and OTA updates.",
-"l": "https://docs.aws.amazon.com/freertos/latest/userguide/what-is-amazon-freertos.html"
+"l": "https://docs.aws.amazon.com/freertos/latest/userguide/what-is-amazon-freertos.html",
+"u": ["Run real-time OS on microcontrollers connecting to AWS IoT","Need OTA firmware updates for embedded devices securely","Want open-source RTOS with AWS connectivity libraries"]
 },
 "Device Mgmt": {
 "w": "IoT Device Management for fleet operations at scale.",
 "f": "Fleet indexing lets you search across millions of devices.",
-"l": "https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-management.html"
+"l": "https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-management.html",
+"u": ["Register, organize, and remotely manage IoT device fleets at scale","Need fleet indexing to search across millions of devices","Want bulk provisioning and OTA update management"]
 },
 "Device Defender": {
 "w": "IoT security auditing and anomaly detection.",
 "f": "Uses ML to detect anomalous device behavior.",
-"l": "https://docs.aws.amazon.com/iot/latest/developerguide/device-defender.html"
+"l": "https://docs.aws.amazon.com/iot/latest/developerguide/device-defender.html",
+"u": ["Audit IoT device configurations and detect anomalous behavior","Need ML-based threat detection for connected device fleets","Want automated security alerts for policy violations"]
 },
 "Device Shadow": {
 "w": "Virtual representation of IoT devices in the cloud.",
 "f": "Apps can interact with devices even when they're offline.",
-"l": "https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html"
+"l": "https://docs.aws.amazon.com/iot/latest/developerguide/iot-device-shadows.html",
+"u": ["Interact with IoT devices via virtual state in the cloud","Need apps to read device state even when devices are offline","Want desired/reported state synchronization for intermittent connectivity"]
 },
 "IoT Analytics": {
 "w": "Processes and analyzes IoT data for insights.",
 "f": "Includes pre-built Jupyter notebook templates for IoT use cases.",
-"l": "https://docs.aws.amazon.com/iotanalytics/latest/userguide/welcome.html"
+"l": "https://docs.aws.amazon.com/iotanalytics/latest/userguide/what-is.html",
+"u": ["Process and analyze IoT data with managed pipelines and storage","Need time-series analytics with pre-built Jupyter notebook templates","Want SQL queries on processed IoT data without managing infrastructure"],
+"d": ["IoT Analytics is AWS-managed pipeline; GCP uses Pub/Sub + Dataflow for IoT data","IoT Analytics has built-in data store; GCP uses BigQuery for IoT analytics","IoT Analytics includes Jupyter templates; GCP uses Vertex AI Workbench"]
 },
 "SiteWise": {
 "w": "Collects and analyzes industrial equipment data.",
 "f": "Built-in data processing for raw industrial sensor data.",
-"l": "https://docs.aws.amazon.com/iot-sitewise/latest/userguide/what-is-sitewise.html"
+"l": "https://docs.aws.amazon.com/iot-sitewise/latest/userguide/what-is-sitewise.html",
+"u": ["Collect and analyze data from industrial equipment and sensors","Need asset modeling for factories, plants, or industrial sites","Want pre-built dashboards for operational technology monitoring"]
 },
 "Greengrass": {
 "w": "Extends AWS to edge devices for local compute.",
 "f": "Devices act locally on data while using cloud for management.",
-"l": "https://docs.aws.amazon.com/greengrass/v2/developerguide/what-is-iot-greengrass.html"
+"l": "https://docs.aws.amazon.com/greengrass/v2/developerguide/what-is-iot-greengrass.html",
+"u": ["Run Lambda functions and ML inference on IoT edge devices locally","Need local compute that continues working without cloud connectivity","Want OTA deployment of edge components from the cloud"],
+"d": ["Greengrass runs Lambda at edge; Edge TPU Runtime runs ML inference at edge","Greengrass supports multiple languages; Edge TPU is optimized for TensorFlow Lite","Greengrass manages full edge software; Edge TPU focuses on hardware-accelerated ML"]
 },
 "TwinMaker": {
 "w": "Creates digital twins of real-world systems.",
 "f": "Combines IoT, video, and 3D data into unified representations.",
-"l": "https://docs.aws.amazon.com/iot-twinmaker/latest/guide/what-is-twinmaker.html"
+"l": "https://docs.aws.amazon.com/iot-twinmaker/latest/guide/what-is-twinmaker.html",
+"u": ["Create digital twins combining IoT, video, and 3D data","Need real-time virtual representations of physical systems","Want integrated dashboards blending sensor data with 3D models"],
+"d": ["TwinMaker combines IoT + 3D; Supply Chain Twin focuses on supply chain logistics","TwinMaker integrates with SiteWise; Supply Chain Twin uses Google Maps data","TwinMaker creates facility-level twins; Supply Chain Twin models logistics networks"]
 },
 "Carbon Footprint": {
 "w": "Shows carbon emission data for your AWS usage.",
 "f": "Tracks sustainability goals with historical trend data.",
-"l": "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/what-is-ccft.html"
+"l": "https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/what-is-ccft.html",
+"u": ["Track carbon emissions from your AWS cloud resource usage","Need historical carbon data to report on sustainability goals","Want emissions data broken down by service and region"],
+"d": ["AWS Carbon Footprint shows emissions per service; GCP Carbon Footprint shows per project","AWS tracks Scope 1, 2, 3; GCP matches 100% energy with renewables","AWS provides monthly reports; GCP provides gross and net carbon data"]
 },
 "Graviton": {
 "w": "ARM-based processors designed by AWS for cloud workloads.",
 "f": "Up to 40% better price-performance than x86 instances.",
-"l": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html"
+"l": "https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html",
+"u": ["Run ARM-based workloads with up to 40% better price-performance","Need energy-efficient processors for sustainability goals","Want lower cost per compute unit for scale-out applications"],
+"d": ["Graviton is AWS custom ARM chip; Tau VMs use Ampere Altra ARM processors","Graviton offers up to 40% better price-perf; Tau VMs target best price-perf on GCP","Graviton runs across many instance types; Tau VMs are the T2A machine series"]
 },
 "MediaConvert": {
 "w": "File-based video transcoding service for playback on any device.",
 "f": "Can process 8K video with 500+ input/output format combinations.",
-"l": "https://docs.aws.amazon.com/mediaconvert/latest/ug/what-is.html"
+"l": "https://docs.aws.amazon.com/mediaconvert/latest/ug/what-is.html",
+"u": ["Transcode video files for playback on any device or platform","Need 500+ input/output format combinations including 8K","Want broadcast-quality encoding with HDR and Dolby support"],
+"d": ["MediaConvert is file-based transcoding; Transcoder API is also file-based","MediaConvert supports 500+ format combos; Transcoder API supports H.264, H.265, VP9, AV1","MediaConvert has per-minute pricing; Transcoder API has per-minute pricing"]
 },
 "MediaLive": {
 "w": "Broadcast-grade live video encoding for TV and streaming.",
 "f": "Sub-second automatic failover between primary and backup sources.",
-"l": "https://docs.aws.amazon.com/medialive/latest/ug/what-is.html"
+"l": "https://docs.aws.amazon.com/medialive/latest/ug/what-is.html",
+"u": ["Encode broadcast-grade live video for TV and OTT streaming","Need real-time encoding with sub-second failover","Want live channel creation with multiple output groups"],
+"d": ["MediaLive is broadcast-grade live encoding; Live Stream API is also live transcoding","MediaLive supports inputs from SDI, RTMP, RTP; Live Stream API supports RTMP input","MediaLive has channel-based pricing; Live Stream API charges per stream-hour"]
 },
 "MediaPackage": {
 "w": "Just-in-time video packaging for multiple streaming formats.",
 "f": "Generates HLS, DASH, MSS, and CMAF from a single input simultaneously.",
-"l": "https://docs.aws.amazon.com/mediapackage/latest/ug/what-is.html"
+"l": "https://docs.aws.amazon.com/mediapackage/latest/ug/what-is.html",
+"u": ["Package live and VOD video into HLS, DASH, MSS, and CMAF","Need just-in-time packaging from a single input format","Want DRM encryption and time-shifted viewing support"],
+"d": ["MediaPackage does just-in-time packaging; Live Stream API includes packaging","MediaPackage supports HLS, DASH, MSS, CMAF; Live Stream API outputs HLS and DASH","MediaPackage has DRM integration; Live Stream API uses CMEK encryption"]
 },
 "MediaTailor": {
 "w": "Personalized ad insertion and channel assembly for video.",
 "f": "Uses ML for frame-accurate ad placement optimization.",
-"l": "https://docs.aws.amazon.com/mediatailor/latest/ug/what-is.html"
+"l": "https://docs.aws.amazon.com/mediatailor/latest/ug/what-is.html",
+"u": ["Insert personalized ads into video streams server-side","Need channel assembly for building linear channels from VOD","Want ML-optimized ad placement for maximum engagement"],
+"d": ["MediaTailor does server-side ad insertion; Video Stitcher API also does SSAI","MediaTailor has channel assembly; Video Stitcher API focuses on ad stitching","MediaTailor uses ML for ad placement; Video Stitcher API uses VAST/VMAP standards"]
 },
 "IVS": {
 "w": "Managed live streaming with sub-second latency.",
 "f": "Built on the same technology that powers Twitch.",
-"l": "https://docs.aws.amazon.com/ivs/latest/LowLatencyUserGuide/what-is.html"
+"l": "https://docs.aws.amazon.com/ivs/latest/LowLatencyUserGuide/what-is.html",
+"u": ["Build interactive live streaming with sub-second latency","Need Twitch-grade streaming infrastructure for your app","Want chat, timed metadata, and viewer interactions built in"],
+"d": ["IVS is built on Twitch tech; Live Stream API uses standard transcoding","IVS has sub-second latency; Live Stream API targets standard streaming latency","IVS includes chat SDK; Live Stream API is video-only without chat"]
 },
 "Chime SDK": {
 "w": "Real-time communications components for messaging, audio, and video.",
 "f": "Supports 250 attendees per meeting with background noise suppression.",
-"l": "https://docs.aws.amazon.com/chime-sdk/latest/dg/what-is-chime-sdk.html"
+"l": "https://docs.aws.amazon.com/chime-sdk/latest/dg/what-is-chime-sdk.html",
+"u": ["Add real-time audio, video, and messaging to applications","Need meetings with up to 250 attendees and noise suppression","Want programmable communications without building infrastructure"],
+"d": ["Chime SDK provides meetings and messaging; WebRTC partners provide raw WebRTC on GCP","Chime SDK supports 250 attendees; WebRTC partner capacity varies","Chime SDK is fully managed; WebRTC on GCP uses partner or self-hosted solutions"]
 },
 "Kinesis Video Streams": {
 "w": "Securely stream video from devices to AWS for analytics and ML.",
 "f": "Can handle video streams from millions of devices simultaneously.",
-"l": "https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/what-is-kinesis-video.html"
+"l": "https://docs.aws.amazon.com/kinesisvideostreams/latest/dg/what-is-kinesis-video.html",
+"u": ["Ingest and process video streams from millions of devices for ML","Need WebRTC for two-way real-time video communication","Want video playback and frame-level access for computer vision"],
+"d": ["Kinesis Video Streams ingests device video; Video Intelligence API analyzes video content","Kinesis Video Streams stores and replays video; Video Intelligence detects objects and text","Kinesis Video Streams supports WebRTC; Video Intelligence is analysis-only, no streaming"]
 },
 "Amazon Connect": {
 "w": "Cloud contact center that scales from 10 to 10,000+ agents.",
 "f": "Integrates with 50+ pre-built partner solutions out of the box.",
-"l": "https://docs.aws.amazon.com/connect/latest/adminguide/what-is-amazon-connect.html"
+"l": "https://docs.aws.amazon.com/connect/latest/adminguide/what-is-amazon-connect.html",
+"u": ["Deploy a cloud contact center that scales from 10 to 10,000+ agents","Need omnichannel support for voice, chat, and task routing","Want pay-per-use pricing without long-term contracts"],
+"d": ["Connect is an all-in-one platform; CCAI Platform layers AI onto existing centers","Connect includes native telephony; CCAI Platform integrates with third-party telephony","Connect has 50+ partner integrations; CCAI Platform integrates with Dialogflow"]
 },
 "Contact Lens": {
 "w": "ML-powered real-time and post-call analytics for Connect.",
 "f": "Detects customer sentiment changes in real-time during calls.",
-"l": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens.html"
+"l": "https://docs.aws.amazon.com/connect/latest/adminguide/contact-lens.html",
+"u": ["Analyze call recordings for sentiment, trends, and compliance","Need real-time supervisor alerts on negative customer sentiment","Want automated quality scoring across 100% of calls"],
+"d": ["Contact Lens is Connect-native analytics; CCAI Insights analyzes any contact center","Contact Lens detects sentiment in real-time; CCAI Insights scores 100% of interactions","Contact Lens integrates with Connect flows; CCAI Insights integrates with CCAI Platform"]
 },
 "Q in Connect": {
 "w": "GenAI assistant giving agents real-time answers during calls.",
 "f": "Auto-creates knowledge articles from resolved cases.",
-"l": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-q-connect.html"
+"l": "https://docs.aws.amazon.com/connect/latest/adminguide/amazon-q-connect.html",
+"u": ["Give contact center agents GenAI-powered answers during live calls","Need automatic knowledge article suggestions from resolved cases","Want real-time response recommendations to reduce handle time"],
+"d": ["Q in Connect uses GenAI for answers; CCAI Agent Assist suggests articles in real-time","Q in Connect auto-creates knowledge; CCAI Agent Assist uses pre-built knowledge bases","Q in Connect is Connect-exclusive; CCAI Agent Assist works with CCAI Platform"]
 },
 "Connect Forecasting": {
 "w": "ML-powered capacity planning for contact center staffing.",
 "f": "Forecasts up to 12 weeks ahead, 10-50% more accurate than traditional methods.",
-"l": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning.html"
+"l": "https://docs.aws.amazon.com/connect/latest/adminguide/forecasting-capacity-planning.html",
+"u": ["Forecast contact center staffing needs up to 12 weeks ahead","Need ML-powered capacity planning more accurate than spreadsheets","Want scheduling optimization to reduce over- and under-staffing"]
 },
 "WorkSpaces": {
 "w": "Managed Desktop-as-a-Service with persistent cloud desktops.",
 "f": "Works on tablets, Chromebooks, and any device with a browser.",
-"l": "https://docs.aws.amazon.com/workspaces/latest/adminguide/amazon-workspaces.html"
+"l": "https://docs.aws.amazon.com/workspaces/latest/adminguide/amazon-workspaces.html",
+"u": ["Provide persistent cloud desktops for remote or hybrid workers","Need managed DaaS with Windows or Linux on any device","Want monthly or hourly billing for flexible desktop provisioning"],
+"d": ["WorkSpaces has persistent desktops; Chrome Remote Desktop is free remote access","WorkSpaces supports Windows and Linux; Chrome Remote Desktop works on any OS","WorkSpaces has GPU bundles for power users; Chrome Remote Desktop has no GPU option"]
 },
 "AppStream 2.0": {
 "w": "Application streaming — desktop apps run on AWS, appear local.",
 "f": "Apps run on AWS but feel native on the user's device.",
-"l": "https://docs.aws.amazon.com/appstream2/latest/developerguide/what-is-appstream.html"
+"l": "https://docs.aws.amazon.com/appstream2/latest/developerguide/what-is-appstream.html",
+"u": ["Stream desktop applications to users without local installation","Need to deliver GPU-intensive apps to thin clients or browsers","Want per-user-hour pricing for occasional application access"],
+"d": ["AppStream streams any Windows app; Chrome Enterprise manages browser-based access","AppStream runs apps on AWS instances; Chrome Enterprise uses local device resources","AppStream requires AWS infrastructure; Chrome Enterprise works on any managed device"]
 },
 "WorkSpaces Web": {
 "w": "Low-cost managed browser for secure web app access.",
 "f": "No plugins needed — works from any HTML5-capable device.",
-"l": "https://docs.aws.amazon.com/workspaces-web/latest/adminguide/what-is-workspaces-web.html"
+"l": "https://docs.aws.amazon.com/workspaces-web/latest/adminguide/what-is-workspaces-web.html",
+"u": ["Provide secure browser access to internal web apps without VPN","Need low-cost managed browser for BYOD or contractor access","Want browser-based access from any HTML5 device"],
+"d": ["WorkSpaces Web is a managed browser; Chromebook Plus is a physical device","WorkSpaces Web runs on AWS; Chromebook Plus runs ChromeOS locally","WorkSpaces Web isolates browsing in the cloud; Chromebook Plus uses local Chrome browser"]
 },
 "Location Maps": {
 "w": "Map tiles and visualization for location-based apps.",
 "f": "Multiple map styles including satellite, available in 30+ languages.",
-"l": "https://docs.aws.amazon.com/location/latest/developerguide/map-concepts.html"
+"l": "https://docs.aws.amazon.com/location/latest/developerguide/map-concepts.html",
+"u": ["Embed map visualizations in web and mobile applications","Need multiple map styles including satellite imagery","Want cost-effective mapping alternative to Google Maps"],
+"d": ["Location Maps uses HERE and Esri data; Maps Platform uses Google Maps data","Location Maps is AWS-native; Maps Platform powers 5 million+ apps worldwide","Location Maps has simpler pricing; Maps Platform has richer feature set"]
 },
 "Location Places": {
 "w": "Place search, geocoding, and reverse geocoding.",
 "f": "Returns business hours, contact details, and multilingual results.",
-"l": "https://docs.aws.amazon.com/location/latest/developerguide/places-concepts.html"
+"l": "https://docs.aws.amazon.com/location/latest/developerguide/places-concepts.html",
+"u": ["Search for places, geocode addresses, and reverse geocode coordinates","Need business details, hours, and contact info from location queries","Want multilingual place results for global applications"],
+"d": ["Location Places uses HERE/Esri data; Places API uses Google 200M+ place database","Location Places is AWS-integrated; Places API has richer business detail data","Location Places has simpler pricing; Places API has more POI categories"]
 },
 "Location Routes": {
 "w": "Route calculation with multiple travel modes.",
 "f": "Supports truck routing with vehicle dimension and weight restrictions.",
-"l": "https://docs.aws.amazon.com/location/latest/developerguide/route-concepts.html"
+"l": "https://docs.aws.amazon.com/location/latest/developerguide/route-concepts.html",
+"u": ["Calculate routes with support for car, truck, and walking modes","Need truck routing with vehicle dimension and weight restrictions","Want real-time traffic-aware route calculations"],
+"d": ["Location Routes uses HERE data; Routes API uses Google real-time traffic data","Location Routes supports truck routing; Routes API supports truck and transit routing","Location Routes is AWS-native; Routes API uses Google Maps live traffic"]
 },
 "Location Trackers": {
 "w": "Device position tracking with geofence notifications.",
 "f": "Can track millions of devices with real-time enter/exit alerts.",
-"l": "https://docs.aws.amazon.com/location/latest/developerguide/tracker-concepts.html"
+"l": "https://docs.aws.amazon.com/location/latest/developerguide/tracker-concepts.html",
+"u": ["Track device positions with geofence enter/exit notifications","Need real-time fleet or asset tracking at scale","Want million-device tracking with geofence alerting"],
+"d": ["Location Trackers is AWS-native; Fleet Engine powers ride-sharing at massive scale","Location Trackers uses HERE/Esri; Fleet Engine uses Google Maps infrastructure","Location Trackers has geofencing; Fleet Engine has delivery and ride tracking"]
 },
 "HealthLake": {
 "w": "FHIR-based data lake for healthcare data at petabyte scale.",
 "f": "Auto-extracts medical entities from unstructured text using NLP.",
-"l": "https://docs.aws.amazon.com/healthlake/latest/devguide/what-is-amazon-health-lake.html"
+"l": "https://docs.aws.amazon.com/healthlake/latest/devguide/what-is-amazon-health-lake.html",
+"u": ["Store and query healthcare data in FHIR format at petabyte scale","Need NLP-powered extraction of medical entities from clinical text","Want HIPAA-eligible data lake with built-in FHIR API"],
+"d": ["HealthLake is FHIR data lake with NLP; Cloud Healthcare API stores FHIR, HL7, DICOM","HealthLake auto-extracts entities; Healthcare NLP API extracts from clinical text","HealthLake is analytics-focused; Cloud Healthcare API is interoperability-focused"]
 },
 "HealthImaging": {
 "w": "Cloud-native DICOM medical image storage and retrieval.",
 "f": "Sub-second retrieval from petabytes of imaging data.",
-"l": "https://docs.aws.amazon.com/healthimaging/latest/devguide/what-is.html"
+"l": "https://docs.aws.amazon.com/healthimaging/latest/devguide/what-is.html",
+"u": ["Store and retrieve DICOM medical images at sub-second latency","Need cloud-native medical imaging at petabyte scale","Want lossless compression to reduce storage costs by up to 40%"],
+"d": ["HealthImaging stores DICOM natively; Cloud Healthcare API also supports DICOM","HealthImaging has sub-second retrieval; Cloud Healthcare API provides standard DICOM access","HealthImaging uses custom compression; Cloud Healthcare API uses standard storage"]
 },
 "Omics": {
 "w": "Purpose-built service for genomic and omics data analysis.",
 "f": "Processes whole genome sequencing 7x faster than on-prem.",
-"l": "https://docs.aws.amazon.com/omics/latest/dev/what-is-service.html"
+"l": "https://docs.aws.amazon.com/omics/latest/dev/what-is-service.html",
+"u": ["Run genomic workflows 7x faster than on-premises infrastructure","Need purpose-built storage for genomic sequence and variant data","Want managed bioinformatics pipelines with Nextflow and CWL"],
+"d": ["Omics is purpose-built for genomics; Life Sciences API runs general science workflows","Omics has dedicated sequence stores; Life Sciences API uses Cloud Storage","Omics supports ready2run workflows; Life Sciences API supports Cromwell and Nextflow"]
 },
 "Comprehend Medical": {
 "w": "NLP service extracting medical info from unstructured text.",
 "f": "HIPAA-eligible — identifies PHI and medical entities automatically.",
-"l": "https://docs.aws.amazon.com/comprehend-medical/latest/dev/comprehendmedical-welcome.html"
+"l": "https://docs.aws.amazon.com/comprehend-medical/latest/dev/comprehendmedical-welcome.html",
+"u": ["Extract medical conditions, medications, and dosages from clinical text","Need HIPAA-eligible NLP without training custom models","Want ICD-10 and RxNorm linking from unstructured medical notes"],
+"d": ["Comprehend Medical extracts entities; Healthcare NLP API also extracts medical entities","Comprehend Medical links to ICD-10/RxNorm; Healthcare NLP API uses SNOMED and RxNorm","Comprehend Medical is a standalone API; Healthcare NLP API integrates with Healthcare API"]
 },
 "Managed Blockchain": {
 "w": "Managed Hyperledger Fabric and Ethereum blockchain networks.",
 "f": "Eliminates blockchain infrastructure overhead while staying decentralized.",
-"l": "https://docs.aws.amazon.com/managed-blockchain/latest/hyperledger-fabric-dev/what-is-managed-blockchain.html"
+"l": "https://docs.aws.amazon.com/managed-blockchain/latest/hyperledger-fabric-dev/what-is-managed-blockchain.html",
+"u": ["Deploy and manage Hyperledger Fabric or Ethereum networks","Need managed blockchain without infrastructure overhead","Want decentralized applications with minimal operational burden"],
+"d": ["Managed Blockchain runs Fabric/Ethereum; Blockchain Node Engine runs Ethereum nodes","Managed Blockchain creates full networks; Blockchain Node Engine hosts individual nodes","Managed Blockchain supports permissioned chains; Blockchain Node Engine is public Ethereum"]
 },
 "Amazon Braket": {
 "w": "Quantum computing service with access to real quantum hardware.",
 "f": "Access IonQ, Rigetti, and QuEra quantum processors through one API.",
-"l": "https://docs.aws.amazon.com/braket/latest/developerguide/what-is-braket.html"
+"l": "https://docs.aws.amazon.com/braket/latest/developerguide/what-is-braket.html",
+"u": ["Access quantum hardware from IonQ, Rigetti, and QuEra via one API","Need to experiment with quantum algorithms on real processors","Want unified access to multiple quantum hardware providers"],
+"d": ["Braket accesses multiple vendor hardware; Quantum AI Lab uses Google Sycamore/Willow","Braket supports IonQ, Rigetti, QuEra; Quantum AI Lab is Google-hardware only","Braket is a commercial service; Quantum AI Lab is research-focused"]
 },
 "Braket Simulators": {
 "w": "Classical simulators for testing quantum algorithms without hardware.",
 "f": "Can simulate quantum circuits with up to 34 qubits.",
-"l": "https://docs.aws.amazon.com/braket/latest/developerguide/what-is-braket.html"
+"l": "https://docs.aws.amazon.com/braket/latest/developerguide/what-is-braket.html",
+"u": ["Test quantum algorithms on classical simulators before using real hardware","Need to simulate circuits with up to 34 qubits","Want fast iteration on quantum algorithms without hardware costs"],
+"d": ["Braket Simulators run on AWS; qsim runs on GCP or local machines","Braket Simulators support up to 34 qubits; qsim supports up to 40 qubits","Braket Simulators are managed; qsim is open-source and self-hosted"]
 },
 "GameLift": {
 "w": "Managed dedicated game server hosting for multiplayer games.",
 "f": "Auto-scales on demand and can cut hosting costs by up to 90%.",
-"l": "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-intro.html"
+"l": "https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-intro.html",
+"u": ["Host dedicated multiplayer game servers with auto-scaling","Need global game server deployment cutting hosting costs by 90%","Want managed matchmaking and fleet management for games"],
+"d": ["GameLift is fully managed hosting; Agones is open-source on Kubernetes","GameLift handles fleet scaling; Agones uses K8s autoscaling on GKE","GameLift is AWS-proprietary; Agones is portable across any K8s cluster"]
 },
 "FlexMatch": {
 "w": "Customizable matchmaking that groups players by rules and skill.",
 "f": "Uses ML to optimize match quality and reduce wait times.",
-"l": "https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/match-intro.html"
+"l": "https://docs.aws.amazon.com/gamelift/latest/flexmatchguide/match-intro.html",
+"u": ["Match players by skill, latency, and custom rules for multiplayer games","Need ML-optimized matchmaking to reduce wait times","Want configurable rule sets for balanced game matches"],
+"d": ["FlexMatch is GameLift-integrated; Open Match is open-source and cloud-agnostic","FlexMatch uses ML to optimize matches; Open Match provides extensible matching framework","FlexMatch is AWS-only; Open Match runs on any Kubernetes cluster"]
 },
 "GameLift FleetIQ": {
 "w": "Optimizes game server placement on Spot Instances.",
 "f": "Reduces game hosting costs by up to 70% with low latency.",
-"l": "https://docs.aws.amazon.com/gamelift/latest/fleetiqguide/gsg-intro.html"
+"l": "https://docs.aws.amazon.com/gamelift/latest/fleetiqguide/gsg-intro.html",
+"u": ["Place game servers on Spot Instances for up to 70% cost savings","Need intelligent Spot Instance selection for low-interruption gaming","Want to optimize game hosting costs without sacrificing player experience"],
+"d": ["FleetIQ uses AWS Spot Instances; Agones can use GCP Spot VMs on GKE","FleetIQ is a managed placement service; Agones relies on K8s scheduling","FleetIQ optimizes for game workloads; Agones is general game server orchestration"]
 },
 "RoboMaker": {
 "w": "Cloud robotics service for ROS development and simulation.",
 "f": "Includes pre-built simulation worlds: indoor, race tracks, and towns.",
-"l": "https://docs.aws.amazon.com/robomaker/latest/dg/what-is-robomaker.html"
+"l": "https://docs.aws.amazon.com/robomaker/latest/dg/",
+"u": ["Develop and simulate robotics applications with ROS on AWS","Need cloud-based simulation worlds for testing robot code","Want scalable robot fleet management with OTA deployment"],
+"d": ["RoboMaker includes simulation; Cloud Robotics Core extends GCP services to robots","RoboMaker uses ROS natively; Cloud Robotics Core is Kubernetes-based","RoboMaker has pre-built worlds; Cloud Robotics Core connects to GCP AI services"]
 },
 "AWS Supply Chain": {
 "w": "End-to-end supply chain visibility and demand planning.",
 "f": "ML predicts supply chain disruptions up to 6 months in advance.",
-"l": "https://docs.aws.amazon.com/aws-supply-chain/latest/userguide/what-is-aws-supply-chain.html"
+"l": "https://docs.aws.amazon.com/aws-supply-chain/latest/userguide/what-is-aws-supply-chain.html",
+"u": ["Get end-to-end supply chain visibility with ML-powered insights","Need demand planning and inventory optimization","Want to predict supply chain disruptions up to 6 months ahead"],
+"d": ["AWS Supply Chain is end-to-end platform; Supply Chain Twin is simulation-focused","AWS Supply Chain uses ML for predictions; Supply Chain Twin uses Maps data for modeling","AWS Supply Chain includes demand planning; Supply Chain Pulse provides real-time visibility"]
 },
 "Amplify Studio": {
 "w": "Visual builder for full-stack web and mobile apps.",
 "f": "Auto-generates React components from Figma designs.",
-"l": "https://docs.aws.amazon.com/amplify/latest/userguide/welcome.html"
+"l": "https://docs.aws.amazon.com/amplify/latest/userguide/welcome.html",
+"u": ["Build full-stack web and mobile apps with a visual Figma-to-React builder","Need auto-generated React components from design mockups","Want visual backend configuration for auth, storage, and APIs"],
+"d": ["Amplify Studio generates React from Figma; AppSheet builds apps from spreadsheets","Amplify Studio targets developers; AppSheet targets citizen developers","Amplify Studio uses AWS backend services; AppSheet integrates with Google Workspace"]
 },
 "Workflow Studio": {
 "w": "Visual drag-and-drop designer for Step Functions workflows.",
 "f": "Auto-generates Amazon States Language JSON from diagrams.",
-"l": "https://docs.aws.amazon.com/step-functions/latest/dg/workflow-studio.html"
+"l": "https://docs.aws.amazon.com/step-functions/latest/dg/workflow-studio.html",
+"u": ["Design Step Functions workflows visually with drag-and-drop","Need visual state machine builder that generates ASL JSON","Want to prototype serverless workflows without writing code"],
+"d": ["Workflow Studio generates Step Functions ASL; Workflows uses YAML/JSON directly","Workflow Studio is a visual designer; Workflows has no visual builder in console","Workflow Studio is for AWS Step Functions; Workflows is GCP-native orchestration"]
 },
 "Monitron": {
 "w": "Wireless sensors + ML for industrial equipment monitoring.",
 "f": "Detects anomalies up to 20x earlier than scheduled maintenance.",
-"l": "https://docs.aws.amazon.com/Monitron/latest/user-guide/what-is-monitron.html"
+"l": "https://docs.aws.amazon.com/Monitron/latest/user-guide/what-is-monitron.html",
+"u": ["Deploy wireless sensors for industrial equipment health monitoring","Need ML-based anomaly detection 20x earlier than scheduled maintenance","Want end-to-end hardware and software kit for predictive maintenance"]
 },
 "Lookout for Equipment": {
 "w": "ML service predicting equipment failures from sensor data.",
 "f": "Needs no ML expertise — trains with as little as 10 days of data.",
-"l": "https://docs.aws.amazon.com/lookout-for-equipment/latest/ug/what-is.html"
+"l": "https://docs.aws.amazon.com/lookout-for-equipment/latest/ug/what-is.html",
+"u": ["Predict equipment failures from historical sensor data using ML","Need automated anomaly detection with as little as 10 days of data","Want predictive maintenance alerts without ML expertise"]
 },
 "IoT Greengrass": {
 "w": "Extends AWS to edge devices for local compute.",
 "f": "Devices act locally on data while using cloud for management.",
-"l": "https://docs.aws.amazon.com/greengrass/v2/developerguide/what-is-iot-greengrass.html"
+"l": "https://docs.aws.amazon.com/greengrass/v2/developerguide/what-is-iot-greengrass.html",
+"u": ["Deploy Lambda and ML models to edge devices for local processing","Need edge runtime that works offline and syncs when connected","Want managed OTA updates for software on edge robot hardware"],
+"d": ["IoT Greengrass runs Lambda at edge; Edge TPU Runtime runs TFLite models at edge","IoT Greengrass supports many runtimes; Edge TPU is hardware-accelerated ML inference","IoT Greengrass is software-only; Edge TPU requires Coral hardware"]
 },
 "Quick Suite": {
 "w": "Cloud-powered BI service for interactive dashboards and embedded analytics.",
 "f": "Renamed from QuickSight — uses ML-powered insights and natural language querying.",
-"l": "https://docs.aws.amazon.com/quicksight/latest/user/welcome.html"
+"l": "https://docs.aws.amazon.com/quicksight/latest/user/welcome.html",
+"u": ["Build ML-powered dashboards with natural language Q&A", "Need embedded analytics with pay-per-session pricing model", "Want unified BI suite with GenAI-powered data stories"],
+"d": ["Quick Suite uses SPICE engine; Looker uses LookML semantic modeling", "Quick Suite has GenAI narratives; Looker integrates Gemini for analysis", "Quick Suite is AWS-native; Looker supports multi-cloud data sources"]
 },
 "OpenSearch Serverless": {
 "w": "Serverless option for OpenSearch — no clusters to manage.",
 "f": "Includes a vector engine for ML-augmented search and GenAI RAG.",
-"l": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless.html"
+"l": "https://docs.aws.amazon.com/opensearch-service/latest/developerguide/serverless.html",
+"u": ["Need search and log analytics without managing clusters", "Want vector engine for GenAI RAG search applications", "Require auto-scaling search that handles variable workloads"],
+"d": ["OpenSearch Serverless auto-scales OCUs; Elastic Cloud on GCP uses fixed deployments", "OpenSearch Serverless has vector engine built-in; Elastic Cloud uses Elastic vector search", "OpenSearch Serverless charges per OCU-hour; Elastic Cloud charges per deployment capacity"]
 },
 "CloudSearch": {
 "w": "Managed search service supporting 34 languages with autocomplete.",
 "f": "One of the oldest AWS services — simple search without ML complexity.",
-"l": "https://docs.aws.amazon.com/cloudsearch/latest/developerguide/what-is-cloudsearch.html"
+"l": "https://docs.aws.amazon.com/cloudsearch/latest/developerguide/what-is-cloudsearch.html",
+"u": ["Need simple managed search without ML or analytics complexity", "Want autocomplete and faceted search in 34 languages", "Require a straightforward search solution for structured data"],
+"d": ["CloudSearch is simple keyword search; Vertex AI Search uses LLM-augmented retrieval", "CloudSearch uses instance-based scaling; Vertex AI Search is fully serverless", "CloudSearch is legacy (limited updates); Vertex AI Search is actively developed"]
 },
 "Entity Resolution": {
 "w": "ML service that matches and links related records across data sources.",
 "f": "Removes duplicate records and creates unified customer profiles.",
-"l": "https://docs.aws.amazon.com/entityresolution/latest/userguide/what-is-service.html"
+"l": "https://docs.aws.amazon.com/entityresolution/latest/userguide/what-is-service.html",
+"u": ["Deduplicate and match customer records across data sources", "Need ML-powered entity linking without writing matching logic", "Want unified customer profiles from fragmented datasets"],
+"d": ["Entity Resolution uses ML matching; Dataplex focuses on data governance not matching", "Entity Resolution is a dedicated service; GCP uses Dataflow or BigQuery ML for matching", "Entity Resolution supports rule-based and ML matching; GCP requires custom implementation"]
 },
 "Bedrock AgentCore": {
 "w": "Infrastructure layer for building, deploying, and scaling AI agents in production.",
 "f": "Provides agent runtime, memory, identity, and observability as managed services.",
-"l": "https://docs.aws.amazon.com/bedrock/latest/userguide/agents-agentcore.html"
+"l": "https://docs.aws.amazon.com/bedrock/latest/userguide/agents-agentcore.html",
+"u": ["Deploy and scale production AI agents with managed infrastructure", "Need agent runtime with memory, identity, and observability built-in", "Want framework-agnostic agent hosting with automatic scaling"],
+"d": ["AgentCore provides managed runtime; Vertex AI Agent Builder is an end-to-end platform", "AgentCore supports any framework; Vertex Agent Builder uses Google-native orchestration", "AgentCore focuses on infra layer; Vertex Agent Builder includes visual builder and grounding"]
 },
 "Kiro": {
 "w": "AI-powered IDE by AWS for spec-driven development with automated coding.",
 "f": "Uses specs and steering docs to maintain context across development sessions.",
-"l": "https://kiro.dev/docs/"
+"l": "https://kiro.dev/docs/",
+"u": ["Want spec-driven AI development with persistent project context", "Need AI IDE that generates code from specifications and steering docs", "Building applications with automated coding and task planning"],
+"d": ["Kiro is spec-driven; Antigravity is agent-first with autonomous multi-agent orchestration", "Kiro uses steering docs for context; Antigravity uses Mission Control to manage agents across workspaces", "Kiro focuses on single-agent coding; Antigravity spawns multiple agents working asynchronously"]
 },
 "PartyRock": {
 "w": "Code-free playground for building GenAI apps using Bedrock foundation models.",
 "f": "Free to use — designed for learning prompt engineering without an AWS account.",
-"l": "https://partyrock.aws"
+"l": "https://partyrock.aws",
+"u": ["Learn prompt engineering without an AWS account for free", "Prototype GenAI app ideas quickly with a visual builder", "Want no-code playground to experiment with foundation models"]
 },
 "Personalize": {
 "w": "ML service for real-time personalized recommendations.",
 "f": "Uses the same technology that powers Amazon.com product recommendations.",
-"l": "https://docs.aws.amazon.com/personalize/latest/dg/what-is-personalize.html"
+"l": "https://docs.aws.amazon.com/personalize/latest/dg/what-is-personalize.html",
+"u": ["Build real-time product or content recommendations", "Need Amazon.com-grade personalization without ML expertise", "Want user segmentation and personalized ranking APIs"],
+"d": ["Personalize uses Amazon.com algorithms; Recommendations AI uses Google retail ML", "Personalize supports generic recommendations; Recommendations AI focuses on retail/e-commerce", "Personalize charges per data ingested + inference; Recommendations AI charges per prediction"]
 },
 "Fraud Detector": {
 "w": "ML service for identifying potentially fraudulent online activities.",
 "f": "Built on 20+ years of fraud detection expertise from Amazon.",
-"l": "https://docs.aws.amazon.com/frauddetector/latest/ug/what-is-frauddetector.html"
+"l": "https://docs.aws.amazon.com/frauddetector/latest/ug/what-is-frauddetector.html",
+"u": ["Detect online payment fraud and fake account registration", "Need ML fraud scoring built on Amazon's 20+ years of expertise", "Want real-time fraud predictions for transactions and logins"],
+"d": ["Fraud Detector uses Amazon expertise; AML AI targets financial transaction monitoring", "Fraud Detector covers general online fraud; AML AI focuses on anti-money laundering", "Fraud Detector has pre-built fraud models; AML AI reduces false positives by up to 60%"]
 },
 "Forecast": {
 "w": "ML-powered time-series forecasting service.",
 "f": "Can produce forecasts up to 50% more accurate than traditional methods.",
-"l": "https://docs.aws.amazon.com/forecast/latest/dg/what-is-forecast.html"
+"l": "https://docs.aws.amazon.com/forecast/latest/dg/what-is-forecast.html",
+"u": ["Generate demand, revenue, or capacity forecasts with ML", "Need time-series predictions 50% more accurate than traditional", "Want automated model selection across multiple algorithms"],
+"d": ["Forecast is a standalone service; Vertex AI Forecasting is part of Vertex AI platform", "Forecast supports weather and holidays as covariates; Vertex Forecasting uses AutoML", "Forecast auto-selects algorithms; Vertex Forecasting handles multiple time series natively"]
+},
+"Compute Engine": {
+"w": "Virtual machines running on Google infrastructure.",
+"f": "Offers custom machine types where you choose exact vCPU and memory.",
+"l": "https://cloud.google.com/compute/docs",
+"u": ["Need VMs with custom vCPU/RAM combos not available elsewhere", "Want per-second billing and sustained use discounts", "Running workloads requiring live migration during maintenance"]
+},
+"Autoscaler": {
+"w": "Automatically scales VM instances based on load.",
+"f": "Can scale based on CPU, load balancing, or custom Cloud Monitoring metrics.",
+"l": "https://cloud.google.com/compute/docs/autoscaler",
+"u": ["Auto-scale managed instance groups based on load metrics", "Want metric-based scaling with custom Cloud Monitoring signals", "Need predictable scaling for traffic-driven web applications"]
+},
+"Custom Images": {
+"w": "Create and manage custom OS images for VMs.",
+"f": "Supports image families for automatic version management.",
+"l": "https://cloud.google.com/compute/docs/images",
+"u": ["Creating golden images for consistent VM deployments", "Need image families for automatic version rollover", "Want globally available images without cross-region copy"]
+},
+"Preemptible / Spot VMs": {
+"w": "Short-lived, low-cost VMs for fault-tolerant workloads.",
+"f": "Up to 91% cheaper than regular VMs.",
+"l": "https://cloud.google.com/compute/docs/instances/spot",
+"u": ["Fault-tolerant batch jobs, rendering, or data processing", "Want up to 91% discount on interruptible compute", "Running large-scale CI/CD or ML training on a budget"]
+},
+"Migrate for Compute Engine": {
+"w": "Migrate VMs from on-premises or other clouds to GCP.",
+"f": "Supports live migration with minimal downtime.",
+"l": "https://cloud.google.com/migrate/compute-engine/docs",
+"u": ["Migrating VMware or AWS VMs to Google Cloud", "Need live migration with minimal downtime", "Want a managed console for tracking VM migration progress"]
+},
+"Sole-Tenant Nodes": {
+"w": "Dedicated physical servers for compliance and licensing.",
+"f": "Useful for bring-your-own-license scenarios.",
+"l": "https://cloud.google.com/compute/docs/nodes/sole-tenant-nodes",
+"u": ["Compliance requirements mandate dedicated physical servers", "Bring-your-own-license for Windows or Oracle software", "Need workload isolation at the hardware level"]
+},
+"Google Kubernetes Engine": {
+"w": "Managed Kubernetes service for containerized apps.",
+"f": "GKE Autopilot fully manages nodes, scaling, and security.",
+"l": "https://cloud.google.com/kubernetes-engine/docs",
+"u": ["Running production Kubernetes with Autopilot or Standard modes", "Need managed K8s with fast cluster upgrades and patching", "Want multi-cluster management with GKE Enterprise"]
+},
+"Cloud Run": {
+"w": "Fully managed serverless platform for containers.",
+"f": "Scales to zero when not in use, so you only pay for actual requests.",
+"l": "https://cloud.google.com/run/docs",
+"u": ["Deploying stateless containers that scale to zero", "Want request-based billing with no minimum instances", "Need serverless containers without Kubernetes complexity"]
+},
+"Artifact Registry": {
+"w": "Store and manage container images and language packages.",
+"f": "Supports Docker, Maven, npm, Python, and Go packages.",
+"l": "https://cloud.google.com/artifact-registry/docs",
+"u": ["Storing Docker images, Maven, npm, or Python packages in one place", "Need vulnerability scanning integrated with GKE and Cloud Run", "Want regional or multi-regional artifact storage with IAM"]
+},
+"GKE Autopilot": {
+"w": "Fully managed Kubernetes with per-pod billing.",
+"f": "Google manages the nodes, so you only define pods.",
+"l": "https://cloud.google.com/kubernetes-engine/docs/concepts/autopilot-overview",
+"u": ["Want Kubernetes without managing nodes or node pools", "Prefer per-pod billing over per-node cluster costs", "Need hardened Kubernetes with Google-managed security"]
+},
+"Anthos": {
+"w": "Managed platform for running apps across hybrid and multi-cloud.",
+"f": "Lets you manage GKE clusters on AWS, Azure, bare metal, and edge.",
+"l": "https://cloud.google.com/anthos/docs",
+"u": ["Managing Kubernetes across GCP, AWS, Azure, and on-prem", "Need consistent service mesh and policy across clouds", "Want single pane of glass for multi-cloud container workloads"]
+},
+"Cloud Functions": {
+"w": "Event-driven serverless compute for lightweight functions.",
+"f": "Supports Node.js, Python, Go, Java, .NET, Ruby, and PHP.",
+"l": "https://cloud.google.com/functions/docs",
+"u": ["Lightweight event-driven processing for GCP service triggers", "Need serverless functions with up to 60-minute runtime", "Want simple deploy-from-source without containers"]
+},
+"Workflows": {
+"w": "Orchestrate and automate Google Cloud and API services.",
+"f": "Supports long-running workflows with built-in error handling.",
+"l": "https://cloud.google.com/workflows/docs",
+"u": ["Orchestrating multi-step GCP service and HTTP API calls", "Need serverless workflow with conditional logic and retries", "Want YAML-based workflow definitions without infrastructure"]
+},
+"App Engine": {
+"w": "Fully managed PaaS for building scalable web apps.",
+"f": "One of the original cloud PaaS offerings, launched in 2008.",
+"l": "https://cloud.google.com/appengine/docs",
+"u": ["Deploying web apps with zero infrastructure management", "Want automatic scaling with a generous free tier", "Need PaaS supporting Python, Java, Go, Node.js, PHP, Ruby"]
+},
+"Firebase Hosting": {
+"w": "Fast and secure hosting for web apps and static content.",
+"f": "Backed by a global CDN with automatic SSL certificates.",
+"l": "https://firebase.google.com/docs/hosting",
+"u": ["Hosting static sites or SPAs with global CDN distribution", "Want one-command deploys with automatic SSL and preview URLs", "Building Firebase-integrated web apps with Firestore backend"]
+},
+"Batch": {
+"w": "Fully managed batch processing at scale.",
+"f": "Automatically provisions resources and manages job queues.",
+"l": "https://cloud.google.com/batch/docs",
+"u": ["Running container or script-based batch jobs on GCP", "Need automatic resource provisioning for compute-heavy tasks", "Want managed job queues with task-level parallelism"]
+},
+"HPC Toolkit": {
+"w": "Deploy HPC environments on Google Cloud quickly.",
+"f": "Provides pre-built Terraform blueprints for HPC clusters.",
+"l": "https://cloud.google.com/hpc-toolkit/docs",
+"u": ["Deploying HPC clusters on GCP with Terraform blueprints", "Need Slurm-based job scheduling on Compute Engine", "Want repeatable HPC environment provisioning"]
+},
+"Cloud CDN Functions": {
+"w": "Run lightweight code at Google Cloud CDN edge.",
+"f": "Executes at 100+ edge locations globally.",
+"l": "https://cloud.google.com/cdn/docs",
+"u": ["Lightweight request/response transforms at the CDN edge", "Need URL rewrites or header manipulation without origin roundtrip", "Want edge logic on Google global network POPs"]
+},
+"Cloud CDN": {
+"w": "Content delivery network built on Google global edge network.",
+"f": "Uses the same network infrastructure that serves Google Search and YouTube.",
+"l": "https://cloud.google.com/cdn/docs",
+"u": ["Caching and accelerating web content on Google global edge", "Want CDN integrated with Cloud Load Balancing", "Need low-latency delivery using Google backbone network"]
+},
+"Distributed Cloud Edge": {
+"w": "Extend Google Cloud infrastructure to the edge and on-premises.",
+"f": "Brings Google-managed hardware and software to customer locations.",
+"l": "https://cloud.google.com/distributed-cloud/edge/latest/docs",
+"u": ["Need Google Cloud services running on-premises or at the edge", "Want Google-managed hardware at customer data center locations", "Require low-latency processing at edge with GKE and AI"]
+},
+"Confidential VMs": {
+"w": "Encrypt data in use with hardware-based memory encryption.",
+"f": "Uses AMD SEV or Intel TDX for hardware-level isolation.",
+"l": "https://cloud.google.com/confidential-computing/confidential-vm/docs",
+"u": ["Processing sensitive data that must be encrypted even in memory", "Compliance requires hardware-level memory encryption", "Need to protect data from cloud operator access"]
+},
+"Confidential GKE Nodes": {
+"w": "Run GKE workloads on Confidential VMs.",
+"f": "Combines Kubernetes orchestration with hardware-level encryption.",
+"l": "https://cloud.google.com/kubernetes-engine/docs/how-to/confidential-gke-nodes",
+"u": ["Running container workloads with hardware-encrypted memory", "Need confidential computing for Kubernetes deployments", "Compliance requires memory encryption for containerized apps"]
+},
+"Cloud Storage": {
+"w": "Unified object storage with global edge caching.",
+"f": "Stores over a trillion objects across all Google Cloud customers.",
+"l": "https://cloud.google.com/storage/docs",
+"u": ["Storing unstructured data with single API across all storage classes", "Need multi-regional buckets for global low-latency access", "Want unified object storage for backups, data lakes, or media"]
+},
+"Cloud Storage Archive": {
+"w": "Lowest-cost storage for long-term data archiving.",
+"f": "Same API as standard Cloud Storage but at archive pricing.",
+"l": "https://cloud.google.com/storage/docs/storage-classes#archive",
+"u": ["Storing data accessed less than once a year at lowest cost", "Compliance or regulatory archival with same API as other classes", "Want archive storage without separate retrieval restore step"]
+},
+"Autoclass": {
+"w": "Automatically moves objects to the optimal storage class.",
+"f": "Reduces storage costs without manual lifecycle management.",
+"l": "https://cloud.google.com/storage/docs/autoclass",
+"u": ["Buckets with unpredictable or varying access patterns", "Want automatic cost optimization without lifecycle rules", "Need hands-off storage class management per object"]
+},
+"Retention Policies": {
+"w": "Enforce minimum retention periods on Cloud Storage objects.",
+"f": "Objects cannot be deleted or overwritten until the retention period expires.",
+"l": "https://cloud.google.com/storage/docs/bucket-lock",
+"u": ["Regulatory compliance requiring immutable data retention", "Need to prevent accidental deletion during retention periods", "Want bucket-level WORM-style data protection"]
+},
+"Persistent Disk": {
+"w": "Durable block storage for VM instances.",
+"f": "Supports up to 64 TB per disk with automatic encryption.",
+"l": "https://cloud.google.com/compute/docs/disks",
+"u": ["Need durable block storage for VM databases or file systems", "Want automatic encryption and regional replication options", "Require up to 120K IOPS with pd-extreme for high-performance"]
+},
+"Disk Snapshots": {
+"w": "Point-in-time backups of persistent disks.",
+"f": "Incremental snapshots only store changed blocks.",
+"l": "https://cloud.google.com/compute/docs/disks/create-snapshots",
+"u": ["Creating point-in-time backups of Persistent Disks", "Need incremental backups with cross-region replication", "Want scheduled snapshot policies for automated backups"]
+},
+"Local SSD": {
+"w": "High-performance local storage physically attached to the VM host.",
+"f": "Delivers up to 9 GB/s read throughput per VM.",
+"l": "https://cloud.google.com/compute/docs/disks/local-ssd",
+"u": ["Need ultra-fast ephemeral scratch storage for caches or temp data", "Running databases or analytics needing highest disk throughput", "Want NVMe-attached local storage with up to 9 GB/s reads"]
+},
+"Filestore": {
+"w": "Managed NFS file storage for applications.",
+"f": "Supports NFSv3 protocol with up to 100 TB per instance.",
+"l": "https://cloud.google.com/filestore/docs",
+"u": ["Need shared NFS file system for GKE or Compute Engine VMs", "Running legacy apps requiring POSIX-compliant file access", "Want managed NFS with predictable performance tiers"]
+},
+"NetApp Volumes": {
+"w": "Fully managed file storage powered by NetApp.",
+"f": "Supports NFS, SMB, and dual-protocol access.",
+"l": "https://cloud.google.com/netapp/volumes/docs",
+"u": ["Need enterprise file storage with NFS and SMB support", "Migrating NetApp ONTAP workloads to Google Cloud", "Want advanced data management like snapshots and clones"]
+},
+"Parallelstore": {
+"w": "High-performance parallel file system for HPC and AI.",
+"f": "Delivers millions of IOPS for data-intensive workloads.",
+"l": "https://cloud.google.com/parallelstore/docs",
+"u": ["HPC or AI training needing millions of IOPS", "Running large-scale simulations with parallel I/O", "Need high-throughput scratch storage integrated with Cloud Storage"]
+},
+"Transfer Appliance": {
+"w": "Physical device to ship large datasets to Google Cloud.",
+"f": "A single appliance can hold up to 300 TB of data.",
+"l": "https://cloud.google.com/transfer-appliance/docs",
+"u": ["Migrating hundreds of TBs when network transfer is impractical", "Need offline data transfer to Cloud Storage", "Want physical device for one-time large data migrations"]
+},
+"Storage Transfer Service": {
+"w": "Transfer data between cloud storage providers and GCP.",
+"f": "Can schedule recurring transfers and validate data integrity.",
+"l": "https://cloud.google.com/storage-transfer/docs",
+"u": ["Migrating data from S3, Azure Blob, or HTTP sources to GCS", "Need scheduled recurring transfers with integrity validation", "Want cloud-to-cloud data transfer without on-prem agents"]
+},
+"Backup and DR": {
+"w": "Managed backup and disaster recovery service.",
+"f": "Supports application-consistent backups for VMs, databases, and file systems.",
+"l": "https://cloud.google.com/backup-disaster-recovery/docs",
+"u": ["Centralizing backups for GCP VMs, databases, and file systems", "Need application-consistent backups with retention policies", "Want managed DR with recovery to different zones or regions"]
+},
+"Cloud SQL": {
+"w": "Fully managed relational database for MySQL, PostgreSQL, and SQL Server.",
+"f": "Handles automated backups, replication, and patching.",
+"l": "https://cloud.google.com/sql/docs",
+"u": ["Need managed MySQL, PostgreSQL, or SQL Server on GCP", "Want automated backups, patching, and high availability", "Running standard relational workloads without admin overhead"]
+},
+"AlloyDB": {
+"w": "Fully managed PostgreSQL-compatible database for demanding workloads.",
+"f": "Up to 4x faster than standard PostgreSQL for transactional workloads.",
+"l": "https://cloud.google.com/alloydb/docs",
+"u": ["Need PostgreSQL with up to 4x better transactional performance", "Want columnar engine for mixed OLTP/OLAP workloads", "Running demanding PostgreSQL with AI/ML integration"]
+},
+"AlloyDB Omni": {
+"w": "Run AlloyDB anywhere — on-premises, edge, or other clouds.",
+"f": "Same AlloyDB engine that runs in Google Cloud, deployable anywhere.",
+"l": "https://cloud.google.com/alloydb/omni/docs",
+"u": ["Need AlloyDB performance on-premises or on other clouds", "Want PostgreSQL-compatible database that runs anywhere", "Building hybrid apps requiring consistent DB engine across environments"]
+},
+"Cloud SQL Auth Proxy": {
+"w": "Secure connection proxy for Cloud SQL instances.",
+"f": "Handles SSL/TLS encryption and IAM authentication automatically.",
+"l": "https://cloud.google.com/sql/docs/mysql/sql-proxy",
+"u": ["Connecting securely to Cloud SQL without managing SSL certs", "Need IAM-based database authentication from GKE or Compute Engine", "Want automatic TLS encryption for Cloud SQL connections"]
+},
+"Bigtable": {
+"w": "Fully managed wide-column NoSQL database for large analytical workloads.",
+"f": "Powers Google Search, Maps, and Gmail internally.",
+"l": "https://cloud.google.com/bigtable/docs",
+"u": ["Need low-latency NoSQL for TB-to-PB scale analytical workloads", "Running time series, IoT, or ad-tech with millions of ops/sec", "Want HBase-compatible API with fully managed infrastructure"]
+},
+"Bigtable Replication": {
+"w": "Automatic replication of Bigtable data across regions.",
+"f": "Provides eventual consistency with automatic failover.",
+"l": "https://cloud.google.com/bigtable/docs/replication-overview",
+"u": ["Need multi-region Bigtable for high availability and DR", "Want read traffic distributed across regions for lower latency", "Require automatic failover between Bigtable clusters"]
+},
+"Firestore": {
+"w": "Serverless NoSQL document database with real-time sync.",
+"f": "Supports offline mode for mobile and web apps.",
+"l": "https://cloud.google.com/firestore/docs",
+"u": ["Building mobile or web apps needing real-time data sync", "Want serverless document DB with offline support", "Need Firebase-integrated NoSQL with strong consistency"]
+},
+"Spanner": {
+"w": "Globally distributed, strongly consistent relational database.",
+"f": "The only database offering external consistency at global scale.",
+"l": "https://cloud.google.com/spanner/docs",
+"u": ["Need globally distributed relational DB with strong consistency", "Running financial or inventory systems requiring external consistency", "Want horizontal scaling for relational workloads across regions"]
+},
+"Neo4j Aura (partner)": {
+"w": "Managed graph database available on Google Cloud.",
+"f": "Available as a fully managed service through Google Cloud Marketplace.",
+"l": "https://neo4j.com/cloud/aura-google-cloud/",
+"u": ["Building graph-based apps like recommendations or fraud detection", "Need Cypher query language for graph traversals", "Want managed graph DB on GCP without self-hosting Neo4j"]
+},
+"Memorystore": {
+"w": "Fully managed in-memory data store for Redis and Memcached.",
+"f": "Supports Redis Cluster mode for scaling beyond a single node.",
+"l": "https://cloud.google.com/memorystore/docs",
+"u": ["Need managed Redis or Memcached for caching on GCP", "Want sub-millisecond latency for session stores or leaderboards", "Running applications requiring in-memory data with cluster mode"]
+},
+"Memorystore for Redis": {
+"w": "Managed Redis with sub-millisecond latency.",
+"f": "Supports Redis 7.0 with automatic failover.",
+"l": "https://cloud.google.com/memorystore/docs/redis",
+"u": ["Need dedicated managed Redis with automatic failover", "Want Redis 7.0 features with Google-managed patching", "Running Redis workloads requiring Standard or Basic tiers"]
+},
+"Vertex AI Vector Search": {
+"w": "Managed vector similarity search for embeddings.",
+"f": "Scales to billions of vectors with real-time updates.",
+"l": "https://cloud.google.com/vertex-ai/docs/vector-search/overview",
+"u": ["Building RAG or semantic search at billion-vector scale", "Need managed vector index with real-time updates", "Want low-latency approximate nearest neighbor search"]
+},
+"AlloyDB AI": {
+"w": "Built-in AI capabilities within AlloyDB using pgvector.",
+"f": "Run vector embeddings and ML inference directly in the database.",
+"l": "https://cloud.google.com/alloydb/docs/ai",
+"u": ["Running ML inference and embedding generation inside the database", "Want vector search alongside transactional PostgreSQL data", "Building AI apps without separate vector DB infrastructure"]
+},
+"BigQuery": {
+"w": "Serverless multi-cloud data warehouse for analytics at scale.",
+"f": "Can scan petabytes of data in seconds using columnar storage.",
+"l": "https://cloud.google.com/bigquery/docs",
+"u": ["Need serverless data warehouse with zero infrastructure management", "Want to query petabytes with built-in ML and geospatial functions", "Running analytics across multi-cloud data sources"]
+},
+"VPC": {
+"w": "Virtual private cloud network for Google Cloud resources.",
+"f": "VPCs in GCP are global by default, spanning all regions.",
+"l": "https://cloud.google.com/vpc/docs",
+"u": ["Need global virtual network spanning all GCP regions automatically", "Want subnets that span zones within a region", "Building hybrid or multi-region architectures on Google Cloud"]
+},
+"Cloud NAT": {
+"w": "Managed network address translation for private instances.",
+"f": "Software-defined NAT with no single point of failure.",
+"l": "https://cloud.google.com/nat/docs",
+"u": ["Private VMs need outbound internet without external IPs", "Want software-defined NAT with no single point of failure", "Need per-region NAT with automatic port allocation"]
+},
+"Private Service Connect": {
+"w": "Private connectivity to Google APIs and partner services.",
+"f": "Creates a private endpoint in your VPC with a dedicated IP.",
+"l": "https://cloud.google.com/vpc/docs/private-service-connect",
+"u": ["Access Google APIs privately from your VPC", "Need private endpoint with dedicated IP for partner services", "Want cross-region private connectivity to published services"]
+},
+"HTTP(S) Load Balancer": {
+"w": "Global Layer 7 load balancer with SSL termination.",
+"f": "Automatically distributes traffic across regions for lowest latency.",
+"l": "https://cloud.google.com/load-balancing/docs/https",
+"u": ["Need global Layer 7 load balancing with automatic SSL", "Want URL map routing with path-based and host-based rules", "Require integrated Cloud CDN and Cloud Armor at the LB"]
+},
+"Network Load Balancer": {
+"w": "Regional Layer 4 load balancer for TCP/UDP traffic.",
+"f": "Handles millions of requests per second with ultra-low latency.",
+"l": "https://cloud.google.com/load-balancing/docs/network",
+"u": ["Need regional Layer 4 load balancing for TCP/UDP", "Want direct server return preserving client source IP", "Require passthrough load balancing without proxy overhead"]
+},
+"Global Load Balancer": {
+"w": "Anycast-based global load balancing across regions.",
+"f": "Uses a single global IP address for worldwide distribution.",
+"l": "https://cloud.google.com/load-balancing/docs",
+"u": ["Need single anycast IP for global multi-region distribution", "Want automatic failover across regions on backend health", "Require global load balancing at Layer 4 or Layer 7"]
+},
+"Cloud DNS": {
+"w": "Scalable, reliable, and managed DNS service.",
+"f": "100% SLA — one of the few cloud services with a 100% uptime guarantee.",
+"l": "https://cloud.google.com/dns/docs",
+"u": ["Need managed DNS with 100% availability SLA", "Want private DNS zones for internal VPC resolution", "Require DNSSEC support for domain validation"]
+},
+"Cloud Interconnect": {
+"w": "Dedicated physical connection between on-premises and Google Cloud.",
+"f": "Available in 10 Gbps and 100 Gbps configurations.",
+"l": "https://cloud.google.com/network-connectivity/docs/interconnect",
+"u": ["Need dedicated private connection from data center to GCP", "Want consistent low-latency bypassing the public internet", "Require 10 Gbps or 100 Gbps links with VLAN attachments"]
+},
+"Cloud VPN": {
+"w": "Securely connect on-premises network to GCP via IPsec VPN.",
+"f": "HA VPN provides 99.99% SLA with two tunnels.",
+"l": "https://cloud.google.com/network-connectivity/docs/vpn",
+"u": ["Encrypt on-premises to GCP traffic over the internet", "Need HA VPN with 99.99% SLA and BGP routing", "Want quick hybrid connectivity before Cloud Interconnect"]
+},
+"Network Connectivity Center": {
+"w": "Hub-and-spoke network management for hybrid connectivity.",
+"f": "Connects VPNs, Interconnects, and SD-WAN in a single hub.",
+"l": "https://cloud.google.com/network-connectivity/docs/network-connectivity-center",
+"u": ["Centralize VPN, Interconnect, and SD-WAN in one hub", "Need hub-and-spoke topology for hybrid multi-site networking", "Want to connect on-prem branches through Google backbone"]
+},
+"Firewall Rules": {
+"w": "Distributed firewall rules for VPC network security.",
+"f": "Applied at the VM level, not at the subnet boundary.",
+"l": "https://cloud.google.com/firewall/docs",
+"u": ["Control VM-level traffic with tag-based or service-account targeting", "Need priority-based allow and deny rules across VPC", "Want distributed firewall applied at each VM, not at subnet"]
+},
+"Cloud Armor": {
+"w": "DDoS protection and WAF for global load balancers.",
+"f": "Uses the same infrastructure that protects Google Search and Gmail.",
+"l": "https://cloud.google.com/armor/docs",
+"u": ["Protect apps from DDoS using Google-scale infrastructure", "Need WAF rules for OWASP Top 10 at the load balancer", "Want adaptive protection with ML-based threat detection"]
+},
+"Cloud Firewall": {
+"w": "Fully managed network firewall service.",
+"f": "Supports FQDN-based rules and threat intelligence integration.",
+"l": "https://cloud.google.com/firewall/docs",
+"u": ["Need FQDN-based firewall rules for domain-level filtering", "Want threat intelligence integration for known-bad IP blocking", "Require hierarchical firewall policies across org and folders"]
+},
+"Apigee": {
+"w": "Full lifecycle API management platform.",
+"f": "Manages over a trillion API calls per year across all customers.",
+"l": "https://cloud.google.com/apigee/docs",
+"u": ["Need full lifecycle API management with developer portal", "Want API monetization, analytics, and rate limiting", "Require enterprise API gateway for internal and external APIs"]
+},
+"Traffic Director": {
+"w": "Managed service mesh control plane for Envoy proxies.",
+"f": "Provides global load balancing for service-to-service traffic.",
+"l": "https://cloud.google.com/traffic-director/docs",
+"u": ["Need managed service mesh control plane for Envoy proxies", "Want global traffic management for service-to-service communication", "Require advanced routing, fault injection, and traffic splitting"]
+},
+"Service Directory": {
+"w": "Managed service registry for discovering services.",
+"f": "Works across GCP, multi-cloud, and on-premises environments.",
+"l": "https://cloud.google.com/service-directory/docs",
+"u": ["Need centralized service registry for multi-cloud environments", "Want DNS and API-based service discovery across platforms", "Require unified service endpoint management for hybrid setups"]
+},
+"Cloud IAM": {
+"w": "Fine-grained access control for Google Cloud resources.",
+"f": "Supports over 70 predefined roles across Google Cloud services.",
+"l": "https://cloud.google.com/iam/docs",
+"u": ["Control who can do what on GCP resources with role bindings", "Need predefined or custom roles for least-privilege access", "Want resource-level IAM policies on projects, folders, or org"]
+},
+"Cloud Identity": {
+"w": "Unified identity, access, and device management.",
+"f": "Manages identities for both Google Workspace and Google Cloud.",
+"l": "https://cloud.google.com/identity/docs",
+"u": ["Manage user identities for Google Workspace and GCP access", "Need device management and endpoint verification", "Want centralized identity across all Google services"]
+},
+"Identity Platform": {
+"w": "Customer identity and access management (CIAM) platform.",
+"f": "Supports multi-tenancy for SaaS applications.",
+"l": "https://cloud.google.com/identity-platform/docs",
+"u": ["Add user auth with social login, email, or phone to apps", "Need multi-tenant identity for SaaS applications", "Want Firebase Auth compatibility with enterprise features"]
+},
+"IAM Recommender": {
+"w": "AI-powered recommendations to right-size IAM permissions.",
+"f": "Analyzes actual permission usage to suggest least-privilege policies.",
+"l": "https://cloud.google.com/iam/docs/recommender-overview",
+"u": ["Right-size overly permissive IAM roles using usage data", "Want ML-based suggestions for least-privilege role bindings", "Need to identify and remove unused permissions automatically"]
+},
+"Workload Identity Federation": {
+"w": "Access GCP resources from external identity providers without keys.",
+"f": "Eliminates the need for long-lived service account keys.",
+"l": "https://cloud.google.com/iam/docs/workload-identity-federation",
+"u": ["Grant AWS, Azure, or on-prem workloads access to GCP without keys", "Eliminate service account key files with OIDC/SAML federation", "Need keyless authentication for CI/CD pipelines like GitHub Actions"]
+},
+"Cloud KMS": {
+"w": "Managed encryption key management service.",
+"f": "Supports software, hardware (HSM), and external key backends.",
+"l": "https://cloud.google.com/kms/docs",
+"u": ["Manage encryption keys for GCP services with custom rotation", "Need CMEK for BigQuery, Cloud Storage, or Compute Engine", "Want software, HSM, or external key manager backends"]
+},
+"Cloud HSM": {
+"w": "Hardware security modules for managing encryption keys.",
+"f": "FIPS 140-2 Level 3 validated hardware.",
+"l": "https://cloud.google.com/kms/docs/hsm",
+"u": ["Need FIPS 140-2 Level 3 hardware-backed key storage", "Want HSM protection accessible through Cloud KMS API", "Require hardware-backed keys for regulatory compliance"]
+},
+"Secret Manager": {
+"w": "Store and manage API keys, passwords, and certificates.",
+"f": "Supports automatic rotation and IAM-based access control.",
+"l": "https://cloud.google.com/secret-manager/docs",
+"u": ["Store API keys, passwords, and certificates securely", "Need versioned secrets with IAM-based access control", "Want secrets accessible from Cloud Run, GKE, or Cloud Functions"]
+},
+"Certificate Manager": {
+"w": "Provision and manage TLS certificates.",
+"f": "Automates certificate issuance and renewal for load balancers.",
+"l": "https://cloud.google.com/certificate-manager/docs",
+"u": ["Provision Google-managed TLS certificates for load balancers", "Need automatic certificate renewal without manual intervention", "Want DNS authorization for wildcard certificate issuance"]
+},
+"Certificate Authority Service": {
+"w": "Managed private certificate authority.",
+"f": "Issue private certificates at scale with custom CA hierarchies.",
+"l": "https://cloud.google.com/certificate-authority-service/docs",
+"u": ["Run managed private CA for internal mTLS certificates", "Need custom CA hierarchies for enterprise PKI", "Want to issue certificates at scale for microservice mesh"]
+},
+"Security Command Center": {
+"w": "Centralized security and risk management platform.",
+"f": "Provides built-in threat detection for GCP resources.",
+"l": "https://cloud.google.com/security-command-center/docs",
+"u": ["Centralize security findings and threat detection for all GCP resources", "Need vulnerability scanning and misconfiguration alerts", "Want org-wide security posture dashboard with risk scoring"]
+},
+"Chronicle": {
+"w": "Cloud-native security analytics and SIEM platform.",
+"f": "Can analyze petabytes of security telemetry in seconds.",
+"l": "https://cloud.google.com/chronicle/docs",
+"u": ["Need SIEM that ingests petabytes of logs at fixed pricing", "Want threat detection with YARA-L rules on security telemetry", "Require multi-cloud log analysis for incident investigation"]
+},
+"Container Analysis": {
+"w": "Vulnerability scanning for container images.",
+"f": "Automatically scans images pushed to Artifact Registry.",
+"l": "https://cloud.google.com/container-analysis/docs",
+"u": ["Scan container images for CVEs in Artifact Registry automatically", "Need vulnerability reports before deploying to GKE", "Want attestation integration with Binary Authorization"]
+},
+"Sensitive Data Protection": {
+"w": "Discover, classify, and protect sensitive data.",
+"f": "Can scan and de-identify PII across BigQuery, Cloud Storage, and Datastore.",
+"l": "https://cloud.google.com/sensitive-data-protection/docs",
+"u": ["Discover and classify PII across BigQuery and Cloud Storage", "Need automated de-identification and redaction of sensitive data", "Want 150+ built-in infoType detectors for global compliance"]
+},
+"Resource Manager": {
+"w": "Hierarchically manage GCP resources with organizations and folders.",
+"f": "Supports organization policies that cascade down the hierarchy.",
+"l": "https://cloud.google.com/resource-manager/docs",
+"u": ["Organize GCP resources in org, folder, and project hierarchy", "Need org policies that cascade down to enforce guardrails", "Want centralized management of labels, permissions, and billing"]
+},
+"Cloud Audit Logs": {
+"w": "Track all admin and data access activity.",
+"f": "Enabled by default for admin activity across all GCP services.",
+"l": "https://cloud.google.com/logging/docs/audit",
+"u": ["Audit all admin and data access activity across GCP", "Need tamper-proof API call logs for compliance requirements", "Want free admin activity logs enabled by default"]
+},
+"Cloud Asset Inventory": {
+"w": "View and monitor all GCP assets across projects.",
+"f": "Supports querying historical asset states up to 35 days back.",
+"l": "https://cloud.google.com/asset-inventory/docs",
+"u": ["Query all GCP resource metadata across the organization", "Need historical asset state snapshots for compliance audits", "Want real-time change notifications for resource configuration drift"]
+},
+"Assured Workloads": {
+"w": "Enforce compliance controls for regulated workloads.",
+"f": "Supports FedRAMP High, IL4, CJIS, and ITAR compliance.",
+"l": "https://cloud.google.com/assured-workloads/docs",
+"u": ["Enforce FedRAMP, IL4, or ITAR compliance on GCP resources", "Need data residency and personnel access controls", "Want automated compliance guardrails for regulated workloads"]
+},
+"Compliance Reports Manager": {
+"w": "Access GCP compliance reports and certifications.",
+"f": "Provides audit artifacts for SOC, ISO, PCI, and HIPAA.",
+"l": "https://cloud.google.com/security/compliance",
+"u": ["Download SOC, ISO, PCI, and HIPAA compliance reports", "Need audit artifacts for third-party compliance assessments", "Want self-service access to Google Cloud certifications"]
+},
+"BeyondCorp Enterprise": {
+"w": "Zero-trust access to applications without a VPN. Now rebranded as Chrome Enterprise Premium.",
+"f": "Based on Google internal zero-trust model used by all employees.",
+"l": "https://cloud.google.com/chrome-enterprise-premium/docs",
+"u": ["Replace VPN with zero-trust context-aware access", "Need device posture checks via Chrome Enterprise browser", "Want Identity-Aware Proxy for internal app access control"]
+},
+"Binary Authorization": {
+"w": "Enforce deploy-time security policies for containers.",
+"f": "Only allows trusted container images to run on GKE.",
+"l": "https://cloud.google.com/binary-authorization/docs",
+"u": ["Enforce that only signed container images deploy to GKE", "Need attestation-based deployment policies for supply chain security", "Want to block unsigned or unscanned images at deploy time"]
+},
+"Architecture Framework": {
+"w": "Best practices for designing workloads on Google Cloud.",
+"f": "Covers security, reliability, cost optimization, and operational excellence.",
+"l": "https://cloud.google.com/architecture/framework",
+"u": ["Review GCP architecture against Google best practices", "Need design guidance across security, reliability, and cost pillars", "Want reference architectures for common workload patterns"]
+},
+"Active Assist": {
+"w": "AI-powered recommendations for optimizing cloud resources.",
+"f": "Provides recommendations across cost, security, performance, and manageability.",
+"l": "https://cloud.google.com/recommender/docs",
+"u": ["Get ML-driven recommendations for cost and performance optimization", "Need idle resource detection and right-sizing suggestions", "Want proactive security and reliability improvement tips"]
+},
+"Service Catalog (GCP)": {
+"w": "Managed catalog of approved cloud solutions.",
+"f": "Lets platform teams curate Terraform solutions for developers.",
+"l": "https://cloud.google.com/service-catalog/docs",
+"u": ["Curate approved Terraform solutions for developer self-service", "Need governance over what cloud resources teams can provision", "Want standardized deployment templates across projects"]
+},
+"Pub/Sub": {
+"w": "Global real-time messaging and event ingestion service.",
+"f": "Delivers over 500 million messages per second globally.",
+"l": "https://cloud.google.com/pubsub/docs",
+"u": ["Need serverless real-time messaging that auto-scales globally", "Want at-least-once delivery without managing infrastructure", "Ingesting event streams from IoT, apps, or analytics pipelines"]
+},
+"Managed Kafka": {
+"w": "Fully managed Apache Kafka service.",
+"f": "Compatible with existing Kafka clients and tooling.",
+"l": "https://cloud.google.com/managed-kafka/docs",
+"u": ["Migrate Kafka workloads to GCP without client code changes", "Need managed Kafka compatible with existing producers and consumers", "Want Kafka on GCP with automatic patching and scaling"]
+},
+"Dataflow": {
+"w": "Unified stream and batch data processing service.",
+"f": "Based on Apache Beam, which Google originally developed.",
+"l": "https://cloud.google.com/dataflow/docs",
+"u": ["Build unified stream and batch pipelines with Apache Beam", "Need serverless data processing that auto-scales workers", "Want exactly-once processing for real-time event streams"]
+},
+"Application Integration": {
+"w": "Integration platform for connecting apps and data.",
+"f": "Provides no-code integration with 150+ pre-built connectors.",
+"l": "https://cloud.google.com/application-integration/docs",
+"u": ["Connect SaaS apps and data with 150+ pre-built connectors", "Need no-code visual workflow builder for data integration", "Want event-driven or scheduled data pipelines without code"]
+},
+"Dataproc": {
+"w": "Managed Spark and Hadoop clusters.",
+"f": "Clusters spin up in 90 seconds or less.",
+"l": "https://cloud.google.com/dataproc/docs",
+"u": ["Run managed Spark or Hadoop clusters in 90 seconds", "Need per-second billing with Preemptible VM support", "Want quick ephemeral clusters for batch Spark jobs"]
+},
+"Dataproc Serverless": {
+"w": "Run Spark workloads without managing clusters.",
+"f": "Auto-scales resources and charges only for compute used.",
+"l": "https://cloud.google.com/dataproc-serverless/docs",
+"u": ["Run Spark jobs without provisioning or managing clusters", "Want pay-per-use Spark that auto-scales and shuts down", "Need serverless Spark for ad-hoc data processing tasks"]
+},
+"Dataplex": {
+"w": "Unified data governance and management across data lakes.",
+"f": "Automatically discovers and classifies data assets.",
+"l": "https://cloud.google.com/dataplex/docs",
+"u": ["Govern and manage data across BigQuery and Cloud Storage", "Need automatic data discovery, classification, and profiling", "Want centralized data governance for a data mesh architecture"]
+},
+"Analytics Hub": {
+"w": "Exchange data analytics assets across organizations.",
+"f": "Supports shared datasets, ML models, and Looker dashboards.",
+"l": "https://cloud.google.com/bigquery/docs/analytics-hub-introduction",
+"u": ["Share BigQuery datasets across organizations without data copies", "Need governed data marketplace for internal or external sharing", "Want linked datasets that stay current without data movement"]
+},
+"Looker": {
+"w": "Enterprise business intelligence and analytics platform.",
+"f": "Uses a unique modeling language (LookML) to define data relationships.",
+"l": "https://cloud.google.com/looker/docs",
+"u": ["Build enterprise BI with a governed semantic layer via LookML", "Need embedded analytics for customer-facing applications", "Want single source of truth for metrics across the organization"]
+},
+"Elasticsearch on GCP": {
+"w": "Managed Elasticsearch through Elastic Cloud on Google Cloud.",
+"f": "Available in 30+ GCP regions with cross-cluster replication.",
+"l": "https://www.elastic.co/partnerships/google-cloud",
+"u": ["Need official Elasticsearch with Kibana on GCP infrastructure", "Want cross-cluster replication across 30+ GCP regions", "Require Elastic observability and security features natively"]
+},
+"Vertex AI Search": {
+"w": "AI-powered enterprise search across structured and unstructured data.",
+"f": "Combines traditional search with LLM-based understanding.",
+"l": "https://cloud.google.com/vertex-ai-search-and-conversation",
+"u": ["Build AI-powered search combining LLM understanding with retrieval", "Need enterprise search with grounding on your own documents", "Want summarized answers instead of just ranked document links"]
+},
+"Dataplex Data Quality": {
+"w": "Automated data quality monitoring and validation.",
+"f": "Runs quality checks as serverless Spark jobs.",
+"l": "https://cloud.google.com/dataplex/docs/data-quality-overview",
+"u": ["Monitor data quality across BigQuery and Cloud Storage assets", "Need YAML-based quality rules running as serverless Spark jobs", "Want automated data profiling with quality scoring dashboards"]
+},
+"BigQuery Clean Rooms": {
+"w": "Privacy-safe data collaboration between organizations.",
+"f": "Enables analytics on combined datasets without exposing raw data.",
+"l": "https://cloud.google.com/bigquery/docs/introduction",
+"u": ["Collaborate on data with partners without sharing raw records", "Need privacy-safe analytics natively in BigQuery", "Want governed data sharing with SQL-based access policies"]
+},
+"Vertex AI Workbench": {
+"w": "Managed Jupyter notebook environment for ML development.",
+"f": "Integrates with BigQuery, Spark, and all Vertex AI tools.",
+"l": "https://cloud.google.com/vertex-ai/docs/workbench",
+"u": ["Need managed Jupyter notebooks with BigQuery and Spark integration", "Want preconfigured ML environments with GPU support", "Require collaborative notebooks connected to Vertex AI platform"]
+},
+"Vertex AI Pipelines": {
+"w": "Managed ML pipeline orchestration service.",
+"f": "Supports both TFX and Kubeflow Pipelines.",
+"l": "https://cloud.google.com/vertex-ai/docs/pipelines",
+"u": ["Orchestrate ML workflows using TFX or Kubeflow Pipelines", "Need serverless ML pipeline execution with artifact tracking", "Want reproducible training and deployment workflows at scale"]
+},
+"Vertex AI AutoML": {
+"w": "Train custom ML models with minimal code.",
+"f": "Automatically tries thousands of model architectures to find the best one.",
+"l": "https://cloud.google.com/vertex-ai/docs/beginner/beginners-guide",
+"u": ["Train custom models without ML expertise using AutoML", "Need image, text, tabular, or video models with minimal code", "Want automated architecture search across thousands of models"]
+},
+"Vertex Explainable AI": {
+"w": "Understand ML model predictions with feature attributions.",
+"f": "Supports Shapley values and integrated gradients methods.",
+"l": "https://cloud.google.com/vertex-ai/docs/explainable-ai",
+"u": ["Understand which features drive ML model predictions", "Need Shapley values for model compliance and audit requirements", "Want integrated gradients for deep learning model explainability"]
+},
+"Vertex AI Model Garden": {
+"w": "Discover and deploy foundation models from Google and partners.",
+"f": "Includes Gemini, PaLM, Llama, Claude, and 150+ open models.",
+"l": "https://cloud.google.com/vertex-ai/generative-ai/docs/model-garden/explore-models",
+"u": ["Access 150+ foundation models including Gemini and open-source", "Need one-click deployment of Llama, Claude, or Mistral on GCP", "Want to compare and evaluate models before production deployment"]
+},
+"Vertex AI Agent Builder": {
+"w": "Build and deploy AI agents with grounding and tools.",
+"f": "Agents can use Google Search, your data, and custom APIs.",
+"l": "https://cloud.google.com/products/agent-builder",
+"u": ["Build AI agents grounded in your data and Google Search", "Need visual builder for conversational AI with tool use", "Want agents that combine search, data stores, and custom APIs"]
+},
+"Vertex AI Safety": {
+"w": "Content safety filters and responsible AI guardrails.",
+"f": "Provides configurable thresholds for hate, violence, and other harms.",
+"l": "https://cloud.google.com/vertex-ai/docs/generative-ai/learn/responsible-ai",
+"u": ["Filter harmful content in Gemini and PaLM model outputs", "Need configurable safety thresholds for hate and violence categories", "Want responsible AI controls for production GenAI applications"]
+},
+"Gemini Code Assist": {
+"w": "AI-powered code completion and generation in IDEs.",
+"f": "Trained on Google codebase with enterprise code customization.",
+"l": "https://cloud.google.com/gemini/docs/codeassist/overview",
+"u": ["Get AI code completion and generation in VS Code or JetBrains", "Need enterprise code customization trained on your codebase", "Want inline code suggestions with full codebase context awareness"]
+},
+"Google Antigravity": {
+"w": "Agent-first IDE for orchestrating autonomous AI coding agents.",
+"f": "Built as a VS Code fork with a Mission Control interface for managing multiple agents simultaneously.",
+"l": "https://antigravity.google/",
+"u": ["Need an agent-first IDE that spawns and orchestrates multiple autonomous coding agents", "Want async development with artifact-based verification and browser testing", "Building complex apps where multiple AI agents work across workspaces in parallel"]
+},
+"Gemini for Workspace": {
+"w": "AI assistant across Gmail, Docs, Sheets, and Slides.",
+"f": "Can summarize long email threads and generate documents from prompts.",
+"l": "https://workspace.google.com/solutions/ai",
+"u": ["Summarize emails and generate documents with AI in Workspace", "Need AI assistance in Gmail, Docs, Sheets, and Slides", "Want meeting notes and action items generated automatically"]
+},
+"Gemini API": {
+"w": "API access to Google Gemini foundation models.",
+"f": "Supports text, image, audio, and video inputs in a single model.",
+"l": "https://ai.google.dev/docs",
+"u": ["Access Gemini multimodal models via API for text, image, audio, video", "Need a single model that handles all input modalities", "Want generous free tier for prototyping GenAI applications"]
+},
+"Vision AI": {
+"w": "Pre-trained models for image analysis and recognition.",
+"f": "Can detect over 10,000 object categories out of the box.",
+"l": "https://cloud.google.com/vision/docs",
+"u": ["Detect objects, labels, text, and landmarks in images", "Need pre-trained models recognizing 10,000+ object categories", "Want image content moderation and safe search detection"]
+},
+"Document AI": {
+"w": "Extract structured data from documents using ML.",
+"f": "Pre-trained parsers for invoices, receipts, IDs, and contracts.",
+"l": "https://cloud.google.com/document-ai/docs",
+"u": ["Extract structured data from invoices, receipts, and IDs", "Need pre-trained document parsers without custom model training", "Want automated document processing with human-in-the-loop review"]
+},
+"Natural Language AI": {
+"w": "Text analysis for sentiment, entities, and syntax.",
+"f": "Supports analysis in 12+ languages.",
+"l": "https://cloud.google.com/natural-language/docs",
+"u": ["Analyze text for sentiment, entities, and syntax structure", "Need multilingual NLP supporting 12+ languages", "Want content classification and entity recognition for documents"]
+},
+"Translation AI": {
+"w": "Dynamic translation between 100+ languages.",
+"f": "Supports custom glossaries and domain-specific translation models.",
+"l": "https://cloud.google.com/translate/docs",
+"u": ["Translate text or documents across 100+ languages", "Need custom glossaries for brand terms and domain vocabulary", "Want AutoML Translation for domain-specific translation quality"]
+},
+"Speech-to-Text": {
+"w": "Convert audio to text using deep learning.",
+"f": "Supports 125+ languages and variants.",
+"l": "https://cloud.google.com/speech-to-text/docs",
+"u": ["Transcribe audio to text in 125+ languages and variants", "Need real-time streaming transcription for live applications", "Want automatic punctuation and speaker diarization"]
+},
+"Text-to-Speech": {
+"w": "Convert text into natural-sounding speech.",
+"f": "Offers 380+ voices across 50+ languages.",
+"l": "https://cloud.google.com/text-to-speech/docs",
+"u": ["Generate natural speech from text with 380+ voice options", "Need Studio-quality custom voices for brand consistency", "Want SSML support for fine-grained speech control"]
+},
+"Recommendations AI": {
+"w": "Deliver personalized product recommendations.",
+"f": "Used by large retailers to increase click-through rates by 40%+.",
+"l": "https://cloud.google.com/recommendations-ai/docs",
+"u": ["Deliver personalized product recommendations for e-commerce", "Need Google-grade recommendation engine for retail websites", "Want to increase click-through rates by 40% or more"]
+},
+"Anti Money Laundering AI": {
+"w": "Detect suspicious financial transactions with AI.",
+"f": "Reduces false positives by up to 60% compared to rule-based systems.",
+"l": "https://cloud.google.com/financial-services/anti-money-laundering/docs",
+"u": ["Detect suspicious financial transactions with ML-based scoring", "Need to reduce false positives in AML monitoring by up to 60%", "Want AI that augments existing transaction monitoring systems"]
+},
+"Vertex AI Forecasting": {
+"w": "Time series forecasting with AutoML.",
+"f": "Handles multiple time series and covariates automatically.",
+"l": "https://cloud.google.com/vertex-ai/docs/tabular-data/forecasting-overview",
+"u": ["Build time-series forecasts using AutoML without ML expertise", "Need demand, sales, or resource capacity predictions", "Want automatic handling of multiple related time series"]
+},
+"A3 (H100)": {
+"w": "GPU-accelerated VMs with NVIDIA H100 GPUs.",
+"f": "Each VM has up to 8 H100 GPUs with 640 GB HBM3 memory.",
+"l": "https://cloud.google.com/compute/docs/gpus",
+"u": ["Train large AI models with 8x NVIDIA H100 GPUs per VM", "Need high-bandwidth GPU networking with GPUDirect-TCPX", "Want H100 GPU VMs for foundation model training on GCP"]
+},
+"TPU v5p": {
+"w": "Google custom AI accelerator for training large models.",
+"f": "A single TPU v5p pod has 8,960 chips delivering 459 TFLOPS each.",
+"l": "https://cloud.google.com/tpu/docs/v5p",
+"u": ["Train the largest AI models on Google custom TPU hardware", "Need pod-scale training with 8,960 chips interconnected", "Want highest-performance AI accelerator for LLM training"]
+},
+"TPU v5e": {
+"w": "Cost-efficient TPU for inference and smaller training jobs.",
+"f": "Optimized for transformer model inference at lower cost.",
+"l": "https://cloud.google.com/tpu/docs/v5e",
+"u": ["Run cost-efficient inference on Google custom TPU hardware", "Need affordable AI accelerator for transformer model serving", "Want TPU for smaller training jobs and fine-tuning"]
+},
+"JAX / TPU SDK": {
+"w": "High-performance ML framework optimized for TPUs.",
+"f": "JAX combines NumPy familiarity with XLA compilation for speed.",
+"l": "https://cloud.google.com/tpu/docs/jax-quickstart-tpu-vm",
+"u": ["Write ML code with NumPy API compiled to XLA for TPU speed", "Need automatic differentiation and vectorization for research", "Want multi-device parallelism without manual SPMD programming"]
+},
+"Dialogflow": {
+"w": "Build conversational AI experiences for chatbots and voice.",
+"f": "Powers the Google Assistant developer platform.",
+"l": "https://cloud.google.com/dialogflow/docs",
+"u": ["Build voice and text chatbots with Google NLU technology", "Need visual flow builder for complex conversation design", "Want multi-channel deployment across web, phone, and messaging"]
+},
+"CCAI": {
+"w": "AI-powered contact center solutions.",
+"f": "Can handle 70%+ of routine customer inquiries without human agents.",
+"l": "https://cloud.google.com/solutions/contact-center",
+"u": ["Add AI virtual agents to existing contact center infrastructure", "Need to automate 70%+ of routine customer inquiries", "Want real-time agent assist with AI-suggested responses"]
+},
+"Eventarc": {
+"w": "Event-driven architecture for Google Cloud services.",
+"f": "Supports 90+ Google Cloud event sources out of the box.",
+"l": "https://cloud.google.com/eventarc/docs",
+"u": ["Route events from 90+ GCP sources to Cloud Run or Workflows","Need event-driven triggers using CloudEvents standard","Want audit-log-based triggers for any GCP API activity"]
+},
+"Cloud Composer": {
+"w": "Managed Apache Airflow for workflow orchestration.",
+"f": "Built on Apache Airflow with Google Cloud integrations.",
+"l": "https://cloud.google.com/composer/docs",
+"u": ["Running Apache Airflow on GCP with BigQuery and Dataflow integrations","Need managed workflow orchestration for data engineering pipelines","Want auto-scaling Airflow environment with GCP-native connectors"]
+},
+"SendGrid (partner)": {
+"w": "Email delivery service available through Google Cloud Marketplace.",
+"f": "Sends over 100 billion emails per month across all customers.",
+"l": "https://sendgrid.com/en-us/partners/google",
+"u": ["Sending transactional or marketing emails from GCP applications","Need high-volume email delivery with analytics and templates","Want email API accessible from Cloud Run, GKE, or Cloud Functions"]
+},
+"Firebase Cloud Messaging": {
+"w": "Cross-platform push notification service.",
+"f": "Delivers messages to iOS, Android, and web at no cost.",
+"l": "https://firebase.google.com/docs/cloud-messaging",
+"u": ["Send push notifications to iOS, Android, and web apps for free","Need cross-platform messaging with topic-based subscriptions","Want upstream messaging from devices to your server"]
+},
+"Cloud Build": {
+"w": "Serverless CI/CD platform for building and deploying.",
+"f": "Supports building from GitHub, Bitbucket, and Cloud Source Repos.",
+"l": "https://cloud.google.com/build/docs",
+"u": ["Build, test, and deploy from GitHub, Bitbucket, or Cloud Source Repos","Need serverless CI/CD with 120 free build-minutes per day","Want container builds with Artifact Registry integration"]
+},
+"Cloud Deploy": {
+"w": "Managed continuous delivery to GKE and Cloud Run.",
+"f": "Provides promotion pipelines with approval gates.",
+"l": "https://cloud.google.com/deploy/docs",
+"u": ["Continuous delivery to GKE and Cloud Run with promotion pipelines","Need approval gates and canary deployments for production rollouts","Want Skaffold-based delivery with audit logging"]
+},
+"Deployment Manager": {
+"w": "Infrastructure as Code using YAML and Jinja2 templates.",
+"f": "Being superseded by Terraform and Pulumi for most use cases.",
+"l": "https://cloud.google.com/deployment-manager/docs/overview",
+"u": ["Provision GCP resources with YAML templates and Jinja2 macros","Legacy IaC tool being superseded by Terraform for most use cases","Need simple GCP-native infrastructure deployment without third-party tools"]
+},
+"Pulumi / Terraform": {
+"w": "Third-party IaC tools with full GCP provider support.",
+"f": "Terraform has the most widely used GCP provider with 500+ resources.",
+"l": "https://cloud.google.com/docs/terraform",
+"u": ["Define GCP infrastructure using Terraform HCL or Pulumi code","Need multi-cloud IaC with 500+ GCP Terraform resource types","Want imperative language support via Pulumi for complex logic"]
+},
+"Cloud Monitoring": {
+"w": "Full-stack monitoring for GCP and hybrid environments.",
+"f": "Collects over 1,500 metrics from GCP services by default.",
+"l": "https://cloud.google.com/monitoring/docs",
+"u": ["Monitor GCP resources with 1,500+ built-in metrics","Need alerting policies with multiple notification channels","Want custom metrics and uptime checks for external endpoints"]
+},
+"Cloud Trace": {
+"w": "Distributed tracing for application latency analysis.",
+"f": "Automatically traces requests across App Engine, Cloud Run, and GKE.",
+"l": "https://cloud.google.com/trace/docs",
+"u": ["Trace request latency across Cloud Run, GKE, and App Engine","Need automatic distributed tracing without code instrumentation","Want latency analysis integrated with Cloud Monitoring dashboards"]
+},
+"Cloud Monitoring Dashboards": {
+"w": "Custom dashboards and visualizations for metrics.",
+"f": "Supports MQL (Monitoring Query Language) for advanced queries.",
+"l": "https://cloud.google.com/monitoring/dashboards",
+"u": ["Build custom metric dashboards with MQL advanced queries","Need visualization of GCP and custom application metrics","Want shareable dashboards with charts, alerts, and SLO tracking"]
+},
+"Managed Prometheus (GCP)": {
+"w": "Fully managed Prometheus-compatible monitoring.",
+"f": "Stores metrics globally with 24-month retention.",
+"l": "https://cloud.google.com/stackdriver/docs/managed-prometheus",
+"u": ["Collect and query Prometheus metrics with 24-month retention on GCP", "Need managed PromQL-compatible monitoring for GKE workloads", "Want global metric storage integrated with Cloud Monitoring"]
+},
+"VM Manager": {
+"w": "Manage OS patches and configurations at scale.",
+"f": "Automates patch compliance reporting across VM fleets.",
+"l": "https://cloud.google.com/compute/docs/vm-manager",
+"u": ["Automate OS patch management across Compute Engine VM fleets","Need patch compliance reporting and vulnerability remediation","Want OS configuration management at scale"]
+},
+"Incident Manager (GCP)": {
+"w": "Manage and resolve incidents across Google Cloud.",
+"f": "Integrates with PagerDuty and other alerting tools.",
+"l": "https://cloud.google.com/service-health/docs/overview",
+"u": ["Manage and resolve GCP service incidents with PagerDuty integration", "Need centralized incident tracking linked to Cloud Monitoring alerts", "Want service health visibility and incident communication tools"]
+},
+"Error Reporting": {
+"w": "Aggregate and display errors from cloud services.",
+"f": "Automatically groups similar errors and tracks resolution.",
+"l": "https://cloud.google.com/error-reporting/docs",
+"u": ["Aggregate and group application errors from Cloud Run, GKE, and GCE","Need automatic error deduplication and notification on new errors","Want stack trace analysis with resolution tracking"]
+},
+"Cost Management": {
+"w": "Monitor, analyze, and optimize Google Cloud spending.",
+"f": "Provides billing exports to BigQuery for custom analysis.",
+"l": "https://cloud.google.com/cost-management",
+"u": ["Analyze and optimize Google Cloud spending with billing exports","Need BigQuery billing export for custom cost analysis","Want cost breakdown by project, service, SKU, or label"]
+},
+"Budget Alerts": {
+"w": "Set budgets and receive alerts on cloud spending.",
+"f": "Can trigger Cloud Functions for automated cost controls.",
+"l": "https://cloud.google.com/billing/docs/how-to/budgets",
+"u": ["Set spending thresholds and receive alerts via email or Pub/Sub","Need programmatic budget alerts that trigger Cloud Functions","Want per-project or billing-account level budget monitoring"]
+},
+"Migration Center": {
+"w": "Unified discovery and assessment for cloud migration.",
+"f": "Automatically discovers and assesses on-premises workloads.",
+"l": "https://cloud.google.com/migration-center/docs",
+"u": ["Discover and assess on-premises workloads for GCP migration","Need unified migration planning with TCO analysis","Want automatic workload discovery with dependency mapping"]
+},
+"Rapid Assessment": {
+"w": "Quick cloud migration cost and effort estimates.",
+"f": "Generates TCO comparisons in minutes.",
+"l": "https://cloud.google.com/migration-center/docs",
+"u": ["Generate quick TCO estimates for cloud migration business cases","Need fast cost comparisons between on-prem and Google Cloud","Want migration effort estimates in minutes, not weeks"]
+},
+"Database Migration Service": {
+"w": "Serverless database migration to Cloud SQL and AlloyDB.",
+"f": "Supports continuous replication for minimal downtime migrations.",
+"l": "https://cloud.google.com/database-migration/docs",
+"u": ["Migrate MySQL, PostgreSQL, or SQL Server to Cloud SQL or AlloyDB","Need serverless continuous replication for minimal downtime","Want managed migration with automatic schema validation"]
+},
+"Migrate for Anthos": {
+"w": "Modernize VMs into containers on GKE.",
+"f": "Automatically extracts and containerizes workloads from VMs.",
+"l": "https://cloud.google.com/migrate/containers/docs",
+"u": ["Convert VM workloads into containers running on GKE","Need automated extraction of VMs into container images","Want to modernize from VMs to Kubernetes without manual rewrites"]
+},
+"Dual Run": {
+"w": "Run mainframe workloads in parallel on GCP.",
+"f": "Validates cloud migration by comparing outputs side-by-side.",
+"l": "https://cloud.google.com/blog/products/cloud-migration/dual-run-with-google-cloud",
+"u": ["Validate mainframe migration by running workloads in parallel on GCP","Need side-by-side output comparison between mainframe and cloud","Want risk-free migration validation before full cutover"]
+},
+"Distributed Cloud": {
+"w": "Google-managed infrastructure at the edge and on-premises.",
+"f": "Extends Google Cloud to customer data centers with full API compatibility.",
+"l": "https://cloud.google.com/distributed-cloud",
+"u": ["Run Google Cloud infrastructure at the edge or in your data center","Need GCP APIs and services on customer-managed hardware","Want Google-managed infrastructure outside Google Cloud regions"]
+},
+"Google Cloud VMware Engine": {
+"w": "Run VMware workloads natively on Google Cloud.",
+"f": "Migrate vSphere VMs without refactoring using HCX.",
+"l": "https://cloud.google.com/vmware-engine/docs",
+"u": ["Migrate VMware VMs to GCP without refactoring using HCX","Need full vSphere, vSAN, and NSX stack on Google Cloud hardware","Want VMware workloads with access to GCP-native services"]
+},
+"IoT Core (deprecated)": {
+"w": "MQTT-based device connection service (deprecated August 2023).",
+"f": "Google recommends partner solutions like ClearBlade for IoT.",
+"l": "https://cloud.google.com/iot-core/docs",
+"u": ["Was used for MQTT device connections before August 2023 deprecation","Migrate to ClearBlade or other partner IoT solutions on GCP","Legacy GCP IoT device management now handled by partners"]
+},
+"Cloud IoT (partner solutions)": {
+"w": "IoT connectivity through ClearBlade and other GCP partners.",
+"f": "ClearBlade IoT Core is a drop-in replacement for the deprecated service.",
+"l": "https://cloud.google.com/blog/products/iot-devices",
+"u": ["Connect IoT devices to GCP using ClearBlade or other partners","Need MQTT-based device connectivity after GCP IoT Core sunset","Want IoT device management integrated with GCP data services"]
+},
+"Edge TPU Runtime": {
+"w": "Run ML inference on edge devices with Edge TPU chips.",
+"f": "Edge TPU delivers 4 TOPS at only 2 watts of power.",
+"l": "https://coral.ai/docs/",
+"u": ["Run ML inference on Coral Edge TPU hardware at ultra-low power","Need 4 TOPS ML inference at only 2 watts for edge devices","Want TensorFlow Lite models accelerated on dedicated edge hardware"]
+},
+"Supply Chain Twin": {
+"w": "Digital twin platform for supply chain simulation.",
+"f": "Combines Google Maps data with supply chain models.",
+"l": "https://cloud.google.com/solutions/supply-chain-logistics",
+"u": ["Build digital twins for supply chain simulation and optimization","Need logistics network modeling with Google Maps integration","Want predictive supply chain insights using AI and real-time data"]
+},
+"Carbon Footprint (GCP)": {
+"w": "Track and report the carbon emissions of your GCP usage.",
+"f": "Google Cloud matches 100% of energy use with renewable energy.",
+"l": "https://cloud.google.com/carbon-footprint/docs",
+"u": ["Track carbon emissions per GCP project and service", "Need sustainability reporting with Google 100% renewable energy matching", "Want gross and net carbon data for environmental compliance"]
+},
+"Tau VMs": {
+"w": "Cost-efficient VMs for scale-out workloads.",
+"f": "Built on Arm-based Ampere Altra processors for best price-performance.",
+"l": "https://cloud.google.com/compute/docs/general-purpose-machines#t2a_series",
+"u": ["Run scale-out workloads with best price-performance on ARM","Need Ampere Altra ARM-based VMs for cost-efficient computing","Want energy-efficient compute for web servers and containerized apps"]
+},
+"Cloud DNS routing policies": {
+"w": "Route DNS queries based on geography or health checks.",
+"f": "Supports failover, geolocation, and weighted routing policies.",
+"l": "https://cloud.google.com/dns/docs/routing-policies-overview",
+"u": ["Route DNS queries by geography or health for failover scenarios","Need geolocation-based DNS routing for regional user targeting","Want health-check-based failover between primary and backup endpoints"]
+},
+"AlloyDB Cross-Region": {
+"w": "Cross-region replication for AlloyDB disaster recovery.",
+"f": "Provides RPO of seconds and RTO of minutes for regional failover.",
+"l": "https://cloud.google.com/alloydb/docs/cross-region-replication/overview",
+"u": ["Replicate AlloyDB across regions for disaster recovery","Need cross-region PostgreSQL failover with seconds RPO","Want managed regional failover for AlloyDB databases"]
+},
+"Fault Injection (preview)": {
+"w": "Test application resilience by injecting failures.",
+"f": "Currently in preview for GKE-based workloads.",
+"l": "https://cloud.google.com/service-mesh/docs",
+"u": ["Test GKE application resilience by injecting network faults","Need chaos engineering for Kubernetes workloads on GCP","Want Istio-based fault injection for service mesh testing"]
+},
+"Transcoder API": {
+"w": "Convert video files between formats at scale.",
+"f": "Supports H.264, H.265, VP9, and AV1 codecs.",
+"l": "https://cloud.google.com/transcoder/docs",
+"u": ["Convert video files between formats with H.264, H.265, VP9, AV1 support","Need serverless video transcoding integrated with Cloud Storage","Want batch video processing at scale with job templates"]
+},
+"Live Stream API": {
+"w": "Transcode and package live video streams.",
+"f": "Supports HLS and DASH output for adaptive bitrate streaming.",
+"l": "https://cloud.google.com/livestream/docs",
+"u": ["Transcode and package live video streams into HLS and DASH","Need managed live video encoding with adaptive bitrate output","Want live streaming infrastructure integrated with GCP services"]
+},
+"Video Stitcher API": {
+"w": "Insert dynamic ad content into video streams.",
+"f": "Supports server-side ad insertion for VOD and live streams.",
+"l": "https://cloud.google.com/video-stitcher/docs",
+"u": ["Insert dynamic ads into live and VOD video streams server-side","Need VAST/VMAP-compliant ad insertion without client-side SDKs","Want monetize video content with server-side ad stitching"]
+},
+"WebRTC (partner)": {
+"w": "Real-time communication through partner integrations on GCP.",
+"f": "Google originally developed the WebRTC standard.",
+"l": "https://webrtc.org",
+"u": ["Add real-time video and audio communication to applications","Need peer-to-peer media with the standard Google co-developed","Want WebRTC infrastructure through GCP marketplace partners"]
+},
+"Video Intelligence API": {
+"w": "Analyze video content for labels, objects, and text.",
+"f": "Can detect and track 20,000+ objects and actions in video.",
+"l": "https://cloud.google.com/video-intelligence/docs",
+"u": ["Analyze video content for labels, objects, text, and explicit content","Need to detect and track 20,000+ objects and actions in video","Want shot detection, label detection, and speech transcription from video"]
+},
+"CCAI Platform": {
+"w": "AI-powered omnichannel contact center platform.",
+"f": "Handles voice, chat, and email with virtual agents.",
+"l": "https://cloud.google.com/solutions/contact-center",
+"u": ["Deploy an AI-powered omnichannel contact center on GCP","Need virtual agents handling voice, chat, and email channels","Want to layer AI onto existing contact center infrastructure"]
+},
+"CCAI Insights": {
+"w": "Analyze contact center conversations with NLP.",
+"f": "Automatically scores 100% of calls for quality and sentiment.",
+"l": "https://cloud.google.com/contact-center/insights/docs/overview",
+"u": ["Analyze 100% of contact center conversations with NLP scoring","Need automated sentiment analysis and topic detection across calls","Want quality management insights without manual call reviews"]
+},
+"CCAI Agent Assist": {
+"w": "Real-time AI assistance for contact center agents.",
+"f": "Suggests relevant articles and responses during live calls.",
+"l": "https://cloud.google.com/agent-assist/docs",
+"u": ["Provide real-time AI suggestions to agents during live interactions","Need automatic article and response recommendations","Want smart reply and summarization to reduce average handle time"]
+},
+"Chrome Remote Desktop": {
+"w": "Remote access to desktops through the Chrome browser.",
+"f": "Completely free and works across Windows, Mac, Linux, and ChromeOS.",
+"l": "https://support.google.com/chrome/answer/1649523",
+"u": ["Access remote desktops through the Chrome browser for free","Need cross-platform remote access for Windows, Mac, and Linux","Want simple remote desktop without installing dedicated software"]
+},
+"Chrome Enterprise": {
+"w": "Secure browser management and cloud endpoints.",
+"f": "Manages browser policies across thousands of devices centrally.",
+"l": "https://cloud.google.com/chrome-enterprise",
+"u": ["Manage Chrome browser security and policies across the organization","Need centralized browser management for thousands of devices","Want zero-trust endpoint verification through Chrome browser"]
+},
+"Chromebook Plus": {
+"w": "Premium Chromebook devices optimized for cloud workloads.",
+"f": "Includes built-in Google AI features for productivity.",
+"l": "https://www.google.com/chromebook/chromebookplus",
+"u": ["Provide premium Chromebook devices optimized for cloud workloads","Need built-in Google AI features for enterprise productivity","Want hardware-software integrated cloud computing endpoints"]
+},
+"Maps Platform": {
+"w": "Embed Google Maps in apps and websites.",
+"f": "Used by over 5 million apps and websites worldwide.",
+"l": "https://developers.google.com/maps/documentation",
+"u": ["Embed Google Maps in applications used by 5 million+ apps worldwide","Need the most detailed and accurate global mapping data","Want Street View, directions, and place data via API"]
+},
+"Places API": {
+"w": "Get details about places, businesses, and points of interest.",
+"f": "Database includes over 200 million places globally.",
+"l": "https://developers.google.com/maps/documentation/places/web-service",
+"u": ["Query details on 200 million+ places, businesses, and POIs globally","Need business hours, photos, reviews, and contact information","Want autocomplete and nearby search for location-based apps"]
+},
+"Routes API": {
+"w": "Calculate routes and directions between locations.",
+"f": "Handles real-time traffic data for accurate ETA predictions.",
+"l": "https://developers.google.com/maps/documentation/routes",
+"u": ["Calculate directions with real-time Google traffic data","Need multi-modal routing including driving, transit, and walking","Want ETA predictions powered by Google Maps live traffic"]
+},
+"Fleet Engine": {
+"w": "Track and manage vehicle fleets in real-time.",
+"f": "Powers ride-sharing and delivery tracking at massive scale.",
+"l": "https://developers.google.com/maps/documentation/transportation-logistics/fleet-engine",
+"u": ["Track and manage vehicle fleets for ride-sharing and delivery at scale","Need real-time driver tracking with Google Maps integration","Want trip management APIs for on-demand transportation apps"]
+},
+"Cloud Healthcare API": {
+"w": "Store and manage healthcare data in FHIR, HL7, and DICOM formats.",
+"f": "HIPAA-compliant with built-in de-identification.",
+"l": "https://cloud.google.com/healthcare-api/docs",
+"u": ["Store and manage FHIR, HL7v2, and DICOM healthcare data with APIs","Need HIPAA-compliant healthcare data interoperability","Want built-in de-identification for patient privacy"]
+},
+"Healthcare NLP API": {
+"w": "Extract medical insights from clinical text.",
+"f": "Identifies medical conditions, medications, and procedures from notes.",
+"l": "https://cloud.google.com/healthcare-api/docs/how-tos/nlp",
+"u": ["Extract medical insights from clinical notes and documents","Need automated coding of diagnoses, medications, and procedures","Want NLP integrated with Cloud Healthcare API data stores"]
+},
+"Life Sciences API": {
+"w": "Run genomics and life science workflows on GCP.",
+"f": "Supports the Cromwell and Nextflow workflow engines.",
+"l": "https://cloud.google.com/life-sciences",
+"u": ["Run genomics and bioinformatics workflows using Cromwell or Nextflow","Need scalable pipeline execution for whole-genome sequencing","Want managed compute for life science research workloads"]
+},
+"Blockchain Node Engine": {
+"w": "Fully managed blockchain node hosting.",
+"f": "Currently supports Ethereum with full and archive nodes.",
+"l": "https://cloud.google.com/blockchain-node-engine/docs",
+"u": ["Host fully managed Ethereum full and archive nodes on GCP","Need reliable blockchain node infrastructure without DevOps","Want Ethereum node access integrated with GCP security and networking"]
+},
+"Cirq + qsim": {
+"w": "Open-source quantum computing framework by Google.",
+"f": "Used in Google's quantum supremacy experiment.",
+"l": "https://quantumai.google/cirq",
+"u": ["Write and simulate quantum circuits using Google open-source framework","Need the framework used in Google quantum supremacy experiments","Want Python-based quantum programming with qsim simulation"]
+},
+"qsim": {
+"w": "High-performance quantum circuit simulator.",
+"f": "Can simulate circuits with up to 40 qubits on a single machine.",
+"l": "https://quantumai.google/qsim",
+"u": ["Simulate quantum circuits with up to 40 qubits on a single machine","Need high-performance classical simulation for quantum research","Want open-source quantum simulator optimized for Google hardware"]
+},
+"Quantum AI Lab": {
+"w": "Google's quantum computing research and cloud access.",
+"f": "Home to Google's Sycamore and Willow quantum processors.",
+"l": "https://quantumai.google",
+"u": ["Access Google Sycamore and Willow quantum processors for research","Need cutting-edge quantum hardware from Google quantum team","Want to explore quantum computing through Google research programs"]
+},
+"Agones": {
+"w": "Open-source game server hosting on Kubernetes.",
+"f": "Co-developed by Google Cloud and Ubisoft.",
+"l": "https://agones.dev/docs",
+"u": ["Host game servers on Kubernetes with open-source orchestration","Need portable game server hosting co-developed by Google and Ubisoft","Want auto-scaling dedicated game servers on GKE or any K8s cluster"]
+},
+"Open Match": {
+"w": "Open-source matchmaking framework for games.",
+"f": "Co-developed by Google Cloud and Unity.",
+"l": "https://open-match.dev/docs/",
+"u": ["Build custom matchmaking for multiplayer games with extensible framework","Need open-source matchmaking co-developed by Google and Unity","Want flexible player matching that runs on any Kubernetes cluster"]
+},
+"Cloud Robotics Core": {
+"w": "Platform for building and deploying robot applications.",
+"f": "Extends GCP AI services to robot fleets in the field.",
+"l": "https://googlecloudrobotics.github.io/core/",
+"u": ["Build cloud-connected robot applications using Kubernetes on GCP","Need to extend GCP AI and ML services to robot fleets","Want managed platform for deploying applications to robots in the field"]
+},
+"Supply Chain Pulse": {
+"w": "Real-time supply chain visibility and analytics.",
+"f": "Combines Google AI with supply chain data for predictive insights.",
+"l": "https://cloud.google.com/solutions/supply-chain-logistics",
+"u": ["Monitor supply chain events in real-time with Google AI analytics","Need real-time visibility into logistics and shipment tracking","Want predictive insights on supply chain disruptions"]
+},
+"AppSheet": {
+"w": "No-code app development platform.",
+"f": "Acquired by Google in 2020, now integrated with Google Workspace.",
+"l": "https://about.appsheet.com/home",
+"u": ["Build no-code apps from Google Sheets, Excel, or databases", "Need citizen developer platform integrated with Google Workspace", "Want automated workflows and mobile apps without any coding"]
+},
+"Virtual Machines": {
+"w": "On-demand scalable compute VMs in the cloud.",
+"f": "Offers over 700 VM sizes including GPU, HPC, and confidential options.",
+"l": "https://learn.microsoft.com/en-us/azure/virtual-machines/",
+"u": ["Need persistent VMs with Windows or Linux OS", "Require GPU, HPC, or SAP HANA certified instances", "Want hybrid connectivity with on-premises networks"]
+},
+"VM Scale Sets": {
+"w": "Autoscale groups of identical VMs.",
+"f": "Can scale to thousands of VMs with automatic load balancing.",
+"l": "https://learn.microsoft.com/en-us/azure/virtual-machine-scale-sets/",
+"u": ["Need auto-scaling groups of identical VMs", "Want built-in load balancing across VM instances", "Running stateless workloads that scale horizontally"]
+},
+"Image Builder": {
+"w": "Automate custom VM image creation and distribution.",
+"f": "Integrates with Azure Compute Gallery for global image distribution.",
+"l": "https://learn.microsoft.com/en-us/azure/virtual-machines/image-builder-overview",
+"u": ["Automate golden image creation with security baselines", "Need multi-region image distribution", "Want compliance-validated VM images"]
+},
+"Spot VMs": {
+"w": "Discounted VMs using spare Azure capacity.",
+"f": "Up to 90% cheaper than pay-as-you-go prices.",
+"l": "https://learn.microsoft.com/en-us/azure/virtual-machines/spot-vms",
+"u": ["Fault-tolerant batch processing at deep discounts", "Dev/test environments with flexible timing", "HPC workloads that can handle interruptions"]
+},
+"Dedicated Host": {
+"w": "Physical servers dedicated to your organization.",
+"f": "Provides hardware isolation at the physical server level.",
+"l": "https://learn.microsoft.com/en-us/azure/virtual-machines/dedicated-hosts",
+"u": ["Need physical hardware isolation for compliance", "Bring-your-own-license for Windows Server or SQL", "Want control over maintenance schedules"]
+},
+"AKS": {
+"w": "Managed Kubernetes service for container orchestration.",
+"f": "Free control plane — you only pay for worker nodes.",
+"l": "https://learn.microsoft.com/en-us/azure/aks/",
+"u": ["Run containerized apps with managed Kubernetes", "Need tight Azure AD and networking integration", "Want GitOps-based deployments with Flux"]
+},
+"Container Apps": {
+"w": "Serverless container platform with event-driven scaling.",
+"f": "Built on Kubernetes but abstracts away cluster management.",
+"l": "https://learn.microsoft.com/en-us/azure/container-apps/",
+"u": ["Run microservices without managing Kubernetes", "Need event-driven scaling with KEDA built in", "Want Dapr integration for service-to-service calls"]
+},
+"Container Registry": {
+"w": "Managed Docker container registry.",
+"f": "Supports geo-replication across Azure regions.",
+"l": "https://learn.microsoft.com/en-us/azure/container-registry/",
+"u": ["Store and manage container images privately", "Need geo-replicated registry for multi-region deployments", "Want integrated vulnerability scanning"]
+},
+"KEDA": {
+"w": "Kubernetes-based event-driven autoscaling.",
+"f": "Open-source project co-maintained by Microsoft and Red Hat.",
+"l": "https://learn.microsoft.com/en-us/azure/aks/keda-about",
+"u": ["Scale Kubernetes pods based on event sources", "Need queue-length or metric-driven autoscaling", "Want scale-to-zero for event-driven workloads"]
+},
+"Azure Arc": {
+"w": "Extend Azure management to any infrastructure.",
+"f": "Manages Kubernetes, SQL, and VMs across on-prem and multi-cloud.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-arc/",
+"u": ["Manage on-premises and multi-cloud resources from Azure", "Need consistent Azure Policy across hybrid environments", "Want Azure services running outside Azure datacenters"]
+},
+"Azure Functions": {
+"w": "Event-driven serverless compute platform.",
+"f": "Supports C#, JavaScript, Python, Java, PowerShell, and custom handlers.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-functions/",
+"u": ["Event-driven processing triggered by queues, HTTP, or timers", "Need serverless compute with Azure service bindings", "Want consumption-based pricing with scale-to-zero"]
+},
+"Logic Apps": {
+"w": "Low-code workflow automation platform.",
+"f": "Offers 400+ pre-built connectors to SaaS and enterprise systems.",
+"l": "https://learn.microsoft.com/en-us/azure/logic-apps/",
+"u": ["Automate business workflows with 400+ connectors", "Need visual designer for integration workflows", "Want enterprise B2B integration with EDI support"]
+},
+"App Service": {
+"w": "Fully managed platform for web apps and APIs.",
+"f": "Supports .NET, Java, Node.js, Python, and PHP with built-in CI/CD.",
+"l": "https://learn.microsoft.com/en-us/azure/app-service/",
+"u": ["Host web apps and APIs with zero infrastructure management", "Need built-in authentication and custom domain SSL", "Want deployment slots for zero-downtime releases"]
+},
+"Static Web Apps": {
+"w": "Hosting for static sites with serverless API backends.",
+"f": "Automatic CI/CD from GitHub with global CDN distribution.",
+"l": "https://learn.microsoft.com/en-us/azure/static-web-apps/",
+"u": ["Host static frontends with serverless API backends", "Need GitHub-integrated CI/CD for JAMstack apps", "Want global CDN with free SSL certificates"]
+},
+"Azure Batch": {
+"w": "Cloud-scale job scheduling and compute management.",
+"f": "Can scale to thousands of VMs for parallel workloads.",
+"l": "https://learn.microsoft.com/en-us/azure/batch/",
+"u": ["Run large-scale parallel batch processing jobs", "Need auto-scaling compute pools for HPC workloads", "Want job scheduling without managing infrastructure"]
+},
+"CycleCloud": {
+"w": "Create and manage HPC clusters in Azure.",
+"f": "Supports Slurm, PBS Pro, Grid Engine, and other schedulers.",
+"l": "https://learn.microsoft.com/en-us/azure/cyclecloud/",
+"u": ["Deploy HPC clusters with familiar schedulers", "Need auto-scaling Slurm or PBS Pro clusters", "Want lift-and-shift of on-premises HPC to cloud"]
+},
+"Azure CDN Rules": {
+"w": "Rules engine for Azure CDN edge processing.",
+"f": "Can modify headers, redirect URLs, and cache behavior at the edge.",
+"l": "https://learn.microsoft.com/en-us/azure/cdn/",
+"u": ["Process requests at the CDN edge with custom rules", "Need URL rewriting or header manipulation at edge", "Want caching rules customized per content type"]
+},
+"Azure CDN": {
+"w": "Global content delivery network with edge caching.",
+"f": "Integrates with Azure Front Door for combined CDN and load balancing.",
+"l": "https://learn.microsoft.com/en-us/azure/cdn/",
+"u": ["Deliver static content with low latency globally", "Need DDoS protection integrated with content delivery", "Want HTTPS with custom domains and certificates"]
+},
+"Azure Edge Zones": {
+"w": "Run Azure services at the network edge.",
+"f": "Co-located with 5G carrier networks for ultra-low latency.",
+"l": "https://learn.microsoft.com/en-us/azure/public-multi-access-edge-compute-mec/",
+"u": ["Run latency-sensitive apps at the 5G network edge", "Need compute within carrier network infrastructure", "Want Azure services at edge locations"]
+},
+"Confidential VMs": {
+"w": "VMs with hardware-based memory encryption.",
+"f": "Uses AMD SEV-SNP or Intel TDX for VM-level isolation.",
+"l": "https://learn.microsoft.com/en-us/azure/confidential-computing/confidential-vm-overview",
+"u": ["Encrypt data in use with hardware-based isolation", "Process sensitive data with attestation guarantees", "Need compliance for healthcare or financial workloads"]
+},
+"Blob Storage": {
+"w": "Massively scalable object storage for unstructured data.",
+"f": "Stores exabytes of data with hot, cool, cold, and archive tiers.",
+"l": "https://learn.microsoft.com/en-us/azure/storage/blobs/",
+"u": ["Store unstructured data like images, videos, and backups", "Need multiple access tiers for cost optimization", "Want immutable storage for compliance"]
+},
+"Archive Storage": {
+"w": "Lowest-cost storage for rarely accessed data.",
+"f": "Up to 1/20th the cost of hot storage with flexible retrieval.",
+"l": "https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview",
+"u": ["Archive data for long-term retention at lowest cost", "Need compliance-driven data preservation", "Want flexible rehydration options"]
+},
+"Cool/Hot Tiers": {
+"w": "Automatic tiering for Azure Blob Storage.",
+"f": "Cool tier costs 50% less than hot for storage but more for access.",
+"l": "https://learn.microsoft.com/en-us/azure/storage/blobs/access-tiers-overview",
+"u": ["Optimize storage costs with automatic tiering", "Need hot access for frequently used data", "Want cool or cold tier for infrequent access"]
+},
+"Immutable Blob": {
+"w": "Write-once, read-many storage for compliance.",
+"f": "Supports time-based retention and legal holds.",
+"l": "https://learn.microsoft.com/en-us/azure/storage/blobs/immutable-storage-overview",
+"u": ["Enforce WORM policies for regulatory compliance", "Need SEC 17a-4 compliant data retention", "Want legal hold capabilities on storage"]
+},
+"Managed Disks": {
+"w": "Persistent block storage for Azure VMs.",
+"f": "Offers Ultra, Premium SSD, Standard SSD, and Standard HDD tiers.",
+"l": "https://learn.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview",
+"u": ["Need persistent block storage for Azure VMs", "Want 99.999% availability with zone-redundant storage", "Require Ultra Disk for IO-intensive databases"]
+},
+"Disk Snapshots": {
+"w": "Point-in-time copies of Azure managed disks.",
+"f": "Incremental snapshots only store changed blocks.",
+"l": "https://learn.microsoft.com/en-us/azure/virtual-machines/snapshot-copy-managed-disk",
+"u": ["Create point-in-time backups of VM disks", "Need incremental snapshots for cost efficiency", "Want cross-region snapshot copies for DR"]
+},
+"Temp Disk": {
+"w": "Non-persistent local storage on Azure VM hosts.",
+"f": "Provides high IOPS temporary storage that resets on VM reallocation.",
+"l": "https://learn.microsoft.com/en-us/azure/virtual-machines/managed-disks-overview",
+"u": ["Need high-speed temporary scratch space on VMs", "Want local NVMe storage for caching", "Running workloads with ephemeral data"]
+},
+"Azure Files": {
+"w": "Fully managed cloud file shares via SMB and NFS.",
+"f": "Supports both SMB 3.0 and NFS 4.1 protocols.",
+"l": "https://learn.microsoft.com/en-us/azure/storage/files/",
+"u": ["Need SMB or NFS file shares in the cloud", "Want hybrid file shares with Azure File Sync", "Lift-and-shift apps requiring shared file storage"]
+},
+"Azure Managed Lustre": {
+"w": "High-performance parallel file system for HPC.",
+"f": "Delivers millions of IOPS for AI and HPC workloads.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-managed-lustre/",
+"u": ["Need Lustre parallel file system for HPC workloads", "Want high-throughput storage for AI training", "Running simulations requiring millions of IOPS"]
+},
+"Azure NetApp Files": {
+"w": "Enterprise-grade NetApp file storage as a service.",
+"f": "Sub-millisecond latency with up to 450,000 IOPS.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-netapp-files/",
+"u": ["Need enterprise NFS/SMB with sub-millisecond latency", "Running SAP HANA or Oracle databases on Azure", "Want NetApp features like snapshots and replication"]
+},
+"Azure Data Box": {
+"w": "Physical devices for offline data transfer to Azure.",
+"f": "Data Box Heavy can transfer up to 1 PB per order.",
+"l": "https://learn.microsoft.com/en-us/azure/databox/",
+"u": ["Transfer large datasets offline to Azure", "Need to migrate petabytes with limited bandwidth", "Want tamper-proof physical data transport"]
+},
+"Azure File Sync": {
+"w": "Sync on-premises file servers with Azure Files.",
+"f": "Turns any Windows Server into a fast cache for Azure file shares.",
+"l": "https://learn.microsoft.com/en-us/azure/storage/file-sync/",
+"u": ["Sync on-premises file servers to Azure cloud storage", "Need multi-site file sync with cloud tiering", "Want centralized backup of distributed file servers"]
+},
+"Azure Backup": {
+"w": "Enterprise backup service for Azure and on-premises.",
+"f": "Provides application-consistent backups with zero infrastructure.",
+"l": "https://learn.microsoft.com/en-us/azure/backup/",
+"u": ["Back up VMs, databases, and files to Azure", "Need application-consistent backup for SQL and SAP", "Want centralized backup management across subscriptions"]
+},
+"Azure Site Recovery": {
+"w": "Disaster recovery as a service for VMs and workloads.",
+"f": "Provides RPO of seconds and RTO of minutes with automated failover.",
+"l": "https://learn.microsoft.com/en-us/azure/site-recovery/",
+"u": ["Replicate VMs for disaster recovery across regions", "Need automated failover with recovery plans", "Want DR for on-premises VMware or Hyper-V"]
+},
+"Azure SQL Database": {
+"w": "Fully managed relational database service.",
+"f": "Built-in AI-powered performance tuning and threat detection.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-sql/database/",
+"u": ["Need fully managed SQL Server in the cloud", "Want built-in high availability and auto-tuning", "Running .NET apps with SQL Server compatibility"]
+},
+"Azure SQL Managed Instance": {
+"w": "Fully managed SQL Server with near-100% compatibility.",
+"f": "Supports cross-database queries and SQL Server Agent.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-sql/managed-instance/",
+"u": ["Lift-and-shift SQL Server with full instance features", "Need SQL Agent, Service Broker, or CLR support", "Want managed SQL Server without OS management"]
+},
+"Azure SQL Serverless": {
+"w": "Auto-scaling SQL Database with per-second billing.",
+"f": "Automatically pauses during inactivity to reduce costs.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-sql/database/serverless-tier-overview",
+"u": ["Intermittent workloads with unpredictable usage patterns", "Want auto-pause to save on idle database costs", "Need auto-scaling compute without manual intervention"]
+},
+"Cosmos DB": {
+"w": "Globally distributed, multi-model NoSQL database.",
+"f": "Guarantees single-digit millisecond latency at the 99th percentile worldwide.",
+"l": "https://learn.microsoft.com/en-us/azure/cosmos-db/",
+"u": ["Need globally distributed database with guaranteed low latency", "Want multi-model support (document, key-value, graph, column)", "Running planet-scale apps with automatic failover"]
+},
+"Cosmos DB Multi-Region": {
+"w": "Multi-region writes for Azure Cosmos DB.",
+"f": "Supports five consistency levels from strong to eventual.",
+"l": "https://learn.microsoft.com/en-us/azure/cosmos-db/distribute-data-globally",
+"u": ["Need multi-region active-active writes", "Want tunable consistency from strong to eventual", "Running globally distributed apps with low latency writes"]
+},
+"Cosmos DB (MongoDB API)": {
+"w": "Cosmos DB with MongoDB wire protocol compatibility.",
+"f": "Run existing MongoDB workloads without code changes.",
+"l": "https://learn.microsoft.com/en-us/azure/cosmos-db/mongodb/",
+"u": ["Migrate MongoDB apps to managed global database", "Want MongoDB API with Azure global distribution", "Need managed MongoDB with multi-region replication"]
+},
+"Cosmos DB (Gremlin API)": {
+"w": "Graph database using Apache TinkerPop Gremlin API.",
+"f": "Supports graph traversals at global scale with low latency.",
+"l": "https://learn.microsoft.com/en-us/azure/cosmos-db/gremlin/",
+"u": ["Build graph databases with Gremlin query language", "Need globally distributed graph traversals", "Want managed graph DB without infrastructure management"]
+},
+"Azure Data Explorer": {
+"w": "Fast, fully managed data analytics service for real-time analysis.",
+"f": "Can ingest and query billions of records in seconds using KQL.",
+"l": "https://learn.microsoft.com/en-us/azure/data-explorer/",
+"u": ["Analyze streaming data in near real-time", "Need KQL-based analytics on time-series data", "Want log analytics and IoT telemetry analysis"]
+},
+"Azure Confidential Ledger": {
+"w": "Tamper-proof, append-only ledger backed by confidential computing.",
+"f": "Uses Azure Confidential Computing enclaves for data integrity.",
+"l": "https://learn.microsoft.com/en-us/azure/confidential-ledger/",
+"u": ["Need tamper-proof record keeping for auditing", "Want blockchain-like immutability without managing nodes", "Running compliance workloads requiring attestation"]
+},
+"Cosmos DB (Cassandra API)": {
+"w": "Cosmos DB with Apache Cassandra wire protocol.",
+"f": "Existing Cassandra apps work without code changes.",
+"l": "https://learn.microsoft.com/en-us/azure/cosmos-db/cassandra/",
+"u": ["Migrate Cassandra apps to managed global database", "Want Cassandra API with Azure global distribution", "Need managed wide-column store at planet scale"]
+},
+"Cosmos DB (Distributed)": {
+"w": "Globally distributed Cosmos DB with strong consistency.",
+"f": "The only commercially available database offering five well-defined consistency levels.",
+"l": "https://learn.microsoft.com/en-us/azure/cosmos-db/consistency-levels",
+"u": ["Need globally distributed database with tunable consistency", "Want strong consistency guarantees across regions", "Running financial or healthcare apps requiring data accuracy"]
+},
+"Azure Cache for Redis": {
+"w": "Fully managed in-memory Redis cache and data store.",
+"f": "Supports Redis Enterprise features including RediSearch and RedisJSON.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-cache-for-redis/",
+"u": ["Need in-memory caching for high-performance apps", "Want managed Redis with clustering and geo-replication", "Running session stores or real-time leaderboards"]
+},
+"Azure AI Search": {
+"w": "AI-powered search service with vector and full-text capabilities.",
+"f": "Combines vector search with traditional full-text for hybrid retrieval.",
+"l": "https://learn.microsoft.com/en-us/azure/search/",
+"u": ["Build AI-powered search over your data", "Need vector search for RAG applications", "Want hybrid search combining keywords and semantics"]
+},
+"Azure Database for PostgreSQL": {
+"w": "Managed PostgreSQL with built-in high availability.",
+"f": "Supports pgvector for AI vector embeddings natively.",
+"l": "https://learn.microsoft.com/en-us/azure/postgresql/",
+"u": ["Run PostgreSQL with managed HA and backups", "Need pgvector for AI embedding workloads", "Want intelligent performance recommendations"]
+},
+"Azure Synapse": {
+"w": "Unified analytics platform for data warehousing and big data.",
+"f": "Combines serverless and dedicated query engines in one workspace.",
+"l": "https://learn.microsoft.com/en-us/azure/synapse-analytics/",
+"u": ["Need unified data warehousing and big data analytics", "Want serverless SQL queries over data lake files", "Running enterprise BI with Power BI integration"]
+},
+"Azure Synapse Serverless": {
+"w": "Query data lake files on demand without provisioning.",
+"f": "Pay only for data processed per query — no idle costs.",
+"l": "https://learn.microsoft.com/en-us/azure/synapse-analytics/sql/on-demand-workspace-overview",
+"u": ["Query CSV, Parquet, or JSON in data lake on demand", "Need ad-hoc analytics without provisioning compute", "Want pay-per-query pricing for exploration"]
+},
+"VNet": {
+"w": "Virtual network for Azure resources with isolation.",
+"f": "VNets are regional — use peering to connect across regions.",
+"l": "https://learn.microsoft.com/en-us/azure/virtual-network/",
+"u": ["Need isolated virtual network for Azure resources", "Want custom IP ranges, subnets, and route tables", "Building multi-tier network architectures"]
+},
+"NAT Gateway": {
+"w": "Managed outbound NAT for Azure virtual networks.",
+"f": "Supports up to 16 public IP addresses per gateway.",
+"l": "https://learn.microsoft.com/en-us/azure/nat-gateway/",
+"u": ["Need consistent outbound IP for private subnet resources", "Want managed SNAT without port exhaustion", "Require outbound internet from private VMs"]
+},
+"Private Endpoints": {
+"w": "Private connectivity to Azure PaaS services.",
+"f": "Brings the service into your VNet with a private IP address.",
+"l": "https://learn.microsoft.com/en-us/azure/private-link/private-endpoint-overview",
+"u": ["Access Azure services over private IP in your VNet", "Need to eliminate public internet exposure for PaaS", "Want DNS-integrated private connectivity"]
+},
+"Private Link": {
+"w": "Private access to Azure and partner services.",
+"f": "Traffic stays on the Microsoft backbone network.",
+"l": "https://learn.microsoft.com/en-us/azure/private-link/",
+"u": ["Expose your service privately to customers", "Need private connectivity across tenants", "Want to eliminate data exfiltration risks"]
+},
+"Application Gateway": {
+"w": "Layer 7 load balancer with WAF capabilities.",
+"f": "Supports URL-based routing, SSL termination, and autoscaling.",
+"l": "https://learn.microsoft.com/en-us/azure/application-gateway/",
+"u": ["Need Layer 7 load balancing with URL-based routing", "Want built-in WAF for web application protection", "Running multi-site hosting with SSL termination"]
+},
+"Azure Load Balancer": {
+"w": "Layer 4 load balancer for TCP and UDP traffic.",
+"f": "Supports millions of flows with ultra-low latency.",
+"l": "https://learn.microsoft.com/en-us/azure/load-balancer/",
+"u": ["Need high-performance Layer 4 load balancing", "Want zone-redundant load balancing for HA", "Running non-HTTP workloads like databases"]
+},
+"Front Door": {
+"w": "Global load balancer and CDN with WAF.",
+"f": "Provides instant global failover with anycast-based routing.",
+"l": "https://learn.microsoft.com/en-us/azure/frontdoor/",
+"u": ["Need global load balancing with instant failover", "Want combined CDN and WAF in one service", "Running globally distributed web applications"]
+},
+"Azure DNS": {
+"w": "DNS hosting service with Azure-speed resolution.",
+"f": "Supports both public and private DNS zones.",
+"l": "https://learn.microsoft.com/en-us/azure/dns/",
+"u": ["Host DNS zones with Azure infrastructure", "Need private DNS for VNet name resolution", "Want alias records pointing to Azure resources"]
+},
+"ExpressRoute": {
+"w": "Private, dedicated connection to Azure.",
+"f": "Available in 50 Mbps to 100 Gbps bandwidth options.",
+"l": "https://learn.microsoft.com/en-us/azure/expressroute/",
+"u": ["Need private dedicated connection to Azure", "Want predictable latency for hybrid workloads", "Running compliance workloads requiring private connectivity"]
+},
+"VPN Gateway": {
+"w": "Encrypted cross-premises connectivity to Azure.",
+"f": "Supports both site-to-site and point-to-site VPN connections.",
+"l": "https://learn.microsoft.com/en-us/azure/vpn-gateway/",
+"u": ["Connect on-premises network to Azure via IPsec VPN", "Need point-to-site VPN for remote workers", "Want encrypted tunnel for hybrid cloud access"]
+},
+"Virtual WAN": {
+"w": "Hub-and-spoke network with integrated routing.",
+"f": "Connects branches, VNets, and VPNs through a global transit hub.",
+"l": "https://learn.microsoft.com/en-us/azure/virtual-wan/",
+"u": ["Simplify hub-and-spoke network topologies", "Need global transit routing across regions", "Want integrated VPN, ExpressRoute, and SD-WAN"]
+},
+"NSG": {
+"w": "Network security groups for filtering traffic.",
+"f": "Applied at the subnet or NIC level with priority-based rules.",
+"l": "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview",
+"u": ["Filter network traffic with allow/deny rules", "Need subnet-level or NIC-level security policies", "Want application security groups for role-based rules"]
+},
+"Azure WAF": {
+"w": "Web application firewall protecting against web exploits.",
+"f": "Available on Application Gateway, Front Door, and CDN.",
+"l": "https://learn.microsoft.com/en-us/azure/web-application-firewall/",
+"u": ["Protect web apps from OWASP top-10 threats", "Need bot protection and rate limiting", "Want custom WAF rules with geo-filtering"]
+},
+"DDoS Protection": {
+"w": "Azure DDoS Protection for network resources.",
+"f": "Provides always-on traffic monitoring with adaptive real-time tuning.",
+"l": "https://learn.microsoft.com/en-us/azure/ddos-protection/",
+"u": ["Protect public IPs from volumetric DDoS attacks", "Need adaptive tuning based on traffic patterns", "Want cost protection guarantees during attacks"]
+},
+"Azure Firewall": {
+"w": "Cloud-native network firewall with threat intelligence.",
+"f": "Built-in threat intelligence powered by Microsoft Cyber Security.",
+"l": "https://learn.microsoft.com/en-us/azure/firewall/",
+"u": ["Need managed stateful firewall with IDPS", "Want FQDN filtering for outbound traffic", "Running hub-and-spoke with centralized security"]
+},
+"API Management": {
+"w": "Full lifecycle API management platform.",
+"f": "Supports REST, SOAP, WebSocket, and GraphQL APIs.",
+"l": "https://learn.microsoft.com/en-us/azure/api-management/",
+"u": ["Publish, secure, and analyze APIs at scale", "Need developer portal with API documentation", "Want rate limiting, caching, and transformation policies"]
+},
+"Azure Service Mesh": {
+"w": "Service mesh for microservices communication.",
+"f": "Based on Istio with Azure-managed control plane.",
+"l": "https://learn.microsoft.com/en-us/azure/aks/istio-about",
+"u": ["Need service mesh for AKS microservices", "Want mTLS, traffic management, and observability", "Running complex microservice architectures"]
+},
+"Microsoft Entra ID": {
+"w": "Cloud identity and access management platform.",
+"f": "Protects over 600 million enterprise identities worldwide.",
+"l": "https://learn.microsoft.com/en-us/entra/identity/",
+"u": ["Manage cloud identities and access centrally", "Need SSO and MFA for enterprise applications", "Want conditional access based on risk signals"]
+},
+"Azure AD B2C": {
+"w": "Customer identity management for consumer-facing apps.",
+"f": "Supports social logins from Google, Facebook, Apple, and more.",
+"l": "https://learn.microsoft.com/en-us/azure/active-directory-b2c/",
+"u": ["Add social login and self-service sign-up to apps", "Need customizable authentication flows for consumers", "Want millions of users with pay-per-authentication"]
+},
+"Entra Permissions Management": {
+"w": "Multi-cloud permissions management and CIEM.",
+"f": "Monitors permissions across Azure, AWS, and GCP.",
+"l": "https://learn.microsoft.com/en-us/entra/permissions-management/",
+"u": ["Right-size permissions across multi-cloud environments", "Need visibility into over-privileged identities", "Want automated remediation of risky permissions"]
+},
+"Managed Identities": {
+"w": "Azure-managed identities eliminating credential management.",
+"f": "Automatically rotates credentials without any application changes.",
+"l": "https://learn.microsoft.com/en-us/entra/identity/managed-identities-azure-resources/",
+"u": ["Eliminate secrets and credentials from application code", "Need Azure service-to-service authentication", "Want automatic credential rotation"]
+},
+"Azure Key Vault": {
+"w": "Safeguard cryptographic keys and secrets.",
+"f": "Supports software-protected and HSM-protected keys.",
+"l": "https://learn.microsoft.com/en-us/azure/key-vault/",
+"u": ["Centralize management of keys, secrets, and certificates", "Need HSM-backed key management for compliance", "Want integrated secret rotation for Azure services"]
+},
+"Azure Dedicated HSM": {
+"w": "FIPS 140-2 Level 3 validated hardware security modules.",
+"f": "Provides single-tenant Thales Luna HSMs in Azure.",
+"l": "https://learn.microsoft.com/en-us/azure/dedicated-hsm/",
+"u": ["Need FIPS 140-2 Level 3 HSMs for key management", "Want single-tenant HSM hardware for compliance", "Running PKCS#11 or JCE applications"]
+},
+"Key Vault Secrets": {
+"w": "Securely store and access application secrets.",
+"f": "Integrates with Azure services for automatic secret injection.",
+"l": "https://learn.microsoft.com/en-us/azure/key-vault/secrets/",
+"u": ["Store API keys, passwords, and connection strings securely", "Need automatic secret rotation for databases", "Want RBAC-controlled secret access"]
+},
+"App Service Certificates": {
+"w": "Purchase and manage SSL certificates for Azure apps.",
+"f": "Certificates auto-renew and integrate with App Service.",
+"l": "https://learn.microsoft.com/en-us/azure/app-service/configure-ssl-certificate",
+"u": ["Need managed SSL certificates for Azure web apps", "Want auto-renewal without manual intervention", "Running custom domains with HTTPS"]
+},
+"Microsoft Defender for Cloud": {
+"w": "Unified security management and threat protection.",
+"f": "Provides secure score and hardening recommendations across multi-cloud.",
+"l": "https://learn.microsoft.com/en-us/azure/defender-for-cloud/",
+"u": ["Get unified security posture management across clouds", "Need threat detection for VMs, containers, and databases", "Want compliance dashboards for regulatory standards"]
+},
+"Microsoft Sentinel": {
+"w": "Cloud-native SIEM and SOAR platform.",
+"f": "Uses AI to detect threats across the entire enterprise.",
+"l": "https://learn.microsoft.com/en-us/azure/sentinel/",
+"u": ["Need cloud-native SIEM with AI-powered analytics", "Want automated incident response with playbooks", "Running security operations across multi-cloud"]
+},
+"Defender for Containers": {
+"w": "Threat protection for container environments.",
+"f": "Scans container images and monitors runtime behavior.",
+"l": "https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-containers-introduction",
+"u": ["Scan container images for vulnerabilities", "Need runtime threat detection for Kubernetes", "Want admission control for trusted images"]
+},
+"Microsoft Purview": {
+"w": "Unified data governance and compliance platform.",
+"f": "Discovers and classifies data across multi-cloud and on-premises.",
+"l": "https://learn.microsoft.com/en-us/purview/",
+"u": ["Govern data across Azure, AWS, and on-premises", "Need automated data classification and labeling", "Want data lineage tracking across the estate"]
+},
+"Management Groups": {
+"w": "Organize subscriptions into governance hierarchies.",
+"f": "Supports up to six levels of nesting for complex orgs.",
+"l": "https://learn.microsoft.com/en-us/azure/governance/management-groups/",
+"u": ["Organize hundreds of subscriptions hierarchically", "Need policy inheritance across subscription groups", "Want centralized RBAC at the organization level"]
+},
+"Activity Log": {
+"w": "Subscription-level audit log for Azure operations.",
+"f": "Retains 90 days of control-plane activity by default.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/activity-log",
+"u": ["Audit who did what in your Azure subscription", "Need to export logs to Log Analytics or Event Hubs", "Want alerts on critical resource changes"]
+},
+"Azure Policy": {
+"w": "Enforce organizational standards and assess compliance.",
+"f": "Can automatically remediate non-compliant resources.",
+"l": "https://learn.microsoft.com/en-us/azure/governance/policy/",
+"u": ["Enforce tagging, regions, or SKU restrictions", "Need compliance assessment against regulatory standards", "Want automatic remediation of policy violations"]
+},
+"Azure Blueprints": {
+"w": "Define repeatable environments with governance.",
+"f": "Packages ARM templates, policies, and RBAC into deployable blueprints.",
+"l": "https://learn.microsoft.com/en-us/azure/governance/blueprints/",
+"u": ["Define compliant environment templates", "Need repeatable deployments with governance built-in", "Want versioned environment definitions"]
+},
+"Compliance Manager": {
+"w": "Manage compliance posture across regulations.",
+"f": "Provides pre-built assessments for 300+ regulatory standards.",
+"l": "https://learn.microsoft.com/en-us/purview/compliance-manager",
+"u": ["Assess compliance against 300+ regulatory standards", "Need improvement actions with step-by-step guidance", "Want continuous compliance monitoring"]
+},
+"Service Trust Portal": {
+"w": "Access compliance reports and security documentation.",
+"f": "Provides SOC, ISO, FedRAMP, and other audit reports.",
+"l": "https://servicetrust.microsoft.com/",
+"u": ["Access Azure compliance audit reports", "Need SOC, ISO, or FedRAMP documentation", "Want penetration test results and assessments"]
+},
+"Entra Private Access": {
+"w": "Zero-trust private access to internal resources.",
+"f": "Replaces VPN with identity-aware, conditional access.",
+"l": "https://learn.microsoft.com/en-us/entra/global-secure-access/",
+"u": ["Replace VPN with zero-trust network access", "Need identity-based access to private apps", "Want conditional access for internal resources"]
+},
+"Azure Well-Architected Review": {
+"w": "Assess workloads against Azure best practices.",
+"f": "Based on Microsoft's Well-Architected Framework pillars.",
+"l": "https://learn.microsoft.com/en-us/azure/well-architected/",
+"u": ["Review workloads against best practice pillars", "Need actionable recommendations for improvement", "Want reliability, security, and cost optimization guidance"]
+},
+"Azure Advisor": {
+"w": "Personalized Azure best practice recommendations.",
+"f": "Provides recommendations across cost, security, reliability, and performance.",
+"l": "https://learn.microsoft.com/en-us/azure/advisor/",
+"u": ["Get personalized optimization recommendations", "Need right-sizing advice for cost savings", "Want proactive reliability and security suggestions"]
+},
+"Azure Managed Applications": {
+"w": "Publish and consume managed solutions in Azure Marketplace.",
+"f": "Providers maintain and update resources in the customer's subscription.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/managed-applications/",
+"u": ["Publish managed solutions to Azure Marketplace", "Need ISV-managed resources in customer subscriptions", "Want governance over approved third-party solutions"]
+},
+"Event Hubs": {
+"w": "Big data streaming platform for event ingestion.",
+"f": "Can ingest millions of events per second.",
+"l": "https://learn.microsoft.com/en-us/azure/event-hubs/",
+"u": ["Ingest millions of events per second for streaming", "Need Kafka-compatible event streaming", "Want real-time analytics on streaming data"]
+},
+"Event Hubs for Kafka": {
+"w": "Kafka-compatible endpoint on Azure Event Hubs.",
+"f": "Existing Kafka clients work without code changes.",
+"l": "https://learn.microsoft.com/en-us/azure/event-hubs/event-hubs-for-kafka-ecosystem-overview",
+"u": ["Migrate Kafka workloads to managed Azure service", "Want Kafka protocol without managing clusters", "Need seamless Kafka client compatibility"]
+},
+"Stream Analytics": {
+"w": "Real-time stream processing with SQL-like queries.",
+"f": "Process millions of events per second with SQL syntax.",
+"l": "https://learn.microsoft.com/en-us/azure/stream-analytics/",
+"u": ["Process streaming data with familiar SQL syntax", "Need real-time dashboards from IoT or event data", "Want no-code stream processing with visual editor"]
+},
+"Azure Data Factory": {
+"w": "Managed ETL and data integration service.",
+"f": "Supports 100+ data connectors for hybrid data movement.",
+"l": "https://learn.microsoft.com/en-us/azure/data-factory/",
+"u": ["Build ETL/ELT pipelines with 100+ connectors", "Need code-free data transformation at scale", "Want hybrid data integration across cloud and on-prem"]
+},
+"HDInsight": {
+"w": "Managed open-source analytics clusters.",
+"f": "Supports Hadoop, Spark, Hive, Kafka, and HBase.",
+"l": "https://learn.microsoft.com/en-us/azure/hdinsight/",
+"u": ["Run managed Hadoop, Spark, or Kafka clusters", "Need enterprise-grade open-source big data analytics", "Want familiar OSS tools with Azure security"]
+},
+"HDInsight on AKS": {
+"w": "Run open-source analytics on Azure Kubernetes Service.",
+"f": "Provides faster cluster startup and auto-scale on AKS.",
+"l": "https://learn.microsoft.com/en-us/azure/hdinsight-aks/",
+"u": ["Run Spark or Flink on Kubernetes infrastructure", "Need faster cluster provisioning than classic HDInsight", "Want cloud-native analytics with AKS"]
+},
+"Azure Data Lake": {
+"w": "Massively scalable data lake storage.",
+"f": "Built on Azure Blob Storage with hierarchical namespace.",
+"l": "https://learn.microsoft.com/en-us/azure/storage/data-lake-storage/",
+"u": ["Store petabytes of data for analytics workloads", "Need hierarchical namespace for data lake organization", "Want integration with Databricks, Synapse, and HDInsight"]
+},
+"Azure Data Share": {
+"w": "Share data securely across organizations.",
+"f": "Supports snapshot-based and in-place sharing.",
+"l": "https://learn.microsoft.com/en-us/azure/data-share/",
+"u": ["Share datasets with partners or customers securely", "Need automated recurring data sharing", "Want governance over shared data access"]
+},
+"Power BI": {
+"w": "Business intelligence platform for interactive visualizations.",
+"f": "Used by over 5 million organizations worldwide.",
+"l": "https://learn.microsoft.com/en-us/power-bi/",
+"u": ["Create interactive dashboards and reports", "Need self-service BI for business users", "Want AI-powered insights with natural language queries"]
+},
+"Elastic on Azure": {
+"w": "Managed Elasticsearch on Azure.",
+"f": "Native Azure integration with single sign-on.",
+"l": "https://learn.microsoft.com/en-us/azure/partner-solutions/elastic/",
+"u": ["Run managed Elasticsearch on Azure infrastructure", "Need log analytics with Kibana dashboards", "Want native Azure Marketplace deployment"]
+},
+"Azure Data Clean Rooms": {
+"w": "Privacy-safe data collaboration between organizations.",
+"f": "Enables analytics on combined data without exposing raw records.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-data-clean-rooms/",
+"u": ["Collaborate on data without exposing raw records", "Need privacy-preserving analytics with partners", "Want secure multi-party computation"]
+},
+"Azure Machine Learning": {
+"w": "Enterprise ML platform for training and deploying models.",
+"f": "Supports AutoML, MLOps, and responsible AI tools.",
+"l": "https://learn.microsoft.com/en-us/azure/machine-learning/",
+"u": ["Build, train, and deploy ML models at scale", "Need MLOps with model registry and CI/CD", "Want responsible AI dashboards and fairness metrics"]
+},
+"ML Pipelines": {
+"w": "Orchestrate ML workflows and model training.",
+"f": "Supports multi-step pipelines with component reuse.",
+"l": "https://learn.microsoft.com/en-us/azure/machine-learning/concept-ml-pipelines",
+"u": ["Automate end-to-end ML training pipelines", "Need reproducible model training workflows", "Want parallel step execution for efficiency"]
+},
+"Automated ML": {
+"w": "Automatically select and tune ML models.",
+"f": "Tests hundreds of model-feature combinations automatically.",
+"l": "https://learn.microsoft.com/en-us/azure/machine-learning/concept-automated-ml",
+"u": ["Find the best ML model without manual tuning", "Need rapid prototyping with automated feature engineering", "Want explainable model selection"]
+},
+"Responsible AI": {
+"w": "Tools for building fair and transparent AI systems.",
+"f": "Provides error analysis, fairness assessment, and model interpretability.",
+"l": "https://learn.microsoft.com/en-us/azure/machine-learning/concept-responsible-ai",
+"u": ["Assess model fairness across demographic groups", "Need model interpretability for compliance", "Want error analysis to identify failure patterns"]
+},
+"Azure OpenAI Service": {
+"w": "Access GPT-4, DALL-E, and other OpenAI models on Azure.",
+"f": "Runs on Azure infrastructure with enterprise security and compliance.",
+"l": "https://learn.microsoft.com/en-us/azure/ai-services/openai/",
+"u": ["Access GPT-4 and DALL-E with enterprise security", "Need Azure AD and VNET integration for AI models", "Want content filtering and responsible AI controls"]
+},
+"Azure AI Agent Service": {
+"w": "Build and deploy autonomous AI agents.",
+"f": "Integrates with Azure AI Search, functions, and Bing for grounding.",
+"l": "https://learn.microsoft.com/en-us/azure/ai-services/agents/",
+"u": ["Build autonomous agents with tool use and grounding", "Need AI agents with Azure service integration", "Want managed agent orchestration with monitoring"]
+},
+"Content Safety": {
+"w": "AI content moderation for text and images.",
+"f": "Detects hate, violence, sexual, and self-harm content.",
+"l": "https://learn.microsoft.com/en-us/azure/ai-services/content-safety/",
+"u": ["Moderate user-generated content at scale", "Need configurable content filtering thresholds", "Want real-time content safety for chat applications"]
+},
+"GitHub Copilot": {
+"w": "AI pair programmer integrated into IDEs.",
+"f": "Trained on billions of lines of public code.",
+"l": "https://docs.github.com/en/copilot",
+"u": ["Get AI code suggestions in VS Code, JetBrains, or CLI", "Need enterprise code completions with org policy controls", "Want chat-based coding assistance in the IDE"]
+},
+"Microsoft 365 Copilot": {
+"w": "AI assistant across Word, Excel, PowerPoint, and Teams.",
+"f": "Grounded in your Microsoft 365 organizational data.",
+"l": "https://learn.microsoft.com/en-us/copilot/microsoft-365/",
+"u": ["AI assistance across all Microsoft 365 apps", "Need enterprise AI grounded in organizational data", "Want meeting summaries, email drafts, and data analysis"]
+},
+"Azure AI Vision": {
+"w": "Extract visual information from images and video.",
+"f": "Supports OCR, object detection, and spatial analysis.",
+"l": "https://learn.microsoft.com/en-us/azure/ai-services/computer-vision/",
+"u": ["Extract text, objects, and faces from images", "Need spatial analysis for retail or security", "Want custom vision models for domain-specific detection"]
+},
+"Azure AI Document Intelligence": {
+"w": "Extract structured data from documents.",
+"f": "Pre-built models for invoices, receipts, IDs, and tax forms.",
+"l": "https://learn.microsoft.com/en-us/azure/ai-services/document-intelligence/",
+"u": ["Automate document processing with pre-built models", "Need to extract data from invoices or receipts", "Want custom extraction models for domain documents"]
+},
+"Azure AI Language": {
+"w": "Text analytics for sentiment, entities, and summarization.",
+"f": "Supports 100+ languages for text analysis.",
+"l": "https://learn.microsoft.com/en-us/azure/ai-services/language-service/",
+"u": ["Analyze sentiment and extract entities from text", "Need text summarization and key phrase extraction", "Want custom NER and text classification models"]
+},
+"Azure AI Translator": {
+"w": "Real-time text and document translation.",
+"f": "Supports 100+ languages with custom terminology.",
+"l": "https://learn.microsoft.com/en-us/azure/ai-services/translator/",
+"u": ["Translate text or documents in 100+ languages", "Need custom translation with domain-specific glossaries", "Want document translation preserving formatting"]
+},
+"Azure AI Speech": {
+"w": "Speech-to-text, text-to-speech, and translation.",
+"f": "Custom voice can clone a voice from 30 minutes of audio.",
+"l": "https://learn.microsoft.com/en-us/azure/ai-services/speech-service/",
+"u": ["Convert speech to text and text to speech", "Need real-time speech translation across languages", "Want custom voice models for brand experiences"]
+},
+"Azure Personalizer": {
+"w": "AI-powered content personalization.",
+"f": "Uses reinforcement learning to optimize content recommendations.",
+"l": "https://learn.microsoft.com/en-us/azure/ai-services/personalizer/",
+"u": ["Personalize content with reinforcement learning", "Need real-time content ranking for users", "Want A/B testing with automated optimization"]
+},
+"Azure AI Anomaly Detector": {
+"w": "Detect anomalies in time-series data.",
+"f": "Works with univariate and multivariate time-series data.",
+"l": "https://learn.microsoft.com/en-us/azure/ai-services/anomaly-detector/",
+"u": ["Detect anomalies in business metrics or IoT data", "Need multivariate anomaly detection across sensors", "Want root cause analysis for detected anomalies"]
+},
+"ND H100 v5": {
+"w": "GPU VMs with NVIDIA H100 Tensor Core GPUs.",
+"f": "Each VM has up to 8 H100 GPUs with 640GB HBM3 memory.",
+"l": "https://learn.microsoft.com/en-us/azure/virtual-machines/nd-h100-v5-series",
+"u": ["Train large language models on Azure", "Need NVIDIA H100 GPUs for AI/ML workloads", "Want InfiniBand networking for distributed training"]
+},
+"Azure Maia AI Accelerator": {
+"w": "Microsoft custom AI accelerator for Azure.",
+"f": "Designed specifically for Azure AI workloads by Microsoft.",
+"l": "https://azure.microsoft.com/en-us/blog/azure-maia/",
+"u": ["Access Microsoft custom AI silicon on Azure", "Need specialized AI inference acceleration", "Want cost-efficient AI compute at scale"]
+},
+"Azure Bot Service": {
+"w": "Build and deploy conversational AI bots.",
+"f": "Integrates with Teams, Slack, Facebook, and other channels.",
+"l": "https://learn.microsoft.com/en-us/azure/bot-service/",
+"u": ["Build chatbots for Teams, web, and messaging channels", "Need multi-channel bot deployment from single codebase", "Want Power Virtual Agents for no-code bot building"]
+},
+"Dynamics 365 Contact Center": {
+"w": "AI-powered contact center platform.",
+"f": "Integrates with Dynamics 365 CRM and Teams.",
+"l": "https://learn.microsoft.com/en-us/dynamics365/contact-center/",
+"u": ["Run omnichannel contact center with CRM integration", "Need AI-powered agent assist and routing", "Want unified customer view across channels"]
+},
+"Azure Communication Services": {
+"w": "Add voice, video, chat, and SMS to applications.",
+"f": "Powers Microsoft Teams communication capabilities.",
+"l": "https://learn.microsoft.com/en-us/azure/communication-services/",
+"u": ["Add real-time communication to any application", "Need Teams interop for custom communication apps", "Want SMS, email, and voice from a single SDK"]
+},
+"Azure Notification Hubs": {
+"w": "Scalable push notification engine for mobile apps.",
+"f": "Send millions of push notifications in minutes.",
+"l": "https://learn.microsoft.com/en-us/azure/notification-hubs/",
+"u": ["Send push notifications to millions of devices", "Need cross-platform push for iOS, Android, and Windows", "Want tag-based targeting for segmented audiences"]
+},
+"Azure Queue Storage": {
+"w": "Simple message queuing with HTTP/HTTPS access.",
+"f": "Can store millions of messages at just pennies per GB.",
+"l": "https://learn.microsoft.com/en-us/azure/storage/queues/",
+"u": ["Need simple HTTP-based message queuing", "Want ultra-low-cost message storage", "Building loosely coupled async workflows"]
+},
+"Azure Service Bus": {
+"w": "Enterprise message broker with queues and topics.",
+"f": "Supports transactions, sessions, and dead-letter queues.",
+"l": "https://learn.microsoft.com/en-us/azure/service-bus-messaging/",
+"u": ["Need enterprise messaging with FIFO and transactions", "Want pub/sub topics with durable subscriptions", "Running complex message routing with filters"]
+},
+"Event Grid": {
+"w": "Event routing service for reactive programming.",
+"f": "Delivers events in sub-second with at-least-once delivery.",
+"l": "https://learn.microsoft.com/en-us/azure/event-grid/",
+"u": ["Route events between Azure services reactively", "Need serverless event-driven architectures", "Want custom topic events from your applications"]
+},
+"Azure Data Factory (Airflow)": {
+"w": "Managed Apache Airflow workflows in Azure Data Factory.",
+"f": "Run Airflow DAGs without managing Airflow infrastructure.",
+"l": "https://learn.microsoft.com/en-us/azure/data-factory/",
+"u": ["Run Apache Airflow DAGs on managed Azure infrastructure", "Need workflow orchestration with Python DAGs", "Want Airflow with Azure-integrated security"]
+},
+"Azure Pipelines": {
+"w": "CI/CD service for building, testing, and deploying.",
+"f": "Supports any language, platform, and cloud with free tier.",
+"l": "https://learn.microsoft.com/en-us/azure/devops/pipelines/",
+"u": ["Build CI/CD pipelines for any language or platform", "Need multi-stage pipelines with approvals", "Want free CI/CD for public repositories"]
+},
+"Azure DevOps": {
+"w": "Complete DevOps toolchain for planning to deployment.",
+"f": "Includes Boards, Repos, Pipelines, Test Plans, and Artifacts.",
+"l": "https://learn.microsoft.com/en-us/azure/devops/",
+"u": ["Need complete DevOps lifecycle management", "Want integrated planning, code, CI/CD, and testing", "Running enterprise development with Azure integration"]
+},
+"ARM Templates": {
+"w": "Infrastructure as Code using JSON templates.",
+"f": "Declarative JSON templates with support for all Azure resources.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/",
+"u": ["Deploy Azure resources with declarative JSON templates", "Need idempotent, repeatable infrastructure deployments", "Want Azure-native IaC without third-party tools"]
+},
+"Bicep": {
+"w": "Domain-specific language for Azure infrastructure.",
+"f": "Compiles to ARM templates with dramatically simpler syntax.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/",
+"u": ["Write Azure IaC with clean, readable syntax", "Need type-safe Azure resource definitions", "Want improved authoring experience over ARM JSON"]
+},
+"Azure Monitor": {
+"w": "Full-stack monitoring for Azure and hybrid environments.",
+"f": "Collects metrics, logs, and traces from all Azure resources.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-monitor/",
+"u": ["Monitor Azure resources with metrics and logs", "Need alerts and auto-scaling based on metrics", "Want unified observability across Azure and hybrid"]
+},
+"Application Insights": {
+"w": "Application performance monitoring and diagnostics.",
+"f": "Automatically detects performance anomalies.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview",
+"u": ["Monitor application performance and user behavior", "Need distributed tracing across microservices", "Want smart detection of performance anomalies"]
+},
+"Azure Managed Grafana": {
+"w": "Fully managed Grafana dashboards on Azure.",
+"f": "Pre-configured with Azure Monitor and Azure Data Explorer data sources.",
+"l": "https://learn.microsoft.com/en-us/azure/managed-grafana/",
+"u": ["Create Grafana dashboards with Azure data sources", "Need unified visualization across Azure Monitor data", "Want managed Grafana without infrastructure management"]
+},
+"Azure Monitor Prometheus": {
+"w": "Managed Prometheus metrics collection and storage.",
+"f": "Compatible with PromQL queries and Grafana.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/prometheus-metrics-overview",
+"u": ["Collect Prometheus metrics from AKS workloads", "Need managed PromQL-compatible metric storage", "Want long-term Prometheus metric retention"]
+},
+"Azure Automation": {
+"w": "Process automation and configuration management.",
+"f": "Supports PowerShell and Python runbooks with scheduling.",
+"l": "https://learn.microsoft.com/en-us/azure/automation/",
+"u": ["Automate repetitive Azure management tasks", "Need scheduled PowerShell or Python runbooks", "Want patch management for Azure and hybrid VMs"]
+},
+"Azure Monitor AIOps": {
+"w": "AI-powered anomaly detection and diagnostics.",
+"f": "Uses ML to correlate alerts and reduce noise.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-monitor/alerts/alerts-smartgroups-overview",
+"u": ["Reduce alert noise with AI-powered grouping", "Need automatic root cause analysis", "Want proactive anomaly detection on metrics"]
+},
+"Cost Management": {
+"w": "Monitor, allocate, and optimize Azure spending.",
+"f": "Provides cost analysis, budgets, and optimization recommendations.",
+"l": "https://learn.microsoft.com/en-us/azure/cost-management-billing/",
+"u": ["Analyze and optimize Azure cloud spending", "Need budgets with threshold alerts", "Want cost allocation across teams and projects"]
+},
+"Azure Budgets": {
+"w": "Set spending limits with automated alerts.",
+"f": "Can trigger actions when budget thresholds are reached.",
+"l": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets",
+"u": ["Set monthly spending budgets with alerts", "Need automated actions when budgets are exceeded", "Want forecasted spend alerts before overruns"]
+},
+"Azure Migrate": {
+"w": "Unified migration hub for Azure.",
+"f": "Supports VMware, Hyper-V, physical servers, and database migration.",
+"l": "https://learn.microsoft.com/en-us/azure/migrate/",
+"u": ["Discover and assess on-premises workloads for Azure", "Need server and database migration to Azure", "Want dependency mapping and right-sizing recommendations"]
+},
+"Azure TCO Calculator": {
+"w": "Estimate total cost savings of migrating to Azure.",
+"f": "Compares on-premises costs with projected Azure costs.",
+"l": "https://azure.microsoft.com/en-us/pricing/tco/calculator/",
+"u": ["Estimate cost savings of migrating to Azure", "Need TCO comparison for board presentations", "Want workload-specific Azure cost projections"]
+},
+"Azure Database Migration Service": {
+"w": "Managed database migration to Azure.",
+"f": "Supports online migration with minimal downtime.",
+"l": "https://learn.microsoft.com/en-us/azure/dms/",
+"u": ["Migrate databases to Azure with minimal downtime", "Need continuous data replication during migration", "Want assessment and migration in one service"]
+},
+"Azure Stack": {
+"w": "Run Azure services in your own datacenter.",
+"f": "Same APIs and tools as Azure public cloud.",
+"l": "https://learn.microsoft.com/en-us/azure-stack/",
+"u": ["Run Azure services on-premises or at the edge", "Need consistent hybrid cloud with Azure APIs", "Want disconnected or latency-sensitive cloud operations"]
+},
+"Azure VMware Solution": {
+"w": "Run VMware workloads natively on Azure.",
+"f": "Migrate vSphere VMs to Azure without refactoring.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-vmware/",
+"u": ["Migrate VMware workloads to Azure without changes", "Need VMware vSphere compatibility on Azure", "Want integrated Azure networking for VMware VMs"]
+},
+"Azure IoT Hub": {
+"w": "Managed service for bidirectional IoT device communication.",
+"f": "Supports millions of simultaneously connected devices.",
+"l": "https://learn.microsoft.com/en-us/azure/iot-hub/",
+"u": ["Connect and manage millions of IoT devices", "Need secure bidirectional device communication", "Want device provisioning and lifecycle management"]
+},
+"Azure RTOS": {
+"w": "Real-time operating system for microcontrollers.",
+"f": "Optimized for resource-constrained IoT devices.",
+"l": "https://learn.microsoft.com/en-us/azure/rtos/",
+"u": ["Need real-time OS for resource-constrained devices", "Want Azure IoT Hub connectivity from microcontrollers", "Running safety-certified embedded systems"]
+},
+"IoT Hub Device Management": {
+"w": "Manage IoT device fleet at scale.",
+"f": "Supports automatic device configuration and firmware updates.",
+"l": "https://learn.microsoft.com/en-us/azure/iot-hub/iot-hub-device-management-overview",
+"u": ["Manage IoT device configurations at scale", "Need over-the-air firmware updates", "Want device twin for state synchronization"]
+},
+"Microsoft Defender for IoT": {
+"w": "Threat detection for IoT and OT networks.",
+"f": "Discovers and secures unmanaged IoT devices on the network.",
+"l": "https://learn.microsoft.com/en-us/azure/defender-for-iot/",
+"u": ["Detect threats in IoT and operational technology networks", "Need asset discovery for unmanaged IoT devices", "Want vulnerability assessment for industrial systems"]
+},
+"Device Twins": {
+"w": "Cloud representation of IoT device state.",
+"f": "Enables synchronization between device and cloud.",
+"l": "https://learn.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-device-twins",
+"u": ["Synchronize device state between cloud and edge", "Need desired/reported property management", "Want querying across device fleet state"]
+},
+"Azure IoT Central": {
+"w": "Managed IoT application platform.",
+"f": "Build IoT solutions without managing infrastructure.",
+"l": "https://learn.microsoft.com/en-us/azure/iot-central/",
+"u": ["Build IoT solutions without infrastructure management", "Need pre-built dashboards and device templates", "Want SaaS-level simplicity for IoT applications"]
+},
+"Azure IoT Edge": {
+"w": "Deploy cloud workloads to IoT edge devices.",
+"f": "Runs AI models and Azure services on edge hardware.",
+"l": "https://learn.microsoft.com/en-us/azure/iot-edge/",
+"u": ["Run Azure services and AI on edge devices", "Need offline-capable edge computing", "Want cloud deployment of edge workloads"]
+},
+"Azure Digital Twins": {
+"w": "Model physical environments as digital twins.",
+"f": "Supports DTDL for defining twin models and relationships.",
+"l": "https://learn.microsoft.com/en-us/azure/digital-twins/",
+"u": ["Create digital models of physical environments", "Need real-time twin graphs for smart buildings", "Want integration with IoT Hub and Time Series"]
+},
+"Emissions Impact Dashboard": {
+"w": "Track carbon emissions from Azure usage.",
+"f": "Powered by Microsoft Sustainability Manager.",
+"l": "https://learn.microsoft.com/en-us/power-bi/collaborate-share/service-connect-to-emissions-impact-dashboard",
+"u": ["Track Azure usage carbon emissions", "Need sustainability reporting for ESG goals", "Want emissions data broken down by service"]
+},
+"Ampere Altra VMs": {
+"w": "Arm-based VMs for energy-efficient computing.",
+"f": "Up to 50% better price-performance than x86 for many workloads.",
+"l": "https://learn.microsoft.com/en-us/azure/virtual-machines/dpsv5-dpdsv5-series",
+"u": ["Run workloads on energy-efficient Arm processors", "Need better price-performance for scale-out apps", "Want reduced carbon footprint for compute"]
+},
+"Traffic Manager": {
+"w": "DNS-based global traffic distribution.",
+"f": "Supports priority, weighted, geographic, and performance routing.",
+"l": "https://learn.microsoft.com/en-us/azure/traffic-manager/",
+"u": ["Distribute traffic globally with DNS-based routing", "Need geographic or performance-based traffic routing", "Want automatic failover across Azure regions"]
+},
+"Azure Chaos Studio": {
+"w": "Managed fault injection for resilience testing.",
+"f": "Supports both Azure service faults and custom faults.",
+"l": "https://learn.microsoft.com/en-us/azure/chaos-studio/",
+"u": ["Test application resilience with controlled faults", "Need managed chaos engineering experiments", "Want to validate auto-recovery and failover"]
+},
+"Azure Media Services": {
+"w": "Cloud-based media encoding and streaming.",
+"f": "Supports live and on-demand streaming at scale.",
+"l": "https://learn.microsoft.com/en-us/azure/media-services/",
+"u": ["Encode and stream video at cloud scale", "Need adaptive bitrate streaming with DRM", "Want live event streaming with low latency"]
+},
+"Azure Video Analyzer": {
+"w": "AI-powered video analytics platform.",
+"f": "Extract insights from video streams in real-time.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-video-indexer/",
+"u": ["Extract insights from video with AI", "Need real-time video analytics for security", "Want automated transcription and face detection"]
+},
+"Copilot in Dynamics": {
+"w": "AI assistant embedded in Dynamics 365 apps.",
+"f": "Provides AI summaries and suggestions across CRM and ERP.",
+"l": "https://learn.microsoft.com/en-us/dynamics365/copilot/",
+"u": ["Get AI assistance within Dynamics 365 apps", "Need automated summaries for sales and service", "Want AI-driven insights in CRM workflows"]
+},
+"Azure Virtual Desktop": {
+"w": "Desktop and app virtualization on Azure.",
+"f": "Supports multi-session Windows 11 for cost savings.",
+"l": "https://learn.microsoft.com/en-us/azure/virtual-desktop/",
+"u": ["Deploy Windows desktops and apps from Azure", "Need multi-session Windows 11 for cost savings", "Want FSLogix profile management for VDI"]
+},
+"Azure Maps": {
+"w": "Geospatial APIs for maps, search, and routing.",
+"f": "Provides indoor maps, traffic, and weather data.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-maps/",
+"u": ["Add interactive maps to applications", "Need geocoding, routing, and traffic data", "Want indoor mapping for large venues"]
+},
+"Azure Maps Search": {
+"w": "Search for addresses, places, and points of interest.",
+"f": "Supports fuzzy search and reverse geocoding.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-maps/how-to-search-for-address",
+"u": ["Search for addresses and places globally", "Need reverse geocoding for coordinates", "Want POI search with category filtering"]
+},
+"Azure Maps Route": {
+"w": "Calculate routes and travel times.",
+"f": "Supports truck routing with vehicle dimension constraints.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-maps/how-to-request-route-data",
+"u": ["Calculate optimal routes with traffic data", "Need truck routing with weight and dimension limits", "Want multi-stop route optimization"]
+},
+"Azure Health Data Services": {
+"w": "Managed FHIR, DICOM, and MedTech services.",
+"f": "HIPAA and HITRUST compliant health data platform.",
+"l": "https://learn.microsoft.com/en-us/azure/healthcare-apis/",
+"u": ["Store and manage FHIR and DICOM health data", "Need HIPAA-compliant healthcare data platform", "Want interoperability with health systems via FHIR"]
+},
+"Microsoft Genomics": {
+"w": "Genomics data processing with the Broad Institute GATK.",
+"f": "Process a whole genome in hours, not days.",
+"l": "https://learn.microsoft.com/en-us/azure/genomics/",
+"u": ["Process genomic data with managed GATK pipelines", "Need scalable whole genome sequencing analysis", "Want Azure-integrated genomics workflows"]
+},
+"Azure AI Health Insights": {
+"w": "AI models for healthcare text and clinical data.",
+"f": "Extracts clinical information from unstructured medical text.",
+"l": "https://learn.microsoft.com/en-us/azure/ai-services/health-insights/",
+"u": ["Extract clinical insights from medical documents", "Need ICD-10 coding from clinical text", "Want oncology inference from pathology reports"]
+},
+"Azure Quantum": {
+"w": "Access quantum computing hardware and simulators.",
+"f": "Supports IonQ, Quantinuum, and PASQAL quantum processors.",
+"l": "https://learn.microsoft.com/en-us/azure/quantum/",
+"u": ["Access multiple quantum hardware providers", "Need quantum algorithm development with Q#", "Want hybrid quantum-classical computing workflows"]
+},
+"Azure Quantum Simulators": {
+"w": "Simulate quantum circuits on classical hardware.",
+"f": "Test quantum programs before running on real quantum hardware.",
+"l": "https://learn.microsoft.com/en-us/azure/quantum/",
+"u": ["Test quantum algorithms before using real hardware", "Need noise-free quantum circuit simulation", "Want to validate Q# programs locally"]
+},
+"PlayFab": {
+"w": "Backend platform for live games.",
+"f": "Used by studios managing billions of player transactions.",
+"l": "https://learn.microsoft.com/en-us/gaming/playfab/",
+"u": ["Build game backends with player management", "Need matchmaking, leaderboards, and economies", "Want LiveOps for in-game events and content"]
+},
+"PlayFab Matchmaking": {
+"w": "Flexible matchmaking service for multiplayer games.",
+"f": "Supports skill-based, region-based, and custom matchmaking rules.",
+"l": "https://learn.microsoft.com/en-us/gaming/playfab/features/multiplayer/matchmaking/",
+"u": ["Match players by skill, region, or custom rules", "Need queue-based matchmaking for multiplayer games", "Want integration with Azure multiplayer servers"]
+},
+"Azure Supply Chain": {
+"w": "Supply chain visibility and management platform.",
+"f": "Part of Microsoft Supply Chain Center powered by Dynamics 365.",
+"l": "https://learn.microsoft.com/en-us/dynamics365/supply-chain/",
+"u": ["Get end-to-end supply chain visibility", "Need demand forecasting and inventory optimization", "Want AI-powered supply chain risk detection"]
+},
+"Power Apps": {
+"w": "Low-code platform for building business applications.",
+"f": "Connects to 1,000+ data sources including SharePoint, SQL, and Dynamics.",
+"l": "https://learn.microsoft.com/en-us/power-apps/",
+"u": ["Build business apps with minimal coding", "Need rapid prototyping connected to enterprise data", "Want mobile-ready apps from SharePoint or Excel data"]
+},
+"Power Automate": {
+"w": "Workflow automation across apps and services.",
+"f": "Includes desktop flows for legacy application automation.",
+"l": "https://learn.microsoft.com/en-us/power-automate/",
+"u": ["Automate workflows across Microsoft and third-party apps", "Need RPA for desktop and legacy application automation", "Want AI-assisted flow building with natural language"]
+},
+"Azure Files (SMB)": {
+"w": "Managed SMB file shares for Windows workloads in the cloud.",
+"f": "Supports SMB 3.0 with Azure AD authentication.",
+"l": "https://learn.microsoft.com/en-us/azure/storage/files/",
+"u": ["Need SMB file shares for Windows application lift-and-shift", "Want Azure AD-based access control on file shares", "Running legacy Windows apps requiring shared drives"]
+},
+"StorSimple": {
+"w": "Hybrid cloud storage appliance integrating on-premises and Azure.",
+"f": "Automatically tiers data between local storage and Azure Blob.",
+"l": "https://learn.microsoft.com/en-us/azure/storsimple/",
+"u": ["Need hybrid storage gateway tiering to Azure cloud", "Want automatic archival of cold data to Blob Storage", "Running backup and DR with on-premises integration"]
+},
+"Azure Migrate (containerize)": {
+"w": "Containerize and migrate applications to Azure containers.",
+"f": "Automatically converts ASP.NET and Java web apps to containers.",
+"l": "https://learn.microsoft.com/en-us/azure/migrate/tutorial-app-containerization-aspnet-kubernetes",
+"u": ["Containerize legacy .NET or Java apps for AKS", "Need automated app-to-container conversion", "Want lift-and-modernize path to Kubernetes"]
+},
+"Azure SQL Geo-Replication": {
+"w": "Active geo-replication for Azure SQL Database across regions.",
+"f": "Supports up to four readable secondary databases in different regions.",
+"l": "https://learn.microsoft.com/en-us/azure/azure-sql/database/active-geo-replication-overview",
+"u": ["Need cross-region read replicas for Azure SQL", "Want automatic failover groups for regional DR", "Running globally distributed apps with local read performance"]
 }
 };

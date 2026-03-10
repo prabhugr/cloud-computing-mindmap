@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cloud Computing — Interactive Mind Map</title>
+<title>Cloud Computing — Multi-Cloud Interactive Mind Map</title>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -55,6 +55,68 @@ svg .node-g{transition:opacity .4s ease}
 @media(hover:none){
   svg .node-g{transition:none}
 }
+.cmp-wrap{position:fixed;inset:0;z-index:10;overflow-y:auto;opacity:0;transition:opacity .4s ease;pointer-events:none;display:flex;justify-content:center}
+.cmp-wrap.open{opacity:1;pointer-events:auto}
+.cmp-table{position:relative;max-width:900px;width:92%;margin:60px auto 40px;padding-bottom:40px}
+.cmp-back{position:sticky;top:0;z-index:11;display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:10px;border:1px solid rgba(48,54,61,.7);background:rgba(13,17,23,.85);backdrop-filter:blur(12px);color:#8b949e;font-size:13px;cursor:pointer;margin-bottom:16px;transition:all .2s}
+.cmp-back:hover{color:#e6edf3;border-color:rgba(88,166,255,.4)}
+.cmp-title{font-size:22px;font-weight:700;color:#e6edf3;margin-bottom:6px}
+.cmp-sub{font-size:13px;color:#484f58;margin-bottom:24px}
+.cmp-section{margin-bottom:28px}
+.cmp-section-hdr{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;padding:8px 0;border-bottom:1px solid rgba(48,54,61,.5);margin-bottom:2px;display:flex;align-items:center;gap:8px}
+.cmp-section-name{flex:1}
+.cmp-hdr{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;padding:6px 14px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#484f58}
+.cmp-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;padding:10px 14px;border-radius:8px;cursor:pointer}
+.cmp-row:hover{background:rgba(88,166,255,.06)}
+.cmp-row.expanded{background:rgba(88,166,255,.04);border-radius:8px 8px 0 0}
+.cmp-cell{font-size:14px;color:#c9d1d9;display:flex;align-items:center;gap:8px}
+.cmp-cell.empty{color:#484f58;font-style:italic;font-size:12px}
+.cmp-badge{font-size:9px;font-weight:600;padding:2px 6px;border-radius:4px;text-transform:uppercase;letter-spacing:.04em}
+.cmp-badge.aws{background:rgba(255,153,0,.15);color:#f90}
+.cmp-badge.gcp{background:rgba(66,133,244,.15);color:#4285f4}
+.cmp-badge.azure{background:rgba(0,120,212,.15);color:#0078d4}
+.cmp-detail-col{font-size:12px;color:#8b949e;line-height:1.6}
+.cmp-detail-col .dtl-name{font-size:13px;font-weight:600;color:#e6edf3;margin-bottom:4px}
+.cmp-detail-col .dtl-fact{font-size:11px;color:#a5d6ff;background:rgba(88,166,255,.06);border:1px solid rgba(88,166,255,.1);border-radius:8px;padding:8px 10px;margin:8px 0}
+.cmp-detail-col a{color:#58a6ff;text-decoration:none;font-size:11px}
+.cmp-detail-col a:hover{text-decoration:underline}
+.cmp-also{margin-top:8px}
+.cmp-also-hdr{font-size:10px;font-weight:600;color:#484f58;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;padding:4px 0}
+.cmp-diff{grid-column:1/-1;background:rgba(255,153,0,.04);border:1px solid rgba(255,153,0,.12);border-radius:8px;padding:10px 14px;margin-bottom:8px}
+.cmp-diff-hdr{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#f0883e;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.cmp-diff-list{list-style:none;padding:0;margin:0}
+.cmp-diff-list li{font-size:12px;color:#c9d1d9;line-height:1.6;padding:2px 0 2px 14px;position:relative}
+.cmp-diff-list li::before{content:"\2022";position:absolute;left:0;color:#f0883e}
+.cmp-use{margin:8px 0}
+.cmp-use-hdr{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:#484f58;margin-bottom:4px}
+.cmp-use-list{list-style:none;padding:0;margin:0}
+.cmp-use-list li{font-size:12px;color:#8b949e;line-height:1.5;padding:2px 0 2px 14px;position:relative}
+.cmp-use-list li::before{content:"\2022";position:absolute;left:0;color:#58a6ff}
+@media(max-width:768px){
+  .cmp-table{width:96%;margin:48px auto 24px}
+  .cmp-row,.cmp-hdr,.cmp-detail{grid-template-columns:1fr 1fr 1fr;gap:4px;padding:8px 10px}
+  .cmp-cell{font-size:12px}
+  .cmp-title{font-size:18px}
+}
+/* Match quality dots */
+.cmp-match{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.cmp-match.strong{background:#3fb950}
+.cmp-match.partial{background:#d29922}
+.cmp-match.loose{background:#484f58}
+/* Smooth detail expand */
+.cmp-detail{overflow:hidden;max-height:0;opacity:0;transition:max-height .35s ease,opacity .25s ease .1s;display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;padding:0 14px;background:rgba(13,17,23,.5);border:1px solid rgba(48,54,61,.3);border-radius:0 0 8px 8px;margin-bottom:4px}
+.cmp-detail.open{max-height:800px;opacity:1;padding:12px 14px 16px}
+/* Row stagger animation */
+.cmp-row{opacity:0;transform:translateY(8px);transition:background .15s,opacity .3s ease,transform .3s ease}
+.cmp-row.visible{opacity:1;transform:translateY(0)}
+.cmp-also .cmp-row{opacity:0}
+.cmp-also .cmp-row.visible{opacity:.7}
+/* Section header stagger */
+.cmp-section-hdr{opacity:0;transform:translateY(-6px);transition:opacity .3s ease,transform .3s ease}
+.cmp-section-hdr.visible{opacity:1;transform:translateY(0)}
+/* Landing animation */
+@keyframes fadeInUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.hint-anim{animation:fadeInUp .6s ease forwards;opacity:0}
 </style>
 </head>
 <body>
@@ -64,8 +126,9 @@ svg .node-g{transition:opacity .4s ease}
 <div class="svc-overlay" id="svcOverlay"></div>
 <div class="svc-panel" id="svcPanel"><div class="svc-bg"></div><button class="svc-close" id="svcClose">✕</button><div class="svc-body" id="svcBody"></div></div>
 <div class="ctrl"><button id="zi" title="Zoom in">+</button><button id="zo" title="Zoom out">−</button><button id="zr" title="Reset">⌂</button></div>
-<div class="hint" id="hintText">click to drill in · double-click center to go back · hover to highlight · scroll to zoom</div>
+<div class="hint" id="hintText">click domain to explore · click subcategory for AWS vs GCP comparison · scroll to zoom</div>
 <div class="crumb" id="crumb"></div>
+<div class="cmp-wrap" id="cmpWrap"><div class="cmp-table" id="cmpTable"></div></div>
 <script>
 // ── PARTICLES (enhanced: color shift + mouse gravity) ──
 let particleColor=[88,166,255]; // r,g,b — shifts with domain
@@ -148,6 +211,13 @@ function calcSize(label,fs,fw,hasIcon,minR,maxW){
   const r=Math.max(minR,Math.sqrt((mw+pad)**2+(th+pad)**2)/2);
   return{r:Math.ceil(r),lines};
 }
+function isComparisonLevel(node){
+  const ch=node.ch||[];
+  if(!ch.length) return false;
+  if(typeof ch[0]==='object' && ('aws' in ch[0]||'gcp' in ch[0]||'azure' in ch[0])) return true;
+  if(ch[0] && ch[0].ch && ch[0].ch[0] && typeof ch[0].ch[0]==='object' && ('aws' in ch[0].ch[0]||'gcp' in ch[0].ch[0]||'azure' in ch[0].ch[0])) return true;
+  return false;
+}
 </script>
 <!-- Tree data (CORE, SPECIALTY, ROOT) -->
 <script src="data/tree.js"></script>
@@ -197,13 +267,19 @@ function renderView(animate){
   if(!children.length){updateCrumb();return;}
 
   // Size all children
-  const isLeaf=typeof children[0]==='string';
-  const fs=isLeaf?9:10, fw=isLeaf?'400':'600', minR=isLeaf?20:28, mw=isLeaf?52:75;
+  const isLeaf=typeof children[0]==='string'||(typeof children[0]==='object'&&('aws' in children[0]||'gcp' in children[0]||'azure' in children[0]));
+  const fs=isLeaf?9:10, fw=isLeaf?'400':'600', mw=isLeaf?52:75;
+  // Size-encode: count total services in each child's subtree
+  function countServices(n){if(!n||!n.ch)return 0;return n.ch.reduce((a,c)=>a+(c.ch?countServices(c):(c.aws||c.gcp?1:1)),0);}
+  const baseMR=isLeaf?20:28;
   const sized=children.map(ch=>{
     const name=typeof ch==='string'?ch:ch.name;
     const icon=ch.icon||'';
+    const svcCount=countServices(ch);
+    const sizeBoost=isLeaf?0:Math.sqrt(svcCount)*1.2;
+    const minR=baseMR+sizeBoost;
     const s=calcSize(name,fs,fw,!!icon,minR,mw);
-    return{...s,name,icon,data:ch,color:ch.color||color};
+    return{...s,name,icon,data:ch,color:ch.color||color,svcCount};
   });
 
   // Layout: flexible radial with size-based spacing
@@ -235,15 +311,68 @@ function renderView(animate){
     const dist=Math.hypot(x,y);
     const dx=x/dist,dy=y/dist;
     const x1=dx*cSz.r,y1=dy*cSz.r,x2=x-dx*s.r,y2=y-dy*s.r;
+    // Animated gradient line with traveling dot
+    const lineId='line-grad-'+i;
+    const defs=gMain.querySelector('defs')||nse('defs');
+    if(!defs.parentNode)gMain.insertBefore(defs,gMain.firstChild);
+    const lg=nse('linearGradient');lg.id=lineId;
+    lg.setAttribute('x1',x1);lg.setAttribute('y1',y1);lg.setAttribute('x2',x2);lg.setAttribute('y2',y2);
+    lg.setAttribute('gradientUnits','userSpaceOnUse');
+    const st1=nse('stop');st1.setAttribute('offset','0');st1.setAttribute('stop-color',s.color);st1.setAttribute('stop-opacity','0.3');
+    const st2=nse('stop');st2.setAttribute('offset','1');st2.setAttribute('stop-color',s.color);st2.setAttribute('stop-opacity','0.08');
+    lg.appendChild(st1);lg.appendChild(st2);defs.appendChild(lg);
+
     const line=nse('line');
     line.setAttribute('x1',x1);line.setAttribute('y1',y1);
     line.setAttribute('x2',x2);line.setAttribute('y2',y2);
-    line.setAttribute('stroke',s.color+'30');
+    line.setAttribute('stroke','url(#'+lineId+')');
     line.setAttribute('stroke-width',1.5);line.setAttribute('stroke-linecap','round');
-    gMain.insertBefore(line,gMain.firstChild);
+    gMain.insertBefore(line,defs.nextSibling||gMain.firstChild);
+
+    // Traveling dot along the line
+    const dot=nse('circle');dot.setAttribute('r','2');dot.setAttribute('fill',s.color);dot.setAttribute('opacity','0.5');
+    gMain.insertBefore(dot,line.nextSibling);
+    const dotAnim=dot.animate([
+      {cx:x1,cy:y1,opacity:0.1},
+      {cx:(x1+x2)/2,cy:(y1+y2)/2,opacity:0.6},
+      {cx:x2,cy:y2,opacity:0.1}
+    ],{duration:2000+i*200,iterations:Infinity,easing:'ease-in-out',delay:i*150});
+    // Store dot for cleanup
+    line._dot=dot;line._dotAnim=dotAnim;
 
     // Node
     const g=mkNode(x,y,s.r,s.lines,s.icon,s.color,fs,fw,false);
+    // Provider split ring
+    if(s.data.ch&&s.data.ch.length&&!isLeaf){
+      let awsCount=0,gcpCount=0,azureCount=0;
+      function countProv(n){if(!n||!n.ch)return;n.ch.forEach(c=>{if('aws' in c||'gcp' in c||'azure' in c){if(c.aws)awsCount++;if(c.gcp)gcpCount++;if(c.azure)azureCount++;}else if(c.ch)countProv(c);});}
+      countProv(s.data);
+      const total=awsCount+gcpCount+azureCount;
+      if(total>0){
+        const ringR=s.r+3;
+        const startAngle=-Math.PI/2;
+        const segments=[
+          {count:awsCount,color:'#FF9900'},
+          {count:gcpCount,color:'#4285F4'},
+          {count:azureCount,color:'#0078D4'}
+        ];
+        let angle=startAngle;
+        segments.forEach(seg=>{
+          if(seg.count<=0)return;
+          const frac=seg.count/total;
+          const endAngle=angle+frac*Math.PI*2;
+          const arc=nse('path');
+          const x1a=Math.cos(angle)*ringR,y1a=Math.sin(angle)*ringR;
+          const x2a=Math.cos(endAngle)*ringR,y2a=Math.sin(endAngle)*ringR;
+          const large=frac>0.5?1:0;
+          arc.setAttribute('d','M '+x1a+' '+y1a+' A '+ringR+' '+ringR+' 0 '+large+' 1 '+x2a+' '+y2a);
+          arc.setAttribute('fill','none');arc.setAttribute('stroke',seg.color);arc.setAttribute('stroke-width','2.5');arc.setAttribute('stroke-linecap','round');arc.setAttribute('opacity','0.5');
+          g.insertBefore(arc,g.firstChild);
+          angle=endAngle;
+        });
+      }
+    }
+
     // Child count badge
     if(hasKids){
       const count=s.data.ch.length;
@@ -272,7 +401,7 @@ function renderView(animate){
     g.addEventListener('click',ev=>{
       ev.stopPropagation();
       if(busy)return;
-      if(hasKids||s.data.aws){
+      if(hasKids){
         drillIn(s.data);
       }else{
         openServicePanel(s.name,s.color);
@@ -287,7 +416,7 @@ function renderView(animate){
     g.addEventListener('touchend',()=>{clearTimeout(lpTimer);setTimeout(()=>{tip.style.opacity='0';},1500);});
     g.addEventListener('touchmove',()=>{clearTimeout(lpTimer);},{passive:true});
 
-    currentEls.push({g,line,node:s});
+    currentEls.push({g,line,node:s,dot});
 
     // Animate in
     if(animate){
@@ -371,16 +500,36 @@ function mvTip(e){let l=e.clientX+16,t=e.clientY+16;if(l+320>innerWidth)l=e.clie
 function drillIn(treeNode){
   if(busy)return;busy=true;
   if(treeNode.aws&&!treeNode.ch){busy=false;return;}
-  // Shift particle color to match domain
+
+  // Check if this node's children contain comparison objects → show table
+  if(isComparisonLevel(treeNode)){
+    const col=treeNode.color||parentColor();
+    shiftParticleColor(col);
+    spawnRipple(0,0,col);
+    // Animate out bubbles
+    currentEls.forEach((el,i)=>{
+      el.g.style.transition=`transform .3s ease ${i*10}ms, opacity .2s ease ${i*10}ms`;
+      el.g.setAttribute('transform','translate(0,0) scale(0)');el.g.style.opacity='0';
+      el.line.style.transition='opacity .2s ease';el.line.style.opacity='0';
+      if(el.dot){el.dot.style.transition='opacity .2s';el.dot.style.opacity='0';}
+    });
+    viewStack.push(treeNode);
+    updateCrumb();
+    setTimeout(()=>{
+      renderComparisonTable(treeNode,col);
+      busy=false;
+    },350);
+    return;
+  }
+
   const col=treeNode.color||parentColor();
   shiftParticleColor(col);
-  // Ripple effect at center
   spawnRipple(0,0,col);
-  // Animate out current children
   currentEls.forEach((el,i)=>{
     el.g.style.transition=`transform .3s ease ${i*10}ms, opacity .2s ease ${i*10}ms`;
-    el.g.setAttribute('transform',`translate(0,0) scale(0)`);el.g.style.opacity='0';
-    el.line.style.transition=`opacity .2s ease`;el.line.style.opacity='0';
+    el.g.setAttribute('transform','translate(0,0) scale(0)');el.g.style.opacity='0';
+    el.line.style.transition='opacity .2s ease';el.line.style.opacity='0';
+    if(el.dot){el.dot.style.transition='opacity .2s';el.dot.style.opacity='0';}
   });
   setTimeout(()=>{
     viewStack.push(treeNode);
@@ -391,11 +540,26 @@ function drillIn(treeNode){
 
 function goBack(){
   if(busy||viewStack.length<=1)return;busy=true;
+  const wrap=document.getElementById('cmpWrap');
+  if(wrap.classList.contains('open')){
+    wrap.classList.remove('open');
+    setTimeout(()=>{
+      viewStack.pop();
+      svg.style.transition='opacity .3s ease';
+      svg.style.opacity='1';
+      shiftParticleColor(currentNode().color||'#58a6ff');
+      if(viewStack.length===1) drawRootView();
+      else renderView(true);
+      busy=false;
+    },350);
+    return;
+  }
   spawnRipple(0,0,parentColor());
   currentEls.forEach((el,i)=>{
     el.g.style.transition=`transform .25s ease ${i*8}ms, opacity .15s ease ${i*8}ms`;
-    el.g.setAttribute('transform',`translate(0,0) scale(0)`);el.g.style.opacity='0';
-    el.line.style.transition=`opacity .15s ease`;el.line.style.opacity='0';
+    el.g.setAttribute('transform','translate(0,0) scale(0)');el.g.style.opacity='0';
+    el.line.style.transition='opacity .15s ease';el.line.style.opacity='0';
+    if(el.dot){el.dot.style.transition='opacity .2s';el.dot.style.opacity='0';}
   });
   setTimeout(()=>{
     viewStack.pop();
@@ -417,10 +581,15 @@ crumbEl.addEventListener('click',e=>{
   const idx=e.target.dataset.idx;
   if(idx==null||busy)return;
   busy=true;
+  const wrap=document.getElementById('cmpWrap');
+  if(wrap.classList.contains('open')) wrap.classList.remove('open');
   const target=parseInt(idx);
-  currentEls.forEach(el=>{el.g.style.transition='opacity .2s';el.g.style.opacity='0';el.line.style.transition='opacity .2s';el.line.style.opacity='0';});
+  svg.style.transition='opacity .3s ease';
+  svg.style.opacity='1';
+  currentEls.forEach(el=>{el.g.style.transition='opacity .2s';el.g.style.opacity='0';el.line.style.transition='opacity .2s';el.line.style.opacity='0';if(el.dot){el.dot.style.transition='opacity .2s';el.dot.style.opacity='0';}});
   setTimeout(()=>{
     viewStack.length=target+1;
+    shiftParticleColor(currentNode().color||'#58a6ff');
     if(viewStack.length===1) drawRootView();
     else renderView(true);
     busy=false;
@@ -434,25 +603,217 @@ document.getElementById('svcClose').onclick=closePanel;
 svcOverlay.onclick=closePanel;
 function closePanel(){svcPanel.classList.remove('open');svcOverlay.classList.remove('open');}
 const SVC=typeof _SVC_DATA!=='undefined'?_SVC_DATA:{};
-async function openServicePanel(name,color){
-  const info=SVC[name]||SVC[name.replace('IoT ','')]||SVC['Amazon '+name]||SVC['AWS '+name];
-  const w=info?info.w:'An AWS cloud service.';
-  const f=info?info.f:'One of 200+ services in the AWS cloud platform.';
-  const l=info?info.l:'https://docs.aws.amazon.com/';
+async function openServicePanel(name,color,provider){
+  const info=SVC[name]||SVC[name.replace('IoT ','')]||SVC['Amazon '+name]||SVC['AWS '+name]||SVC['Google '+name];
+  const w=info?info.w:(provider==='gcp'?'A Google Cloud service.':'An AWS cloud service.');
+  const f=info?info.f:'One of the services in the cloud platform.';
+  const l=info?info.l:(provider==='gcp'?'https://cloud.google.com/':'https://docs.aws.amazon.com/');
+  const badge=provider==='gcp'?'<span class="cmp-badge gcp" style="margin-left:8px">GCP</span>':'<span class="cmp-badge aws" style="margin-left:8px">AWS</span>';
   svcBody.innerHTML=`
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
       <span class="svc-icon">${getParentIcon(name)}</span>
-      <div class="svc-name" style="color:${color};margin:0">${name}</div>
+      <div class="svc-name" style="color:${color};margin:0">${name}${badge}</div>
     </div>
     <div class="svc-section"><div class="svc-label">What is it</div><div class="svc-text">${w}</div></div>
-    <div class="svc-fact"><div class="svc-label">💡 Did you know</div><div class="svc-text">${f}</div></div>
-    <a class="svc-link" href="${l}" target="_blank" rel="noopener">📖 Developer Guide →</a>`;
+    <div class="svc-fact"><div class="svc-label">Did you know</div><div class="svc-text">${f}</div></div>
+    <a class="svc-link" href="${l}" target="_blank" rel="noopener">Developer Guide</a>`;
   svcPanel.classList.add('open');svcOverlay.classList.add('open');
 }
 function getParentIcon(name){
   // Walk viewStack to find domain icon
   for(let i=viewStack.length-1;i>=0;i--){if(viewStack[i].icon&&viewStack[i].icon!=='☁️')return viewStack[i].icon;}
   return '📦';
+}
+
+function renderComparisonTable(domainNode, color){
+  const wrap=document.getElementById('cmpWrap');
+  const table=document.getElementById('cmpTable');
+  const subcats=domainNode.ch||[];
+
+  let html='<button class="cmp-back" id="cmpBack" style="border-color:'+color+'40">\u2190 Back</button>';
+  html+='<div class="cmp-title" style="color:'+color+'">'+(domainNode.icon||'')+' '+domainNode.name.replace(/\n/g,' ')+'</div>';
+  html+='<div class="cmp-sub">'+subcats.length+' subcategories \u00b7 AWS vs GCP vs Azure comparison</div>';
+
+  subcats.forEach(function(sub){
+    var pairs=sub.ch||[];
+    var matched=pairs.filter(function(p){return (p.aws?1:0)+(p.gcp?1:0)+(p.azure?1:0)>=2;});
+    var soloAws=pairs.filter(function(p){return p.aws&&!p.gcp&&!p.azure;});
+    var soloGcp=pairs.filter(function(p){return !p.aws&&p.gcp&&!p.azure;});
+    var soloAzure=pairs.filter(function(p){return !p.aws&&!p.gcp&&p.azure;});
+
+    html+='<div class="cmp-section">';
+    html+='<div class="cmp-section-hdr" style="color:'+color+'"><span class="cmp-section-name">'+sub.name+'</span><span style="font-size:10px;color:#484f58;font-weight:400">'+(sub.desc||'')+'</span></div>';
+    html+='<div class="cmp-hdr"><span><span class="cmp-badge aws">AWS</span></span><span><span class="cmp-badge gcp">GCP</span></span><span><span class="cmp-badge azure">Azure</span></span></div>';
+
+    matched.forEach(function(p){
+      var key=(p.aws||'')+'|'+(p.gcp||'')+'|'+(p.azure||'');
+      var mq=p.m||'s';
+      var mqClass=mq==='s'?'strong':mq==='p'?'partial':'loose';
+      var mqTitle=mq==='s'?'Strong match':mq==='p'?'Partial overlap':'Loose equivalent';
+      html+='<div class="cmp-row" data-aws="'+(p.aws||'')+'" data-gcp="'+(p.gcp||'')+'" data-azure="'+(p.azure||'')+'">';
+      html+='<div class="cmp-cell">'+(p.aws?'<span class="cmp-match '+mqClass+'" title="'+mqTitle+'"></span>'+p.aws:'<span class="cmp-cell empty">—</span>')+'</div>';
+      html+='<div class="cmp-cell">'+(p.gcp?'<span class="cmp-match '+mqClass+'" title="'+mqTitle+'"></span>'+p.gcp:'<span class="cmp-cell empty">—</span>')+'</div>';
+      html+='<div class="cmp-cell">'+(p.azure?'<span class="cmp-match '+mqClass+'" title="'+mqTitle+'"></span>'+p.azure:'<span class="cmp-cell empty">—</span>')+'</div>';
+      html+='</div>';
+      html+='<div class="cmp-detail" data-detail-for="'+key+'"></div>';
+    });
+
+    if(soloAws.length){
+      html+='<div class="cmp-also"><div class="cmp-also-hdr">AWS only</div>';
+      soloAws.forEach(function(p){
+        var key=(p.aws||'')+'||';
+        html+='<div class="cmp-row" data-aws="'+(p.aws||'')+'" data-gcp="" data-azure="">';
+        html+='<div class="cmp-cell">'+(p.aws||'')+'</div>';
+        html+='<div class="cmp-cell empty">\u2014</div>';
+        html+='<div class="cmp-cell empty">\u2014</div>';
+        html+='</div>';
+        html+='<div class="cmp-detail" data-detail-for="'+key+'"></div>';
+      });
+      html+='</div>';
+    }
+    if(soloGcp.length){
+      html+='<div class="cmp-also"><div class="cmp-also-hdr">GCP only</div>';
+      soloGcp.forEach(function(p){
+        var key='|'+(p.gcp||'')+'|';
+        html+='<div class="cmp-row" data-aws="" data-gcp="'+(p.gcp||'')+'" data-azure="">';
+        html+='<div class="cmp-cell empty">\u2014</div>';
+        html+='<div class="cmp-cell">'+(p.gcp||'')+'</div>';
+        html+='<div class="cmp-cell empty">\u2014</div>';
+        html+='</div>';
+        html+='<div class="cmp-detail" data-detail-for="'+key+'"></div>';
+      });
+      html+='</div>';
+    }
+    if(soloAzure.length){
+      html+='<div class="cmp-also"><div class="cmp-also-hdr">Azure only</div>';
+      soloAzure.forEach(function(p){
+        var key='||'+(p.azure||'');
+        html+='<div class="cmp-row" data-aws="" data-gcp="" data-azure="'+(p.azure||'')+'">';
+        html+='<div class="cmp-cell empty">\u2014</div>';
+        html+='<div class="cmp-cell empty">\u2014</div>';
+        html+='<div class="cmp-cell">'+(p.azure||'')+'</div>';
+        html+='</div>';
+        html+='<div class="cmp-detail" data-detail-for="'+key+'"></div>';
+      });
+      html+='</div>';
+    }
+
+    html+='</div>';
+  });
+
+  table.innerHTML=html;
+
+  // Stagger reveal rows and section headers
+  requestAnimationFrame(function(){
+    var rows=table.querySelectorAll('.cmp-row');
+    var hdrs=table.querySelectorAll('.cmp-section-hdr');
+    hdrs.forEach(function(h,i){
+      setTimeout(function(){h.classList.add('visible');},i*40);
+    });
+    rows.forEach(function(r,i){
+      setTimeout(function(){r.classList.add('visible');},80+i*30);
+    });
+  });
+
+  // Back button
+  document.getElementById('cmpBack').onclick=function(){
+    wrap.classList.remove('open');
+    svg.style.transition='opacity .3s ease';
+    svg.style.opacity='1';
+    setTimeout(function(){goBack();},300);
+  };
+
+  // Row expand/collapse
+  table.querySelectorAll('.cmp-row').forEach(function(row){
+    row.addEventListener('click',function(){
+      var awsName=row.dataset.aws;
+      var gcpName=row.dataset.gcp;
+      var azureName=row.dataset.azure;
+      var key=awsName+'|'+gcpName+'|'+azureName;
+      var detail=table.querySelector('[data-detail-for="'+key+'"]');
+      if(!detail)return;
+
+      var isOpen=detail.classList.contains('open');
+      // Close all open
+      table.querySelectorAll('.cmp-detail').forEach(function(d){d.classList.remove('open');});
+      table.querySelectorAll('.cmp-row.expanded').forEach(function(r){r.classList.remove('expanded');});
+
+      if(!isOpen){
+        row.classList.add('expanded');
+        var awsInfo=SVC[awsName]||{};
+        var gcpInfo=SVC[gcpName]||{};
+        var dh='';
+
+        // Key differences (full-width, from AWS entry's d field)
+        var diffs=awsInfo.d||gcpInfo.d||null;
+        if(diffs&&diffs.length){
+          dh+='<div class="cmp-diff" style="background:'+color+'08;border-color:'+color+'20"><div class="cmp-diff-hdr" style="color:'+color+'">Key Differences</div><ul class="cmp-diff-list">';
+          diffs.forEach(function(d){dh+='<li>'+d+'</li>';});
+          dh+='</ul></div>';
+        }
+
+        // AWS column
+        dh+='<div class="cmp-detail-col">';
+        if(awsName){
+          dh+='<div class="dtl-name">'+awsName+'</div>';
+          dh+='<div>'+(awsInfo.w||'An AWS cloud service.')+'</div>';
+          if(awsInfo.u&&awsInfo.u.length){
+            dh+='<div class="cmp-use"><div class="cmp-use-hdr">Use when</div><ul class="cmp-use-list">';
+            awsInfo.u.forEach(function(b){dh+='<li>'+b+'</li>';});
+            dh+='</ul></div>';
+          }
+          if(awsInfo.f)dh+='<div class="dtl-fact">'+awsInfo.f+'</div>';
+          if(awsInfo.l)dh+='<a href="'+awsInfo.l+'" target="_blank" rel="noopener">Docs \u2192</a>';
+        } else {
+          dh+='<div style="color:#484f58;font-style:italic">No AWS equivalent</div>';
+        }
+        dh+='</div>';
+
+        // GCP column
+        dh+='<div class="cmp-detail-col">';
+        if(gcpName){
+          dh+='<div class="dtl-name">'+gcpName+'</div>';
+          dh+='<div>'+(gcpInfo.w||'A Google Cloud service.')+'</div>';
+          if(gcpInfo.u&&gcpInfo.u.length){
+            dh+='<div class="cmp-use"><div class="cmp-use-hdr">Use when</div><ul class="cmp-use-list">';
+            gcpInfo.u.forEach(function(b){dh+='<li>'+b+'</li>';});
+            dh+='</ul></div>';
+          }
+          if(gcpInfo.f)dh+='<div class="dtl-fact">'+gcpInfo.f+'</div>';
+          if(gcpInfo.l)dh+='<a href="'+gcpInfo.l+'" target="_blank" rel="noopener">Docs \u2192</a>';
+        } else {
+          dh+='<div style="color:#484f58;font-style:italic">No GCP equivalent</div>';
+        }
+        dh+='</div>';
+
+        // Azure column
+        dh+='<div class="cmp-detail-col">';
+        var azureInfo=SVC[azureName]||{};
+        if(azureName){
+          dh+='<div class="dtl-name">'+azureName+'</div>';
+          dh+='<div>'+(azureInfo.w||'An Azure cloud service.')+'</div>';
+          if(azureInfo.u&&azureInfo.u.length){
+            dh+='<div class="cmp-use"><div class="cmp-use-hdr">Use when</div><ul class="cmp-use-list">';
+            azureInfo.u.forEach(function(b){dh+='<li>'+b+'</li>';});
+            dh+='</ul></div>';
+          }
+          if(azureInfo.f)dh+='<div class="dtl-fact">'+azureInfo.f+'</div>';
+          if(azureInfo.l)dh+='<a href="'+azureInfo.l+'" target="_blank" rel="noopener">Docs \u2192</a>';
+        } else {
+          dh+='<div style="color:#484f58;font-style:italic">No Azure equivalent</div>';
+        }
+        dh+='</div>';
+
+        detail.innerHTML=dh;
+        detail.classList.add('open');
+      }
+    });
+  });
+
+  // Show table, hide SVG
+  svg.style.transition='opacity .3s ease';
+  svg.style.opacity='0';
+  setTimeout(function(){wrap.classList.add('open');},200);
 }
 
 // ── INIT: show just the root bubble, hover to preview, click to drill ──
@@ -465,8 +826,25 @@ document.fonts.ready.then(()=>{
   function drawRoot(){
     while(gMain.firstChild)gMain.removeChild(gMain.firstChild);
     currentEls=[];previewEls=[];
+
+    // Animated entrance: root scales up with elastic easing
     const centerG=mkNode(0,0,cSz.r,cSz.lines,ROOT.icon,color,15,'700',true);
+    centerG.setAttribute('transform','translate(0,0) scale(0)');
+    centerG.style.opacity='0';
     gMain.appendChild(centerG);
+
+    // Stagger: root appears, then hint fades in
+    setTimeout(()=>{
+      centerG.style.transition='transform .7s cubic-bezier(.34,1.56,.64,1), opacity .4s ease';
+      centerG.setAttribute('transform','translate(0,0) scale(1)');
+      centerG.style.opacity='1';
+    },100);
+
+    // Hint text entrance
+    const hintEl=document.getElementById('hintText');
+    hintEl.classList.remove('hint-anim');
+    void hintEl.offsetWidth; // force reflow
+    setTimeout(()=>{hintEl.classList.add('hint-anim');},800);
 
     centerG.addEventListener('mouseenter',()=>{
       if(previewing||busy)return;
@@ -505,12 +883,47 @@ document.fonts.ready.then(()=>{
       const dist=Math.hypot(x,y);
       const dx=x/dist,dy=y/dist;
       const lx1=dx*cSz.r,ly1=dy*cSz.r,lx2=x-dx*s.r,ly2=y-dy*s.r;
+
+      // Animated gradient line with traveling dot
+      const lineId='prev-line-grad-'+i;
+      const defs=gMain.querySelector('defs')||nse('defs');
+      if(!defs.parentNode)gMain.insertBefore(defs,gMain.firstChild);
+      const lg=nse('linearGradient');lg.id=lineId;
+      lg.setAttribute('x1',lx1);lg.setAttribute('y1',ly1);lg.setAttribute('x2',lx2);lg.setAttribute('y2',ly2);
+      lg.setAttribute('gradientUnits','userSpaceOnUse');
+      const st1=nse('stop');st1.setAttribute('offset','0');st1.setAttribute('stop-color',s.color);st1.setAttribute('stop-opacity','0.3');
+      const st2=nse('stop');st2.setAttribute('offset','1');st2.setAttribute('stop-color',s.color);st2.setAttribute('stop-opacity','0.08');
+      lg.appendChild(st1);lg.appendChild(st2);defs.appendChild(lg);
+
       const line=nse('line');line.setAttribute('x1',lx1);line.setAttribute('y1',ly1);
       line.setAttribute('x2',lx2);line.setAttribute('y2',ly2);
-      line.setAttribute('stroke',s.color+'30');line.setAttribute('stroke-width',1.5);line.setAttribute('stroke-linecap','round');
-      gMain.insertBefore(line,gMain.firstChild);
+      line.setAttribute('stroke','url(#'+lineId+')');
+      line.setAttribute('stroke-width',1.5);line.setAttribute('stroke-linecap','round');
+      gMain.insertBefore(line,defs.nextSibling||gMain.firstChild);
+
+      // Traveling dot along the line
+      const dot=nse('circle');dot.setAttribute('r','2');dot.setAttribute('fill',s.color);dot.setAttribute('opacity','0.5');
+      gMain.insertBefore(dot,line.nextSibling);
+      const dotAnim=dot.animate([
+        {cx:lx1,cy:ly1,opacity:0.1},
+        {cx:(lx1+lx2)/2,cy:(ly1+ly2)/2,opacity:0.6},
+        {cx:lx2,cy:ly2,opacity:0.1}
+      ],{duration:2000+i*200,iterations:Infinity,easing:'ease-in-out',delay:i*150});
+      line._dot=dot;line._dotAnim=dotAnim;
 
       const g=mkNode(x,y,s.r,s.lines,s.icon,s.color,fs,fw,false);
+      // Child count badge (consistent with renderView)
+      const hasKids=s.data.ch&&s.data.ch.length>0;
+      if(hasKids){
+        const count=s.data.ch.length;
+        const bx=s.r*.6,by=-s.r*.6;
+        const bg=nse('circle');bg.setAttribute('cx',bx);bg.setAttribute('cy',by);bg.setAttribute('r',8);
+        bg.setAttribute('fill',s.color);bg.setAttribute('opacity','0.9');g.appendChild(bg);
+        const bt=nse('text');bt.setAttribute('x',bx);bt.setAttribute('y',by+3.5);bt.setAttribute('text-anchor','middle');
+        bt.setAttribute('fill','#0d1117');bt.setAttribute('font-size','8');bt.setAttribute('font-weight','700');
+        bt.setAttribute('pointer-events','none');bt.setAttribute('font-family','Plus Jakarta Sans,system-ui,sans-serif');
+        bt.textContent=count;g.appendChild(bt);
+      }
       gMain.appendChild(g);
 
       // Click preview bubble to drill in
@@ -519,14 +932,16 @@ document.fonts.ready.then(()=>{
       // Animate in
       g.setAttribute('transform','translate(0,0) scale(0)');g.style.opacity='0';
       line.setAttribute('x2',lx1);line.setAttribute('y2',ly1);line.style.opacity='0';
+      dot.style.opacity='0';
       setTimeout(()=>{
         g.style.transition=`transform .5s ${EASE} ${i*35}ms, opacity .3s ease ${i*35}ms`;
         g.setAttribute('transform',`translate(${x},${y}) scale(1)`);g.style.opacity='1';
         line.style.transition=`all .45s ${EASE} ${i*35}ms, opacity .3s ease ${i*35}ms`;
         line.setAttribute('x2',lx2);line.setAttribute('y2',ly2);line.style.opacity='1';
+        dot.style.transition=`opacity .3s ease ${i*35}ms`;dot.style.opacity='0.5';
       },20);
 
-      previewEls.push({g,line,x,y});
+      previewEls.push({g,line,dot,x,y});
     });
   }
 
@@ -535,9 +950,10 @@ document.fonts.ready.then(()=>{
       el.g.style.transition=`transform .25s ease ${i*10}ms, opacity .2s ease ${i*10}ms`;
       el.g.setAttribute('transform','translate(0,0) scale(0)');el.g.style.opacity='0';
       el.line.style.transition='opacity .2s ease';el.line.style.opacity='0';
+      if(el.dot){el.dot.style.transition='opacity .2s';el.dot.style.opacity='0';}
     });
     setTimeout(()=>{
-      previewEls.forEach(el=>{if(el.g.parentNode)el.g.parentNode.removeChild(el.g);if(el.line.parentNode)el.line.parentNode.removeChild(el.line);});
+      previewEls.forEach(el=>{if(el.g.parentNode)el.g.parentNode.removeChild(el.g);if(el.line.parentNode)el.line.parentNode.removeChild(el.line);if(el.dot&&el.dot.parentNode)el.dot.parentNode.removeChild(el.dot);});
       previewEls=[];previewing=false;
     },300);
   }
@@ -563,7 +979,7 @@ document.fonts.ready.then(()=>{
 
   // Mobile-aware hint text
   if('ontouchstart' in window){
-    document.getElementById('hintText').textContent='tap to drill in · double-tap center to go back · pinch to zoom';
+    document.getElementById('hintText').textContent='tap to explore · tap subcategory for comparison · pinch to zoom';
   }
 
   drawRoot();
